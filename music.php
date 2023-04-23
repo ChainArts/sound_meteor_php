@@ -1,6 +1,6 @@
 <?php
 include "functions.php";
-$pagetitle = "Login";
+$pagetitle = "Music";
 
 include "header.php";
 ?>

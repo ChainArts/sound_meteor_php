@@ -34,6 +34,22 @@ header{
     display: flex;
     flex-direction: row;
     padding: 1rem 2rem 1rem 2rem;
+    justify-content: space-between;
+}
+
+button{
+    background: none;
+    line-height: 0;
+    padding: .5rem;
+    color: var(--accent);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all .4s cubic-bezier(.14,.8,.4,1);
+}
+
+button:hover{
+    color: var(--accent-dark);
+    transition: all .4s cubic-bezier(.14,.8,.4,1);
 }
 
 .logo{
@@ -59,9 +75,77 @@ nav ul {
     justify-content: center;
     align-items: center;
     gap: 1.5rem;
+}
+
+nav li a{
     font-size: 1.2rem;
     font-weight: 300;
     text-transform: uppercase;
+    letter-spacing: .15em;
+    position: relative;
+    display: block;
+}
+
+nav li a::before{
+    content:"";
+    position: absolute;
+    display: block;
+    top: 103%;
+    width: 100%;
+    margin-left: -0.075em;
+    opacity: 0;
+    height: 3px;
+    transform: scaleX(0);
+    transition: all .8s cubic-bezier(.14,.8,.4,1);
+    background: #BF52BF;
+    border-radius: 5rem;
+}
+
+nav li a:hover::before{
+    position: absolute;
+    transform: scaleX(1);
+    opacity: 1;
+    background: var(--accent);
+    box-shadow: 0 0 4px var(--accent);
+    transition: all .2s cubic-bezier(.14,.8,.4,1);
+}
+
+li .current-page::after{
+    content:"";
+    position: absolute;
+    display: block;
+    top: 103%;
+    width: 100%;
+    margin-left: -0.075em;
+    height: 3px;
+    background: var(--accent);
+    box-shadow: 0 0 4px var(--accent);
+}
+
+.login{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.login span{
+    text-transform: uppercase;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    border-radius: 0.5rem;
+}
+
+.profile-img{
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 3rem;
+    border: 2px solid var(--accent);
+}
+
+.profile-img img{
+    border-radius: 3rem;
 }
 
 body {
