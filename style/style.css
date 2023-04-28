@@ -246,6 +246,7 @@ main{
 	width: 0;
 	height: 2px;
 	background: var(--accent);
+    box-shadow: 0 0 4px var(--accent);
 	transition: all .5s cubic-bezier(.14,.8,.4,1);
 }
 

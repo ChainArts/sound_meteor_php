@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 include "header.php";
 ?>
+
 <form class="login-wrapper" method="post" id="form" autocomplete="off">
     <div class="input-wrapper">
         <span class="input-label">Username<span class="error"><?php echo $loginErr ?></span></span>
@@ -57,8 +58,6 @@ include "header.php";
         <input type="submit" name="login" value="LOGIN" class="btn">
     </div>
 </form>
-
-<script src="script/script.js"></script>
 
 <?php
 include "footer.php";
