@@ -3,10 +3,10 @@ include "functions.php";
 $pagetitle = "Login";
 
 $loginErr = $passErr = "";
-if (isset($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['username'])) {
         $loginErr = "Enter a username!";
-        if (empty($_POST['password'])) {
+        if (empty($_POST['pass'])) {
             $passErr = "Enter a password!";
         }
     } elseif (empty($_POST['password'])) {
@@ -19,11 +19,20 @@ if (isset($_POST)) {
             $sth = $dbh->prepare("SELECT * FROM users WHERE username = ?");
             $sth->execute(array($_POST['username']));
             $usr = $sth->fetch();
-            
-            if (password_verify($_POST['password'], $usr->$password)) {
-                $_SESSION['ID'] = session_id();
-                $_SESSION['USER'] = $usr->$username;
-                $_SESSION['PASS'] = $usr->$password;
+
+            if(empty($usr)){
+                $loginErr = "Username or Password wrong";
+            }
+            else{
+                if (password_verify($_POST['password'], $usr->password)) {
+                    $_SESSION['ID'] = session_id();
+                    $_SESSION['USER'] = $usr->username;
+                    $_SESSION['PASS'] = $usr->password;
+                    header('location: index.php');
+                }
+                else{
+                    $passErr = "Password incorrect!";
+                }
             }
         } catch (Exception $e) {
             $loginErr = "Username or Password wrong";
@@ -33,20 +42,23 @@ if (isset($_POST)) {
 
 include "header.php";
 ?>
-
-<form method="post" class="new-room-form" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
-    <div class="usr_input">
-        <span>Username</span>
-        <input type="text" name="username" autocomplete="off" class="form" value="<?php if (isset($_POST['username'])) echo $_POST['username']; ?>">
+<form class="login-wrapper" method="post" id="form" autocomplete="off">
+    <div class="input-wrapper">
+        <span class="input-label">Username<span class="error"><?php echo $loginErr ?></span></span>
+        <input class="input-box" type="text" name="username" autofocus placeholder="Enter Username" value="<?php if (isset($_POST['username'])) echo $_POST['username'];?>" />
+        <i class="focus-input fa-solid fa-user"></i>
     </div>
-    <div class="pwd_input">
-        <span>Password<span class="error"><?php echo $passErr ?></span>
-            <input type="password" name="pass" autocomplete="off" class="form">
+    <div class="input-wrapper">
+        <span class="input-label">Passwort <span class="error"><?php echo $passErr ?></span></span>
+        <input class="input-box" type="password" name="password" placeholder="Enter password">
+        <i class="fa-solid fa-lock focus-input"></i>
     </div>
-    <span class="error"><?php echo $loginErr ?></span>
-    <input type="submit" name="login" value="LOGIN" class="btn">
-
+    <div class="button">
+        <input type="submit" name="login" value="LOGIN" class="btn">
+    </div>
 </form>
+
+<script src="script/script.js"></script>
 
 <?php
 include "footer.php";
