@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             else{
                 if (password_verify($_POST['password'], $usr->password)) {
                     $_SESSION['ID'] = session_id();
+                    $_SESSION['USER_ID'] = $usr->user_id;
                     $_SESSION['USER'] = $usr->username;
                     $_SESSION['PASS'] = $usr->password;
                     header('location: index.php');

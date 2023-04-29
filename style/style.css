@@ -72,6 +72,7 @@ h1{
     font-weight: 700;
     font-size: 4.2rem;
     margin: 1rem 0 3rem 0;
+    user-select: none;
 }
 
 
@@ -179,10 +180,26 @@ input[type=submit]:hover, .button:hover{
     width: 2.5rem;
     border-radius: 3rem;
     border: 2px solid var(--accent);
+    cursor: pointer;
+}
+
+.profile-name{
+    user-select: none;
+    filter:brightness(.7);
 }
 
 .profile-img img{
     border-radius: 3rem;
+}
+
+.detail-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction:  column;
+    padding: 2rem;
+    background-color: var(--first-layer);
+    border-radius: 1rem;
 }
 
 body {
@@ -339,6 +356,12 @@ tr:not(:first-child):hover{
 .hidden{
     transform: translateX(15rem);
     opacity: 0;
+}
+
+.usr-info{
+    background-color: var(--first-layer);
+    padding: 2rem;
+    border-radius: 1rem;
 }
 
 .fade{

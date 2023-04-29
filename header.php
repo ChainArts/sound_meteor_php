@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Sound Meteor - <?= $pagetitle ?></title>
+    <title>Sound Meteor | <?= $pagetitle ?></title>
     <link rel="stylesheet" href="./style/style.css">
     <script src="https://kit.fontawesome.com/d1ca790695.js" crossorigin="anonymous"></script>
     
@@ -40,6 +40,9 @@
                 }
             } else {
                 echo "
+                <div class=\"profile-name\">
+                   " . $_SESSION['USER'] . "
+                </div>
                 <div class=\"profile-img\">
                     <img src=\"./media/logo.jpg\">
                 </div>
@@ -55,7 +58,7 @@
     </header>
 
     <?php
-        if ($pagetitle == "Login" || $pagetitle == "Add User")
+        if ($pagetitle == "Login" || $pagetitle == "Add User" || $pagetitle == "Edit User")
         {
             echo "<main style=\"justify-content: center\">";
         }

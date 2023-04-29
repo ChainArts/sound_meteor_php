@@ -12,11 +12,20 @@ if (isset($_GET['status'])) {
         case 'add_success':
             $msg = "User was added successfully";
             break;
+        case 'edit_success':
+            $msg = "User was edited successfully";
+            break;
         case 'del_fail':
             $msg = "User was not deleted!";
             break;
         case 'add_fail':
             $msg = "User was not added!";
+            break;
+        case 'edit_fail':
+            $msg = "User could not be edited";
+            break;
+        case 'display_fail':
+            $msg = "User could not be displayed";
             break;
         default:
             echo "Oboi u fucked up mate";
@@ -40,7 +49,7 @@ if (isset($_GET['status'])) {
 
         <?php
         try {
-            $sth = $dbh->prepare("SELECT * FROM users");
+            $sth = $dbh->prepare("SELECT * FROM users ORDER BY user_id");
             $sth->execute(array());
             $usr = $sth->fetchAll();
 
