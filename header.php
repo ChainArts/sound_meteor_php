@@ -24,9 +24,9 @@
                 <li><a href="pref.php" <?php if ($pagetitle == "Preferences") {
                                             echo "class=\"current-page\"";
                                         } ?>>Preferences</a></li>
-                <li><a href="about.php" <?php if ($pagetitle == "About") {
+                <li><a href="usrmngmt.php" <?php if ($pagetitle == "Users") {
                                             echo "class=\"current-page\"";
-                                        } ?>>About</a></li>
+                                        } ?>>Users</a></li>
             </ul>
         </nav>
         <div class="login">
@@ -53,4 +53,16 @@
 
         </div>
     </header>
-    <main>
+
+    <?php
+        if ($pagetitle == "Login" || $pagetitle == "Add User")
+        {
+            echo "<main style=\"justify-content: center\">";
+        }
+        else
+        {
+            echo "<main>";
+        }
+    ?> 
+
+   

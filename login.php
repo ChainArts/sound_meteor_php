@@ -43,7 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 include "header.php";
 ?>
 
-<form class="login-wrapper" method="post" id="form" autocomplete="off">
+<form class="form-wrapper" method="post" id="form" autocomplete="off">
+    <div class="login-logo">
+        <div class="logo"><a href="index.php"><img src="./media/SoundMeteor.svg" alt="Logo"></a></div>
+    </div>
     <div class="input-wrapper">
         <span class="input-label">Username<span class="error"><?php echo $loginErr ?></span></span>
         <input class="input-box" type="text" name="username" autofocus placeholder="Enter Username" value="<?php if (isset($_POST['username'])) echo $_POST['username'];?>" />
