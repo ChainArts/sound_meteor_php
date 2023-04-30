@@ -1,5 +1,8 @@
 <?php
     include "functions.php";
+    if (!isset($_SESSION["USER"])) {
+        header('Location: schlingel.php?');
+    }
 
     try {
         $sth = $dbh->prepare("DELETE FROM genres WHERE genre_id = ?");

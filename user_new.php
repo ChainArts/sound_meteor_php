@@ -1,7 +1,11 @@
 <?php
 include "functions.php";
-if(!isset($_SESSION["USER"]) || $_SESSION["USER"] != "admin"){
-    header('Location: pls_login.php');
+if (!isset($_SESSION["USER"])) {
+    if($_SESSION["USER"] != "admin")
+    {
+        header('Location: schlingel.php?msg=no-access');
+    }
+    header('Location: schlingel.php');
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {

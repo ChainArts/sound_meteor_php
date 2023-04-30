@@ -30,9 +30,11 @@
                     <li><a href="pref.php" <?php if ($pagetitle == "Preferences") {
                                                 echo "class=\"current-page\"";
                                             } ?>>Preferences</a></li>
+                    <?php if($_SESSION['USER'] == "admin") : ?>
                     <li><a href="usrmngmt.php" <?php if ($pagetitle == "Users") {
                                                     echo "class=\"current-page\"";
                                                 } ?>>Users</a></li>
+                    <?php endif; ?>
                 </ul>
             <?php endif; ?>
         </nav>

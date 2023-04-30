@@ -1,5 +1,9 @@
 <?php
+
 include "functions.php";
+if (!isset($_SESSION["USER"])){
+    header('Location: schlingel.php');
+}
 $pagetitle = "Edit Genre";
 
 include "header.php";

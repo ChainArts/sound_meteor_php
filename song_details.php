@@ -1,5 +1,8 @@
 <?php
 include "functions.php";
+if (!isset($_SESSION["USER"])){
+    header('Location: schlingel.php');
+}
 $pagetitle = "Song Details";
 
 include "header.php";

@@ -1,5 +1,12 @@
 <?php
 include "functions.php";
+if (!isset($_SESSION["USER"])) {
+    if($_SESSION["USER"] != "admin")
+    {
+        header('Location: schlingel.php?msg=no-access');
+    }
+    header('Location: schlingel.php');
+}
 $pagetitle = "Edit User";
 
 include "header.php";

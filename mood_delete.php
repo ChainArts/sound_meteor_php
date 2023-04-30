@@ -1,5 +1,8 @@
 <?php
     include "functions.php";
+    if (!isset($_SESSION["USER"])) {
+        header('Location: schlingel.php');
+    }
 
     try {
         $sth = $dbh->prepare("DELETE FROM moods WHERE mood_id = ?");

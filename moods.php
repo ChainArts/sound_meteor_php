@@ -1,6 +1,6 @@
 <?php
 include "functions.php";
-if(!isset($_SESSION["USER"]) || $_SESSION["USER"] != "admin"){
+if(!isset($_SESSION["USER"])){
     header('Location: schlingel.php');
 }
 $pagetitle = "Moods";

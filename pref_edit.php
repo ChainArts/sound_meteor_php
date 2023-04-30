@@ -1,5 +1,8 @@
 <?php
 include "functions.php";
+if (!isset($_SESSION["USER"])) {
+    header('Location: schlingel.php');
+}
 $pagetitle = "Edit Preference";
 
 include "header.php";
@@ -62,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <div class="input-wrapper">
         <span class="input-label">User</span>
-        <input class="input-box" type="text" name="username" placeholder="Enter Username" value="<?= $user->username ?>" disabled>
+        <input class="input-box" type="text" name="username" placeholder="Enter Username" value="<?= htmlspecialchars($user->username) ?>" disabled>
         <i class="fa-solid fa-user focus-input"></i>
     </div>
     <div class="input-wrapper">
@@ -71,9 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php
             foreach ($genres as $genre) {
                 if ($genre->genre_id == htmlspecialchars($_GET['genre_id'])) {
-                    echo ("<option value=$genre->genre_id selected='selected'>$genre->name</option>");
+                    echo ("<option value=$genre->genre_id selected='selected'>" . htmlspecialchars($genre->name) . "</option>");
                 } else {
-                    echo ("<option value=$genre->genre_id>$genre->name</option>");
+                    echo ("<option value=$genre->genre_id>" . htmlspecialchars($genre->name) . "</option>");
                 }
             }
             ?>
@@ -87,9 +90,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php
             foreach ($moods as $mood) {
                 if ($mood->mood_id == htmlspecialchars($_GET['mood_id'])) {
-                    echo ("<option value=$mood->mood_id selected='selected'>$mood->name</option>");
+                    echo ("<option value=$mood->mood_id selected='selected'>" . htmlspecialchars($mood->name) . "</option>");
                 } else {
-                    echo ("<option value=$mood->mood_id>$mood->name</option>");
+                    echo ("<option value=$mood->mood_id>" . htmlspecialchars($mood->name) . "</option>");
                 }
             }
             ?>
