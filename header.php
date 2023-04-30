@@ -7,27 +7,34 @@
     <title>Sound Meteor | <?= $pagetitle ?></title>
     <link rel="stylesheet" href="./style/style.css">
     <script src="https://kit.fontawesome.com/d1ca790695.js" crossorigin="anonymous"></script>
-    
+
 </head>
 
 <body>
     <header>
         <nav>
             <div class="logo"><a href="index.php"><img src="./media/SoundMeteor.svg" alt="Logo"></a></div>
-            <ul>
-                <li><a href="music.php" <?php if ($pagetitle == "Music") {
-                                            echo "class=\"current-page\"";
-                                        } ?>>Music</a></li>
-                <li><a href="comets.php" <?php if ($pagetitle == "Comets") {
+            <?php if (isset($_SESSION['USER'])) :
+            ?>
+
+                <ul>
+                    <li><a href="music.php" <?php if ($pagetitle == "Music") {
                                                 echo "class=\"current-page\"";
-                                            } ?>>Comets</a></li>
-                <li><a href="pref.php" <?php if ($pagetitle == "Preferences") {
-                                            echo "class=\"current-page\"";
-                                        } ?>>Preferences</a></li>
-                <li><a href="usrmngmt.php" <?php if ($pagetitle == "Users") {
-                                            echo "class=\"current-page\"";
-                                        } ?>>Users</a></li>
-            </ul>
+                                            } ?>>Music</a></li>
+                    <li><a href="genres.php" <?php if ($pagetitle == "Genres") {
+                                                    echo "class=\"current-page\"";
+                                                } ?>>Genres</a></li>
+                    <li><a href="moods.php" <?php if ($pagetitle == "Moods") {
+                                                echo "class=\"current-page\"";
+                                            } ?>>Moods</a></li>
+                    <li><a href="pref.php" <?php if ($pagetitle == "Preferences") {
+                                                echo "class=\"current-page\"";
+                                            } ?>>Preferences</a></li>
+                    <li><a href="usrmngmt.php" <?php if ($pagetitle == "Users") {
+                                                    echo "class=\"current-page\"";
+                                                } ?>>Users</a></li>
+                </ul>
+            <?php endif; ?>
         </nav>
         <div class="login">
             <?php
@@ -58,14 +65,9 @@
     </header>
 
     <?php
-        if ($pagetitle == "Login" || $pagetitle == "Add User" || $pagetitle == "Edit User")
-        {
-            echo "<main style=\"justify-content: center\">";
-        }
-        else
-        {
-            echo "<main>";
-        }
-    ?> 
-
-   
+    if ($pagetitle == "Login" || $pagetitle == "Add User" || $pagetitle == "Edit User") {
+        echo "<main style=\"justify-content: center\">";
+    } else {
+        echo "<main>";
+    }
+    ?>

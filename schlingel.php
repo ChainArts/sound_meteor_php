@@ -1,6 +1,6 @@
 <?php
 include "functions.php";
-$pagetitle = "Comets";
+$pagetitle = "Schlingel!";
 
 include "header.php";
 ?>

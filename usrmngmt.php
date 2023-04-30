@@ -37,6 +37,9 @@ if (isset($_GET['status'])) {
 }
 ?>
 <h1><?= $pagetitle ?></h1>
+<div class="button" style="margin-bottom: 2rem">
+    <a href="user_new.php"><span>Add User</span></a>
+</div>
 <div class="table-wrapper">
     <table>
         <tr>
@@ -73,10 +76,6 @@ if (isset($_GET['status'])) {
         ?>
     </table>
 </div>
-<div class="button">
-    <a href="user_new.php"><span>Add User</span></a>
-</div>
-
 
 <?php
 include "footer.php";

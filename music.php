@@ -1,5 +1,8 @@
 <?php
 include "functions.php";
+if(!isset($_SESSION["USER"]) || $_SESSION["USER"] != "admin"){
+    header('Location: schlingel.php');
+}
 $pagetitle = "Music";
 
 include "header.php";
@@ -37,6 +40,9 @@ if (isset($_GET['status'])) {
 }
 ?>
 <h1><?= $pagetitle ?></h1>
+<div class="button" style="margin-bottom: 2rem">
+    <a href="song_new.php"><span>Add Song</span></a>
+</div>
 <div class="table-wrapper">
     <table>
         <tr>
@@ -72,10 +78,7 @@ if (isset($_GET['status'])) {
         }
         ?>
     </table>
-</div>
-<div class="button">
-    <a href="song_new.php"><span>Add Song</span></a>
-</div>
+    </div>
 
 
 <?php

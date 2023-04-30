@@ -28,7 +28,8 @@ include "header.php";
 ?>
 <form class="form-wrapper" method="post" id="form" autocomplete="off" style="width: 45rem !important;" action="">
     <div class="form-title">
-        <?= $pagetitle ?>
+        <span><?= $pagetitle ?></span>
+        <a href="usrmngmt.php"><span>&lt; Back</span></a> 
     </div>
     <div class="side-by-side">
         <div class="input-wrapper">
