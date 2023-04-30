@@ -53,7 +53,7 @@ if (isset($_GET['status'])) {
 
         <?php
         try {
-            $sth = $dbh->prepare("SELECT users.user_id, users.username as username, genres.name as genre, moods.name as mood from users INNER JOIN user_pref_genre ON users.user_id = user_pref_genre.user_id INNER JOIN genres on user_pref_genre.genre_id = genres.genre_id INNER JOIN user_pref_mood ON users.user_id = user_pref_mood.user_id INNER JOIN moods on user_pref_mood.mood_id = moods.mood_id ORDER BY users.user_id");
+            $sth = $dbh->prepare("SELECT users.user_id, users.username, genres.genre_id, moods.mood_id, genres.name as genre, moods.name as mood from users INNER JOIN user_pref_genre ON users.user_id = user_pref_genre.user_id INNER JOIN genres on user_pref_genre.genre_id = genres.genre_id INNER JOIN user_pref_mood ON users.user_id = user_pref_mood.user_id INNER JOIN moods on user_pref_mood.mood_id = moods.mood_id ORDER BY users.user_id");
             $sth->execute(array());
             $prefs = $sth->fetchAll();
 
@@ -62,7 +62,7 @@ if (isset($_GET['status'])) {
             } else {
                 foreach ($prefs as $pref) {
                     echo "
-                        <tr onclick=\"window.location='pref_config.php?id=" . $pref->user_id . "' \">
+                        <tr onclick=\"window.location='pref_edit.php?user_id=" . $pref->user_id . "&genre_id=" . $pref->genre_id . "&mood_id=" . $pref->mood_id ."' \">
                             <td>" . $pref->username . "</td>
                             <td>" . $pref->genre . "</td>
                             <td>" . $pref->mood . "</td>
