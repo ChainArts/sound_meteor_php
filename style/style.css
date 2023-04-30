@@ -394,6 +394,11 @@ tr:not(:first-child):hover{
     border-radius: 1rem;
 }
 
+select *{
+    background: var(--first-layer);
+    border:none;
+}
+
 .fade{
     animation: fadeIn .25s ease-out forwards;
 }

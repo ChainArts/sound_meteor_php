@@ -62,7 +62,7 @@ if (isset($_GET['status'])) {
             } else {
                 foreach ($genres as $genre) {
                     echo "
-                        <tr onclick=\"window.location='genre_details.php?id=" . $genre->genre_id . "' \">
+                        <tr onclick=\"window.location='genre_edit.php?id=" . $genre->genre_id . "' \">
                             <td>" . $genre->genre_id . "</td>
                             <td>" . $genre->name . "</td>
                             <td>" . $genre->popularity . "%</td>
