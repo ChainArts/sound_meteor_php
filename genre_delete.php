@@ -10,7 +10,6 @@
         header("Location: genres.php?status=del_success");
     } 
     catch (Exception $e) {
-        echo($e->getMessage());
-        //header("Location: genres.php?status=del_fail" . $e->getMessage());
+        header("Location: genres.php?status=del_fail");
     }
 ?>

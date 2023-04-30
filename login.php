@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (password_verify($_POST['password'], $usr->password)) {
                     $_SESSION['ID'] = session_id();
                     $_SESSION['USER_ID'] = $usr->user_id;
-                    $_SESSION['USER'] = $usr->username;
+                    $_SESSION['USER'] = htmlspecialchars($usr->username);
                     $_SESSION['PASS'] = $usr->password;
                     header('location: index.php');
                 }
@@ -50,7 +50,7 @@ include "header.php";
     </div>
     <div class="input-wrapper">
         <span class="input-label">Username<span class="error"><?php echo $loginErr ?></span></span>
-        <input class="input-box" type="text" name="username" autofocus placeholder="Enter Username" value="<?php if (isset($_POST['username'])) echo $_POST['username'];?>" />
+        <input class="input-box" type="text" name="username" autofocus placeholder="Enter Username" value="<?php if (isset($_POST['username'])) echo html_entity_decode($_POST['username']);?>" />
         <i class="focus-input fa-solid fa-user"></i>
     </div>
     <div class="input-wrapper">

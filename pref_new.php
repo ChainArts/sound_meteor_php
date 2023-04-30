@@ -68,7 +68,7 @@ include "header.php";
             <?php 
             foreach($users as $user)
             {
-                echo("<option value=$user->user_id>$user->username</option>");
+                echo("<option value=$user->user_id>" . htmlspecialchars($user->username) . "</option>");
             }
             
             ?>
@@ -82,7 +82,7 @@ include "header.php";
             <?php 
             foreach($genres as $genre)
             {
-                echo("<option value=$genre->genre_id>$genre->name</option>");
+                echo("<option value=$genre->genre_id>" . htmlspecialchars($genre->name) . "</option>");
             }
             
             ?>
@@ -96,7 +96,7 @@ include "header.php";
             <?php 
             foreach($moods as $mood)
             {
-                echo("<option value=$mood->mood_id>$mood->name</option>");
+                echo("<option value=$mood->mood_id>" . htmlspecialchars($mood->name) . "</option>");
             }
             
             ?>

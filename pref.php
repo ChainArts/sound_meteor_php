@@ -63,9 +63,9 @@ if (isset($_GET['status'])) {
                 foreach ($prefs as $pref) {
                     echo "
                         <tr onclick=\"window.location='pref_edit.php?user_id=" . $pref->user_id . "&genre_id=" . $pref->genre_id . "&mood_id=" . $pref->mood_id ."' \">
-                            <td>" . $pref->username . "</td>
-                            <td>" . $pref->genre . "</td>
-                            <td>" . $pref->mood . "</td>
+                            <td>" . htmlspecialchars($pref->username) . "</td>
+                            <td>" . htmlspecialchars($pref->genre) . "</td>
+                            <td>" . htmlspecialchars($pref->mood) . "</td>
                         </tr>";
                 }
             }

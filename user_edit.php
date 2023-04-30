@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="side-by-side">
         <div class="input-wrapper">
             <span class="input-label">Username</span>
-            <input class="input-box" type="text" name="username" autofocus placeholder="Enter Username" value="<?= $usr->username ?>">
+            <input class="input-box" type="text" name="username" autofocus placeholder="Enter Username" value="<?= html_entity_decode($usr->username) ?>">
             <i class="focus-input fa-solid fa-user"></i>
         </div>
         <div class="input-wrapper">
@@ -89,18 +89,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="side-by-side">
         <div class="input-wrapper">
             <span class="input-label">First Name</span>
-            <input class="input-box" type="text" name="f_name" placeholder="Enter First Name" value="<?= $usr->f_name ?>">
+            <input class="input-box" type="text" name="f_name" placeholder="Enter First Name" value="<?= html_entity_decode($usr->f_name) ?>">
             <i class="fa-solid fa-pen-nib focus-input"></i>
         </div>
         <div class="input-wrapper">
             <span class="input-label">Last Name</span>
-            <input class="input-box" type="text" name="l_name" placeholder="Enter Last Name" value="<?= $usr->l_name ?>">
+            <input class="input-box" type="text" name="l_name" placeholder="Enter Last Name" value="<?= html_entity_decode($usr->l_name) ?>">
             <i class="fa-solid fa-pen-nib focus-input"></i>
         </div>
     </div>
     <div class="input-wrapper">
         <span class="input-label">Email</span>
-        <input class="input-box" type="email" name="email" placeholder="Enter Email" value="<?= $usr->email ?>">
+        <input class="input-box" type="email" name="email" placeholder="Enter Email" value="<?= html_entity_decode($usr->email) ?>">
         <i class="fa-solid fa-envelope focus-input"></i>
     </div>
     <div class="side-by-side" style="justify-content: center">

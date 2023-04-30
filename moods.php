@@ -62,10 +62,10 @@ if (isset($_GET['status'])) {
             } else {
                 foreach ($moods as $mood) {
                     echo "
-                        <tr onclick=\"window.location='mood_edit.php?id=" . $mood->mood_id . "' \">
-                            <td>" . $mood->mood_id . "</td>
-                            <td>" . $mood->name . "</td>
-                            <td>" . $mood->emotion . "</td>
+                        <tr onclick=\"window.location='mood_edit.php?id=" . htmlspecialchars($mood->mood_id) . "' \">
+                            <td>" . htmlspecialchars($mood->mood_id) . "</td>
+                            <td>" . htmlspecialchars($mood->name) . "</td>
+                            <td>" . htmlspecialchars($mood->emotion) . "</td>
                         </tr>";
                 }
             }

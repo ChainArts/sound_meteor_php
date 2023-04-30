@@ -48,12 +48,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <div class="input-wrapper">
         <span class="input-label">Name</span>
-        <input class="input-box" type="text" name="name" autofocus placeholder="Enter Name" value="<?= $mood->name ?>">
+        <input class="input-box" type="text" name="name" autofocus placeholder="Enter Name" value="<?= html_entity_decode($mood->name) ?>">
         <i class="focus-input fa-solid fa-user"></i>
     </div>
     <div class="input-wrapper">
         <span class="input-label">Emotion</span>
-        <input class="input-box" type="text" name="emotion" placeholder="Enter Emotion" value="<?= $mood->emotion ?>">
+        <input class="input-box" type="text" name="emotion" placeholder="Enter Emotion" value="<?= html_entity_decode($mood->emotion) ?>">
         <i class="fa-solid fa-lock focus-input"></i>
     </div>
     <div class="side-by-side" style="justify-content: center">

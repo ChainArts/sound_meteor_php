@@ -69,7 +69,7 @@ include "header.php";
             <?php 
             foreach($moods as $mood)
             {
-                echo("<option value=$mood->mood_id>$mood->name</option>");
+                echo("<option value=$mood->mood_id>" . htmlspecialchars($mood->name) . "</option>");
             }
             
             ?>

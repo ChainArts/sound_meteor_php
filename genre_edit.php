@@ -65,12 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <div class="input-wrapper">
         <span class="input-label">Name</span>
-        <input class="input-box" type="text" name="name" autofocus placeholder="Enter Name" value="<?= $genre->name ?>">
+        <input class="input-box" type="text" name="name" autofocus placeholder="Enter Name" value="<?= html_entity_decode($genre->name) ?>">
         <i class="focus-input fa-solid fa-user"></i>
     </div>
     <div class="input-wrapper">
         <span class="input-label">Popularity</span>
-        <input class="input-box" type="text" name="popularity" placeholder="Enter Popularity" value="<?= $genre->popularity ?>">
+        <input class="input-box" type="text" name="popularity" placeholder="Enter Popularity" value="<?= html_entity_decode($genre->popularity) ?>">
         <i class="fa-solid fa-lock focus-input"></i>
     </div>
     <div class="input-wrapper">
@@ -79,9 +79,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <?php
             foreach ($moods as $mood) {
                 if ($mood->mood_id == $selected_mood->mood_id) {
-                    echo ("<option value=$mood->mood_id selected='selected'>$mood->name</option>");
+                    echo ("<option value=$mood->mood_id selected='selected'>" . htmlspecialchars($mood->name) . "</option>");
                 } else {
-                    echo ("<option value=$mood->mood_id>$mood->name</option>");
+                    echo ("<option value=$mood->mood_id>" . htmlspecialchars($mood->name) . "</option>");
                 }
             }
             ?>

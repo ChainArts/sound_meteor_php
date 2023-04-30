@@ -50,7 +50,7 @@
             } else {
                 echo "
                 <div class=\"profile-name\">
-                   " . $_SESSION['USER'] . "
+                   " . htmlspecialchars($_SESSION['USER']) . "
                 </div>
                 <div class=\"profile-img\">
                     <img src=\"./media/logo.jpg\">
@@ -67,7 +67,7 @@
     </header>
 
     <?php
-    if ($pagetitle == "Login" || $pagetitle == "Add User" || $pagetitle == "Edit User") {
+    if ($pagetitle == "Login" || str_contains($pagetitle, "Add")|| str_contains($pagetitle, "Edit")) {
         echo "<main style=\"justify-content: center\">";
     } else {
         echo "<main>";

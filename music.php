@@ -64,17 +64,17 @@ if (isset($_GET['status'])) {
             } else {
                 foreach ($tracks as $track) {
                     echo "
-                        <tr onclick=\"window.location='song_details.php?id=" . $track->track_id . "' \">
-                            <td>" . $track->track_id . "</td>
-                            <td>" . $track->band . "</td>
-                            <td>" . $track->name . "</td>
-                            <td>" . $track->album . "</td>
-                            <td>" . convert($track->runtime) . "</td>
+                        <tr onclick=\"window.location='song_details.php?id=" . htmlspecialchars($track->track_id) . "' \">
+                            <td>" . htmlspecialchars($track->track_id) . "</td>
+                            <td>" . htmlspecialchars($track->band) . "</td>
+                            <td>" . htmlspecialchars($track->name) . "</td>
+                            <td>" . htmlspecialchars($track->album) . "</td>
+                            <td>" . htmlspecialchars(convert($track->runtime)) . "</td>
                         </tr>";
                 }
             }
         } catch (Exception $e) {
-            echo $e->getMessage();
+            //echo $e->getMessage();
         }
         ?>
     </table>

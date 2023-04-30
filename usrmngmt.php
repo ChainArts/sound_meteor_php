@@ -68,17 +68,17 @@ if (isset($_GET['status'])) {
             } else {
                 foreach ($usr as $user) {
                     echo "
-                        <tr onclick=\"window.location='user_edit.php?id=" . $user->user_id . "' \">
-                            <td>" . $user->user_id . "</td>
-                            <td>" . $user->f_name . "</td>
-                            <td>" . $user->l_name . "</td>
-                            <td>" . $user->username . "</td>
-                            <td>" . $user->email . "</td>
+                        <tr onclick=\"window.location='user_edit.php?id=" . htmlspecialchars($user->user_id) . "' \">
+                            <td>" . htmlspecialchars($user->user_id) . "</td>
+                            <td>" . htmlspecialchars($user->f_name) . "</td>
+                            <td>" . htmlspecialchars($user->l_name) . "</td>
+                            <td>" . htmlspecialchars($user->username) . "</td>
+                            <td>" . htmlspecialchars($user->email) . "</td>
                         </tr>";
                 }
             }
         } catch (Exception $e) {
-            echo $e->getMessage();
+            //echo $e->getMessage();
         }
         ?>
     </table>
