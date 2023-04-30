@@ -28,7 +28,7 @@ if (isset($_GET['status'])) {
             $msg = "User could not be displayed";
             break;
         default:
-            echo "Oboi u fucked up mate";
+            $msg = "Oboi u fucked up mate";
             break;
     }
     echo "<div class=\"state-box hidden\">
@@ -57,7 +57,7 @@ if (isset($_GET['status'])) {
             $usr = $sth->fetchAll();
 
             if (empty($usr)) {
-                echo "<tr><td colspan = '6'>No users found.</td></tr>";
+                echo "<tr><td colspan = '5'>No users found.</td></tr>";
             } else {
                 foreach ($usr as $user) {
                     echo "
