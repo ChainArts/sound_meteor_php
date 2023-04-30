@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <form class="form-wrapper" method="post" id="form" autocomplete="off" style="width: 45rem !important;" action="">
     <div class="form-title">
         <span><?= $pagetitle ?></span>
-        <a href="usrmngmt.php"><span>&lt; Back</span></a> 
+        <a href="usrmngmt.php"><span>&lt; Back</span></a>
     </div>
     <div class="side-by-side">
         <div class="input-wrapper">
@@ -98,15 +98,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <div class="side-by-side" style="justify-content: center">
         <div class="button">
-            <input type="submit" name="save" value="Save" class="btn">
+            <input type="submit" name="save" value="Save" class="btn" form="form">
         </div>
-        <form action="user_delete.php" method="post">
-            <div class="button">
-                <input type="hidden" value="<?php echo htmlspecialchars($_GET['id']); ?>" name="user_id">
-                <input type="submit" name="delete" value="Delete" class="delete">
-            </div>
-        </form>
+        <div class="button">
+            <input type="submit" name="delete" value="Delete" class="delete" form="del">
+        </div>
     </div>
+</form>
+<form action="user_delete.php" method="post" id="del">
+    <input type="hidden" value="<?php echo htmlspecialchars($_GET['id']); ?>" name="user_id">
 </form>
 
 <?php

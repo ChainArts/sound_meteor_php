@@ -29,9 +29,10 @@ function checkMsgBox() {
 }
 
 window.onload = () => {
-  if (window.location.href.includes("/usrmngmt.php?status")) {
+    console.log(window.location.href);
+  if (window.location.href.includes("?status")) {
     checkMsgBox();
-    window.history.pushState({}, "Hide", "/usrmngmt.php");
+    window.history.pushState({}, "Hide", window.location.href.replace(/(?<=.*\/.*php).*/, "").replace(/.*\//, ""));
   }
   document.getElementsByTagName("body")[0].classList.add("fade");
 };

@@ -220,8 +220,6 @@ input[type=submit]:hover, .button:hover{
     margin-bottom: 1rem;
 }
 
-
-
 body {
     top: 0;
     left: 0;
@@ -250,6 +248,7 @@ main{
 
 .form-wrapper{
     width: 35rem;
+    max-width: 100%;
     min-width: 350px;
     min-height: 350px;
     display: flex;
@@ -338,6 +337,10 @@ main{
     border-radius: 1rem;
     background-color: var(--first-layer);
     margin-bottom: 2rem;
+}
+
+table{
+    table-layout: fixed;
 }
 
 table,th,td{
