@@ -88,7 +88,7 @@ include "header.php";
             ?>
 
         </select>
-        <i class="fa-solid fa-lock focus-input"></i>
+        <i class="fa-solid fa-music focus-input"></i>
     </div>
     <div class="input-wrapper">
         <span class="input-label">Mood</span>
@@ -102,7 +102,7 @@ include "header.php";
             ?>
 
         </select>
-        <i class="fa-solid fa-lock focus-input"></i>
+        <i class="fa-solid fa-masks-theater focus-input"></i>
     </div>
     <div class="button">
         <input type="submit" name="Add Preference" value="Add" class="btn">

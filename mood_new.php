@@ -29,12 +29,12 @@ include "header.php";
     <div class="input-wrapper">
         <span class="input-label">Name</span>
         <input class="input-box" type="text" name="name" autofocus placeholder="Enter Mood">
-        <i class="focus-input fa-solid fa-user"></i>
+        <i class="focus-input fa-solid fa-pen-nib"></i>
     </div>
     <div class="input-wrapper">
         <span class="input-label">Emotion</span>
         <input class="input-box" type="text" name="emotion" placeholder="Enter Emotion">
-        <i class="fa-solid fa-lock focus-input"></i>
+        <i class="fa-solid fa-masks-theater focus-input"></i>
     </div>
     <div class="button">
         <input type="submit" name="Add Mood" value="Add" class="btn">

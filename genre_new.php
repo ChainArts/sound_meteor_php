@@ -61,7 +61,7 @@ include "header.php";
     <div class="input-wrapper">
         <span class="input-label">Popularity</span>
         <input class="input-box" type="text" name="popularity" placeholder="Enter Popularity">
-        <i class="fa-solid fa-lock focus-input"></i>
+        <i class="fa-solid fa-fire focus-input"></i>
     </div>
     <div class="input-wrapper">
         <span class="input-label">Mood</span>
@@ -75,7 +75,7 @@ include "header.php";
             ?>
 
         </select>
-        <i class="fa-solid fa-lock focus-input"></i>
+        <i class="fa-solid fa-masks-theater focus-input"></i>
     </div>
     <div class="button">
         <input type="submit" name="Add Genre" value="Add" class="btn">

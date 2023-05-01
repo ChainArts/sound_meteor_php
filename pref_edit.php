@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ?>
 
         </select>
-        <i class="fa-solid fa-lock focus-input"></i>
+        <i class="fa-solid fa-music focus-input"></i>
     </div>
     <div class="input-wrapper">
         <span class="input-label">Mood</span>
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ?>
 
         </select>
-        <i class="fa-solid fa-lock focus-input"></i>
+        <i class="fa-solid fa-masks-theater focus-input"></i>
     </div>
     <div class="edit-form">
         <div class="button" onclick="activateForm();">

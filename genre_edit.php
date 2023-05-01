@@ -66,12 +66,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="input-wrapper">
         <span class="input-label">Name</span>
         <input class="input-box" type="text" name="name" autofocus placeholder="Enter Name" value="<?= html_entity_decode($genre->name) ?>" disabled>
-        <i class="focus-input fa-solid fa-user"></i>
+        <i class="fa-solid fa-pen-nib focus-input"></i>
     </div>
     <div class="input-wrapper">
         <span class="input-label">Popularity</span>
         <input class="input-box" type="text" name="popularity" placeholder="Enter Popularity" value="<?= html_entity_decode($genre->popularity) ?>" disabled>
-        <i class="fa-solid fa-lock focus-input"></i>
+        <i class="fa-solid fa-fire focus-input"></i>
     </div>
     <div class="input-wrapper">
         <span class="input-label">Mood</span>
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ?>
 
         </select>
-        <i class="fa-solid fa-lock focus-input"></i>
+        <i class="fa-solid fa-masks-theater focus-input"></i>
     </div>
     <div class="edit-form">
         <div class="button" onclick="activateForm();">
