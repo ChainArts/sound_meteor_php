@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: usrmngmt.php?status=display_fail");
 }
 ?>
-<form class="form-wrapper" method="post" id="form" autocomplete="off" style="width: 45rem !important;" action="">
+<form class="form-wrapper" method="post" id="form" autocomplete="off" style="width: 45rem !important;">
     <div class="form-title">
         <span><?= $pagetitle ?></span>
         <a href="usrmngmt.php"><span>&lt; Back</span></a>
@@ -77,33 +77,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="side-by-side">
         <div class="input-wrapper">
             <span class="input-label">Username</span>
-            <input class="input-box" type="text" name="username" autofocus placeholder="Enter Username" value="<?= html_entity_decode($usr->username) ?>">
+            <input class="input-box" type="text" name="username" autofocus placeholder="Enter Username" value="<?= html_entity_decode($usr->username) ?>" disabled>
             <i class="focus-input fa-solid fa-user"></i>
         </div>
         <div class="input-wrapper">
             <span class="input-label">Passwort</span>
-            <input class="input-box" type="password" name="password" placeholder="(unchanged)">
+            <input class="input-box" type="password" name="password" placeholder="(unchanged)" disabled>
             <i class="fa-solid fa-lock focus-input"></i>
         </div>
     </div>
     <div class="side-by-side">
         <div class="input-wrapper">
             <span class="input-label">First Name</span>
-            <input class="input-box" type="text" name="f_name" placeholder="Enter First Name" value="<?= html_entity_decode($usr->f_name) ?>">
+            <input class="input-box" type="text" name="f_name" placeholder="Enter First Name" value="<?= html_entity_decode($usr->f_name) ?>" disabled>
             <i class="fa-solid fa-pen-nib focus-input"></i>
         </div>
         <div class="input-wrapper">
             <span class="input-label">Last Name</span>
-            <input class="input-box" type="text" name="l_name" placeholder="Enter Last Name" value="<?= html_entity_decode($usr->l_name) ?>">
+            <input class="input-box" type="text" name="l_name" placeholder="Enter Last Name" value="<?= html_entity_decode($usr->l_name) ?>" disabled>
             <i class="fa-solid fa-pen-nib focus-input"></i>
         </div>
     </div>
     <div class="input-wrapper">
         <span class="input-label">Email</span>
-        <input class="input-box" type="email" name="email" placeholder="Enter Email" value="<?= html_entity_decode($usr->email) ?>">
+        <input class="input-box" type="email" name="email" placeholder="Enter Email" value="<?= html_entity_decode($usr->email) ?>" disabled>
         <i class="fa-solid fa-envelope focus-input"></i>
     </div>
-    <div class="side-by-side" style="justify-content: center">
+    <div class="edit-form">
+        <div class="button" onclick="activateForm();">
+            <span>Edit</span>
+        </div>
+    </div>
+    <div class="side-by-side hiddenform" style="justify-content: center">
         <div class="button">
             <input type="submit" name="save" value="Save" class="btn" form="form">
         </div>

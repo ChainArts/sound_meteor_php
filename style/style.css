@@ -143,7 +143,6 @@ li .current-page::after{
 }
 
 .button span {
-    text-transform: uppercase;
     padding: 0.5rem 1rem 0.5rem 1rem;
     background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
     border-radius: 0.5rem;
@@ -151,6 +150,12 @@ li .current-page::after{
 
 .button > .delete{
     background: linear-gradient(135deg, red 0%, tomato 100%);
+}
+
+.edit-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .login-logo{
@@ -164,6 +169,7 @@ li .current-page::after{
     display: flex;
     justify-content: center;
     transition: all .2s cubic-bezier(.14,.8,.4,1);
+    cursor: pointer;
 }
 
 input[type=submit]{
@@ -177,6 +183,14 @@ input[type=submit]{
 
 input[type=submit]:hover, .button:hover{
     filter:brightness(0.8);
+}
+
+input{
+    transition: all .2s cubic-bezier(.14,.8,.4,1);
+}
+
+input:disabled, input:disabled + .focus-input, select:disabled, select:disabled + .focus-input{
+    color: rgb(72, 87, 82);
 }
 
 .profile-img{
@@ -386,6 +400,11 @@ tr:not(:first-child):hover{
 .hidden{
     transform: translateX(15rem);
     opacity: 0;
+}
+
+.hiddenform
+{
+    display: none !important;
 }
 
 .usr-info{

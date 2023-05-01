@@ -28,8 +28,19 @@ function checkMsgBox() {
   }
 }
 
+function activateForm() {
+    const inputs = document.querySelectorAll('input, select');
+
+    for (const input of inputs) {
+        if(input.id != "always-disabled"){
+            input.removeAttribute('disabled');
+        }
+    }
+    document.getElementsByClassName("edit-form")[0].classList.add("hiddenform");
+    document.getElementsByClassName("side-by-side hiddenform")[0].classList.remove("hiddenform");
+}
+
 window.onload = () => {
-    console.log(window.location.href);
   if (window.location.href.includes("?status")) {
     checkMsgBox();
     window.history.pushState({}, "Hide", window.location.href.replace(/(?<=.*\/.*php).*/, "").replace(/.*\//, ""));

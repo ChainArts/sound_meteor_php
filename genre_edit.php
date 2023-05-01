@@ -65,17 +65,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <div class="input-wrapper">
         <span class="input-label">Name</span>
-        <input class="input-box" type="text" name="name" autofocus placeholder="Enter Name" value="<?= html_entity_decode($genre->name) ?>">
+        <input class="input-box" type="text" name="name" autofocus placeholder="Enter Name" value="<?= html_entity_decode($genre->name) ?>" disabled>
         <i class="focus-input fa-solid fa-user"></i>
     </div>
     <div class="input-wrapper">
         <span class="input-label">Popularity</span>
-        <input class="input-box" type="text" name="popularity" placeholder="Enter Popularity" value="<?= html_entity_decode($genre->popularity) ?>">
+        <input class="input-box" type="text" name="popularity" placeholder="Enter Popularity" value="<?= html_entity_decode($genre->popularity) ?>" disabled>
         <i class="fa-solid fa-lock focus-input"></i>
     </div>
     <div class="input-wrapper">
         <span class="input-label">Mood</span>
-        <select class="input-box" name="mood_id" id="mood_id">
+        <select class="input-box" name="mood_id" id="mood_id" disabled>
             <?php
             foreach ($moods as $mood) {
                 if ($mood->mood_id == $selected_mood->mood_id) {
@@ -89,7 +89,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </select>
         <i class="fa-solid fa-lock focus-input"></i>
     </div>
-    <div class="side-by-side" style="justify-content: center">
+    <div class="edit-form">
+        <div class="button" onclick="activateForm();">
+            <span>Edit</span>
+        </div>
+    </div>
+    <div class="side-by-side hiddenform" style="justify-content: center">
         <div class="button">
             <input type="submit" name="save" value="Save" class="btn" form="form">
         </div>

@@ -65,12 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <div class="input-wrapper">
         <span class="input-label">User</span>
-        <input class="input-box" type="text" name="username" placeholder="Enter Username" value="<?= htmlspecialchars($user->username) ?>" disabled>
+        <input id="always-disabled" class="input-box" type="text" name="username" placeholder="Enter Username" value="<?= htmlspecialchars($user->username) ?>" disabled>
         <i class="fa-solid fa-user focus-input"></i>
     </div>
     <div class="input-wrapper">
         <span class="input-label">Genre</span>
-        <select class="input-box" name="mood_id" id="mood_id">
+        <select class="input-box" name="mood_id" id="mood_id" disabled>
             <?php
             foreach ($genres as $genre) {
                 if ($genre->genre_id == htmlspecialchars($_GET['genre_id'])) {
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <div class="input-wrapper">
         <span class="input-label">Mood</span>
-        <select class="input-box" name="mood_id" id="mood_id">
+        <select class="input-box" name="mood_id" id="mood_id" disabled>
             <?php
             foreach ($moods as $mood) {
                 if ($mood->mood_id == htmlspecialchars($_GET['mood_id'])) {
@@ -100,7 +100,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </select>
         <i class="fa-solid fa-lock focus-input"></i>
     </div>
-    <div class="side-by-side" style="justify-content: center">
+    <div class="edit-form">
+        <div class="button" onclick="activateForm();">
+            <span>Edit</span>
+        </div>
+    </div>
+    <div class="side-by-side hiddenform" style="justify-content: center">
         <div class="button">
             <input type="submit" name="save" value="Save" class="btn" form="form">
         </div>
