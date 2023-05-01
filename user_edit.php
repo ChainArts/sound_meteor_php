@@ -1,11 +1,11 @@
 <?php
 include "functions.php";
 if (!isset($_SESSION["USER"])) {
-    if($_SESSION["USER"] != "admin")
-    {
-        header('Location: schlingel.php?msg=no-access');
-    }
     header('Location: schlingel.php');
+}
+if($_SESSION["USER"] != "admin")
+{
+    header('Location: schlingel.php?msg=no-access');
 }
 $pagetitle = "Edit User";
 

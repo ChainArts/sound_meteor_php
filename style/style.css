@@ -418,6 +418,11 @@ select *{
     border:none;
 }
 
+.schlingel{
+    color: tomato;
+    padding-bottom: 3rem;
+}
+
 .fade{
     animation: fadeIn .25s ease-out forwards;
 }

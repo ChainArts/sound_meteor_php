@@ -40,9 +40,9 @@ if (isset($_GET['status'])) {
 }
 ?>
 <h1><?= $pagetitle ?></h1>
-<div class="button" style="margin-bottom: 2rem">
+<!--<div class="button" style="margin-bottom: 2rem">
     <a href="song_new.php"><span>Add Song</span></a>
-</div>
+</div>-->
 <div class="table-wrapper">
     <table>
         <tr>

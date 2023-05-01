@@ -36,15 +36,15 @@ if (isset($_GET['id'])) {
     <div class="button" style="padding-top: 2rem;">
         <a href="<?= htmlspecialchars($trk->link) ?>"><span><?= htmlspecialchars($trk->service) ?></span></a>
     </div>
-    <form action="track_delete.php" method="post" class="side-by-side" style="margin-top: 2rem">
+    <!--<form action="track_delete.php" method="post" class="side-by-side" style="margin-top: 2rem">
             <div class="button">
-                <input type="hidden" value="<?php echo htmlspecialchars($_GET['id']); ?>" name="user_id">
+                <input type="hidden" value="<?php //echo htmlspecialchars($_GET['id']); ?>" name="user_id">
                 <input type="submit" name="delete" value="Delete" class="delete">
             </div>
             <div class="button">
                 <a href="song_edit"><span>Edit</span></a>
         </div>
-    </form>
+    </form>-->
 </div>
 <?php
 include "footer.php";
