@@ -50,7 +50,7 @@ include "header.php";
     </div>
     <div class="input-wrapper">
         <span class="input-label">Username<span class="error"><?php echo $loginErr ?></span></span>
-        <input class="input-box" type="text" name="username" autofocus placeholder="Enter Username" value="<?php if (isset($_POST['username'])) echo html_entity_decode($_POST['username']);?>" />
+        <input class="input-box" type="text" name="username" autofocus placeholder="Enter Username" value="<?php if (isset($_POST['username'])) echo html_entity_decode($_POST['username']);?>" >
         <i class="focus-input fa-solid fa-user"></i>
     </div>
     <div class="input-wrapper">

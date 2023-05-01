@@ -38,7 +38,7 @@ include "header.php";
     <div class="side-by-side">
         <div class="input-wrapper">
             <span class="input-label">Username</span>
-            <input class="input-box" type="text" name="username" autofocus placeholder="Enter Username"/>
+            <input class="input-box" type="text" name="username" autofocus placeholder="Enter Username">
             <i class="focus-input fa-solid fa-user"></i>
         </div>
         <div class="input-wrapper">
