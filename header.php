@@ -21,20 +21,15 @@
                     <li><a href="music.php" <?php if ($pagetitle == "Music") {
                                                 echo "class=\"current-page\"";
                                             } ?>>Music</a></li>
-                    <li><a href="genres.php" <?php if ($pagetitle == "Genres") {
+                    <li><a href="comets.php" <?php if ($pagetitle == "Comets") {
                                                     echo "class=\"current-page\"";
-                                                } ?>>Genres</a></li>
-                    <li><a href="moods.php" <?php if ($pagetitle == "Moods") {
-                                                echo "class=\"current-page\"";
-                                            } ?>>Moods</a></li>
+                                                } ?>>Comets</a></li>
                     <li><a href="pref.php" <?php if ($pagetitle == "Preferences") {
                                                 echo "class=\"current-page\"";
                                             } ?>>Preferences</a></li>
-                    <?php if($_SESSION['USER'] == "admin") : ?>
-                    <li><a href="usrmngmt.php" <?php if ($pagetitle == "Users") {
-                                                    echo "class=\"current-page\"";
-                                                } ?>>Users</a></li>
-                    <?php endif; ?>
+                    <li><a href="about.php" <?php if ($pagetitle == "About") {
+                                                echo "class=\"current-page\"";
+                                            } ?>>About</a></li>
                 </ul>
             <?php endif; ?>
         </nav>
