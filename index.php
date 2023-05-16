@@ -9,7 +9,7 @@ include "header.php";
 
 <div class="generate-button">
     <div class="button">
-        <a href="generatePlaylist.php"><span style="text-transform: uppercase">generate</span></a>
+        <a href="generatePlaylist.php"><span>generate</span></a>
     </div>
 </div>
 

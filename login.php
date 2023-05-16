@@ -58,8 +58,8 @@ include "header.php";
         <input class="input-box" type="password" name="password" placeholder="Enter password">
         <i class="fa-solid fa-lock focus-input"></i>
     </div>
-    <div class="button">
-        <input type="submit" name="login" value="LOGIN" class="btn">
+    <div style="display: flex; justify-content: center">
+        <input type="submit" name="login" value="LOGIN" class="button">
     </div>
 </form>
 
