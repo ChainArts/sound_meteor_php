@@ -47,3 +47,9 @@ window.onload = () => {
   }
   document.getElementsByTagName("body")[0].classList.add("fade");
 };
+
+let toggleIsOpen = (e) => {
+    document.getElementsByClassName("nav-overlay")[0].classList.toggle("menu-open");
+    document.getElementById("menu-icon").classList.toggle("menu-toggle-open")
+    document.getElementById("menu-icon").classList.toggle("menu-toggle-closed")
+}

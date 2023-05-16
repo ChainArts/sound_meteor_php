@@ -22,6 +22,8 @@
 }
 
 body {
+    position: relative;
+    z-index: 0;
     opacity: 0;
 }
 
@@ -46,6 +48,44 @@ header {
     justify-content: space-between;
 }
 
+.nav-overlay{
+    transform: translateX(100vw);
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 998;
+    top: 0;
+    left: 0;
+    background-color: var(--base-layer);
+    transition: all .4s cubic-bezier(.14, .8, .4, 1);
+}
+
+.nav-overlay-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    gap: 1rem;
+}
+
+.nav-overlay-container .logo{
+    height: min-content;
+    width: 10rem;
+}
+
+.nav-overlay-container ul{
+    flex-direction: column;
+    height: min-content;
+}
+
+.menu-open{
+    transform: translateX(0);
+    transition: all .4s cubic-bezier(.14, .8, .4, 1);
+}
+
+
 button {
     background: none;
     line-height: 0;
@@ -64,7 +104,6 @@ button:hover {
 .logo {
     height: 100%;
     width: 8rem;
-    margin-right: 3rem;
 }
 
 img {
@@ -144,6 +183,72 @@ li .current-page::after {
     justify-content: center;
     align-items: center;
     gap: 1rem;
+}
+
+.hamburger-menu{
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-toggle-icon {
+    z-index: 3;
+    width: 32px;
+    cursor: pointer;
+    transition: all .3s;
+}
+  
+.menu-toggle-icon .bar {
+    display: block;
+    width: 100%;
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,0.3);
+    height: 2px;
+    background: var(--accent);
+    transition: all .35s;
+    position: relative;
+    transform-origin: center;
+    transition: all 1s cubic-bezier(.14,.8,.4,1);
+  }
+
+.menu-toggle-icon:hover > .bar{
+    background: var(--accent-dark);
+    box-shadow: 0 0 16px var(--accent-dark);
+    transition: all .1s cubic-bezier(.14,.8,.4,1); 
+}
+  
+.bar + .bar{
+    margin-top: 8px;
+}
+
+.menu-toggle-open .bar:nth-child(1) {
+    animation: cubic-bezier(.14,.8,.4,1) .35s top forwards;
+  }
+  
+.menu-toggle-closed .bar:nth-child(1) {
+    animation: cubic-bezier(.14,.8,.4,1) .35s top-2 forwards;
+  }
+  
+.menu-toggle-open .bar:nth-child(2) {
+    transform-origin: right;
+    animation: cubic-bezier(.14,.8,.4,1) .35s scaled forwards;
+  }
+  
+.menu-toggle-closed .bar:nth-child(2) {
+    transform-origin: left;
+    animation: cubic-bezier(.14,.8,.4,1) .35s scaled-2 forwards;
+  }
+  
+.menu-toggle-open .bar:nth-child(3) {
+    animation: cubic-bezier(.14,.8,.4,1) .35s bottom forwards;
+  }
+  
+.menu-toggle-closed .bar:nth-child(3) {
+    animation: cubic-bezier(.14,.8,.4,1) .35s bottom-2 forwards;
+  }
+
+.desktop-hide{
+    display: none;
 }
 
 input[type=submit], .button span {
@@ -533,6 +638,72 @@ select * {
 
     }
 }
+
+@keyframes top {
+    0% {
+      top: 0;
+      transform: rotate(0);
+    }
+    100% {
+      top: 10px;
+      transform: rotate(45deg);
+    }
+  }
+  
+@keyframes top-2 {
+    0% {
+      top: 10px;
+      transform: rotate(45deg);
+    }
+    100% {
+      top: 0;
+      transform: rotate(0deg);
+    }
+  }
+  
+@keyframes bottom {
+    0% {
+      bottom: 0;
+      transform: rotate(0);
+    }
+    100% {
+      bottom: 10px;
+      transform: rotate(-45deg);
+    }
+  }
+  
+@keyframes bottom-2 {
+    0% {
+      bottom: 10px;
+      transform: rotate(-45deg);
+    }
+    100% {
+      bottom: 0;
+      transform: rotate(0);
+    }
+  }
+  
+@keyframes scaled {
+    80% {
+      transform: scaleX(0);
+    }
+    100% {
+      transform: scaleX(0);
+    }
+  }
+  
+@keyframes scaled-2 {
+    0% {
+      transform: scale(0);
+    }
+    30% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
 
 /* poppins-200 - latin */
 @font-face {

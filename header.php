@@ -14,7 +14,7 @@
 <body>
     <header>
         <nav>
-            <div class="logo"><a href="index.php"><img src="./media/SoundMeteor.svg" alt="Logo"></a></div>
+            <div class="logo" style="margin-right: 3rem"><a href="index.php"><img src="./media/SoundMeteor.svg" alt="Logo"></a></div>
             <?php if (isset($_SESSION['USER'])) :
             ?>
 
@@ -57,13 +57,37 @@
             }
             ?>
 
-
-
+            <div class="hamburger-menu desktop-hide" onClick=toggleIsOpen()>
+                <div class="menu-toggle-icon menu-toggle-closed" id="menu-icon">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-overlay">
+            <nav class="nav-overlay-container">
+                <div class="logo"><a href="index.php"><img src="./media/SoundMeteor.svg" alt="Logo"></a></div>
+                <ul>
+                    <li><a href="music.php" <?php if ($pagetitle == "Music") {
+                                                echo "class=\"current-page\"";
+                                            } ?>>Music</a></li>
+                    <li><a href="comets.php" <?php if ($pagetitle == "Comets") {
+                                                    echo "class=\"current-page\"";
+                                                } ?>>Comets</a></li>
+                    <li><a href="pref.php" <?php if ($pagetitle == "Preferences") {
+                                                echo "class=\"current-page\"";
+                                            } ?>>Preferences</a></li>
+                    <li><a href="about.php" <?php if ($pagetitle == "About") {
+                                                echo "class=\"current-page\"";
+                                            } ?>>About</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
     <?php
-    if ($pagetitle == "Login" || str_contains($pagetitle, "Add")|| str_contains($pagetitle, "Edit")) {
+    if ($pagetitle == "Login" || str_contains($pagetitle, "Add") || str_contains($pagetitle, "Edit")) {
         echo "<main style=\"justify-content: center\">";
     } else {
         echo "<main>";
