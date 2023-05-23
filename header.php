@@ -53,17 +53,19 @@
                 </div>
                 <form action=\"logout.php\" method=\"post\" class=\"mobile-hide\">
                     <button type=\"submit\"><i class=\"fa-solid fa-right-from-bracket\"></i></button>      
-                </form>";
-            }
-            ?>
-
-            <div class="hamburger-menu mobile-show" onclick=toggleIsOpen()>
-                <div class="menu-toggle-icon menu-toggle-closed" id="menu-icon">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
+                </form>
+                <div class=\"hamburger-menu mobile-show\" onclick=toggleIsOpen()>
+                <div class=\"menu-toggle-icon menu-toggle-closed\" id=\"menu-icon\">
+                    <div class=\"bar\"></div>
+                    <div class=\"bar\"></div>
+                    <div class=\"bar\"></div>
                 </div>
             </div>
+                
+                
+                ";
+            }
+            ?>
         </div>
         <div class="nav-overlay">
             <nav class="nav-overlay-container">
