@@ -18,7 +18,7 @@
             <?php if (isset($_SESSION['USER'])) :
             ?>
 
-                <ul>
+                <ul class="mobile-hide">
                     <li><a href="music.php" <?php if ($pagetitle == "Music") {
                                                 echo "class=\"current-page\"";
                                             } ?>>Music</a></li>
@@ -45,19 +45,19 @@
                 }
             } else {
                 echo "
-                <div class=\"profile-name\">
+                <div class=\"profile-name mobile-hide\">
                    " . htmlspecialchars($_SESSION['USER']) . "
                 </div>
                 <div class=\"profile-img\">
                     <img src=\"./media/logo.jpg\">
                 </div>
-                <form action=\"logout.php\" method=\"post\">
+                <form action=\"logout.php\" method=\"post\" class=\"mobile-hide\">
                     <button type=\"submit\"><i class=\"fa-solid fa-right-from-bracket\"></i></button>      
                 </form>";
             }
             ?>
 
-            <div class="hamburger-menu desktop-hide" onClick=toggleIsOpen()>
+            <div class="hamburger-menu mobile-show" onclick=toggleIsOpen()>
                 <div class="menu-toggle-icon menu-toggle-closed" id="menu-icon">
                     <div class="bar"></div>
                     <div class="bar"></div>

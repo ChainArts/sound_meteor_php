@@ -1,4 +1,5 @@
 const form = document.getElementById("form");
+let isMenuOpen = false;
 
 if (form != null) {
   form.addEventListener(
@@ -18,7 +19,7 @@ if (form != null) {
   );
 }
 
-function checkMsgBox() {
+let checkMsgBox = () => {
   const msg_box = document.getElementsByClassName("state-box")[0];
   if (msg_box != null) {
     msg_box.classList.remove("hidden");
@@ -28,7 +29,7 @@ function checkMsgBox() {
   }
 }
 
-function activateForm() {
+let activateForm = () => {
     const inputs = document.querySelectorAll('input, select');
 
     for (const input of inputs) {
@@ -48,8 +49,16 @@ window.onload = () => {
   document.getElementsByTagName("body")[0].classList.add("fade");
 };
 
-let toggleIsOpen = (e) => {
+let toggleIsOpen = () => {
+    isMenuOpen = !isMenuOpen;
     document.getElementsByClassName("nav-overlay")[0].classList.toggle("menu-open");
     document.getElementById("menu-icon").classList.toggle("menu-toggle-open")
     document.getElementById("menu-icon").classList.toggle("menu-toggle-closed")
+}
+
+window.onresize = () => {
+    if (window.screenX < 1000 && isMenuOpen == true)
+    {
+        toggleIsOpen();
+    }
 }
