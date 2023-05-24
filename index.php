@@ -6,10 +6,12 @@ include "header.php";
 ?>
 
 <h1><?= $pagetitle ?></h1>
+<div class="new-songs">
+</div>
 
 <div class="generate-button">
-    <div class="button">
-        <a href="generatePlaylist.php"><span>generate</span></a>
+    <div class="button" onclick=loadNewSongs();>
+        <a><span>generate</span></a>
     </div>
 </div>
 
