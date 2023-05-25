@@ -10,7 +10,7 @@ include "header.php";
 </div>
 
 <div class="generate-button">
-    <div class="button" onclick=loadNewSongs();>
+    <div class="button" onclick=loadNewAlbums();>
         <a><span>generate</span></a>
     </div>
 </div>

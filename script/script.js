@@ -70,12 +70,11 @@ window.onresize = () => {
   }
 };
 
-async function loadNewSongs() {
-  const songlist = document.getElementsByClassName("new-songs")[0];
-  songlist.innerHTML = "";
-  try {
-    const response = await fetch(
-      "https://api.discogs.com/database/search?genre=electronic&style=drum+n+bass&type=master&per_page=10&page=2&year=2015",
+async function loadNewAlbums() {
+    try {
+      const page = Math.floor((Math.random()*90)+1)
+      const response = await fetch(
+      `https://api.discogs.com/database/search?style=drum+n+bass&year=2018&per_page=10&page=${page}&format=album&type=release&type=master`,
       {
         headers: {
           Authorization:
@@ -85,22 +84,53 @@ async function loadNewSongs() {
     );
     let data = await response.json();
     console.log(data);
-    data.results.forEach((release) => {
+        data.results.forEach((album) => {
+        if(!((album.title).toLowerCase().includes("various"))){
+            loadNewSongs(album.id, album.thumb, album.uri);
+        }
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function loadNewSongs(album_id, cover, uri) {
+  const songlist = document.getElementsByClassName("new-songs")[0];
+  songlist.innerHTML = "";
+  try {
+    const response = await fetch(
+      `https://api.discogs.com/releases/${album_id}`,
+      {
+        headers: {
+          Authorization:
+            "Discogs token=tmaswzbNQlPUxhekudJyHsNNbUZxMXaPtxXfUYXa",
+        },
+      }
+    );
+    let data = await response.json();
+    console.log(data);
+    data.tracklist.forEach((track) => {
       const newSong = document.createElement("div");
+      const title = data.artists_sort + " - " + track.title;
       newSong.classList.add("new-song-wrapper");
       newSong.innerHTML = `
-        <div class="song-cover">
-            <a href="${release.cover_image}" target="_blank"><img src="${
-        release.thumb
-      }" alt="deine mamer"></a>
-        </div>
-        <span class="song-title">${release.title}</span>
-        <a target="_blank" href="https://youtube.com/results?search_query=${encodeURIComponent(
-          release.title
-        ).replaceAll(
-          /\([^)]*\)/g,
-          ""
-        )}"><i class="fa-brands fa-youtube"></i></a>`;
+          <div class="song-cover">
+        <img src="${cover}" alt="deine mamer"></a>
+          </div>
+          <span class="song-title">${title}</span>
+          <div class="song-links">
+          <a target="_blank" href="https://youtube.com/results?search_query=${encodeURIComponent(
+            title
+          ).replaceAll(
+            /\([^)]*\)/g,
+            ""
+          )}"><i class="fa-brands fa-youtube"></i></a>
+        <a target="_blank" href="https://soundcloud.com/search?q=${title
+          .replaceAll(/\([^)]*\)/g, "")
+          .replace("&", "%26")}"><i class="fa-brands fa-soundcloud"></i></a>
+            <a target="_blank" href="https://discogs.com/${uri}"><i class="fa-solid fa-record-vinyl"></i></a>
+            </div>
+            `;
       songlist.append(newSong);
     });
   } catch (e) {

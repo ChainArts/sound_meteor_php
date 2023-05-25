@@ -641,8 +641,14 @@ select * {
 
 }
 
-.new-song-wrapper i{
-    font-size: 2rem;
+.song-links{
+    display: flex;
+    font-size: 1.5rem;
+    gap: 1rem;
+}
+
+.song-links i{
+    color: var(--accent-dark);
 }
 
 .song-cover{
