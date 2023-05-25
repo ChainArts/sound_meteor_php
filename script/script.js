@@ -74,7 +74,7 @@ async function loadNewAlbums() {
     try {
       const page = Math.floor((Math.random()*90)+1)
       const response = await fetch(
-      `https://api.discogs.com/database/search?style=drum+n+bass&year=2018&per_page=10&page=${page}&format=album&type=release&type=master`,
+      `https://api.discogs.com/database/search?style=drum+n+bass&per_page=10&page=${page}&format=album&format=single&format=ep&type=release&type=master`,
       {
         headers: {
           Authorization:
@@ -85,7 +85,7 @@ async function loadNewAlbums() {
     let data = await response.json();
     console.log(data);
         data.results.forEach((album) => {
-        if(!((album.title).toLowerCase().includes("various"))){
+        if(!((album.title).toLowerCase().includes("various")&& Number(album.year) < 2008)){
             loadNewSongs(album.id, album.thumb, album.uri);
         }
     });
