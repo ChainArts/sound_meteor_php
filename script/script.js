@@ -1,3 +1,5 @@
+const auth_token = "Discogs token=tmaswzbNQlPUxhekudJyHsNNbUZxMXaPtxXfUYXa";
+
 const form = document.getElementById("form");
 let isMenuOpen = false;
 
@@ -71,23 +73,24 @@ window.onresize = () => {
 };
 
 async function loadNewAlbums() {
-    try {
-      const page = Math.floor((Math.random()*90)+1)
-      const response = await fetch(
-      `https://api.discogs.com/database/search?style=drum+n+bass&per_page=10&page=${page}&format=album&format=single&format=ep&type=release&type=master`,
-      {
+  const year = Math.floor(Math.random() * (new Date().getFullYear() - 2005)) + 2005;
+  let query = `https://api.discogs.com/database/search?style=drum+n+bass&per_page=15&format=album&type=release&type=master&year=${year}`;
+  try {
+    const res_pages = await fetch(query, {
+      headers: {
+        Authorization: auth_token,
+      },
+    });
+      let data = await res_pages.json();
+      const res = await fetch(query + `&page=${Math.floor(Math.random() * data.pagination.pages + 1)}`, {
         headers: {
-          Authorization:
-            "Discogs token=tmaswzbNQlPUxhekudJyHsNNbUZxMXaPtxXfUYXa",
+          Authorization: auth_token,
         },
-      }
-    );
-    let data = await response.json();
+      });
+      data = await res.json();
     console.log(data);
-        data.results.forEach((album) => {
-        if(!((album.title).toLowerCase().includes("various")&& Number(album.year) < 2008)){
-            loadNewSongs(album.id, album.thumb, album.uri);
-        }
+    data.results.forEach((album) => {
+      loadNewSongs(album.id, album.thumb, album.uri);
     });
   } catch (e) {
     console.log(e);
@@ -98,26 +101,27 @@ async function loadNewSongs(album_id, cover, uri) {
   const songlist = document.getElementsByClassName("new-songs")[0];
   songlist.innerHTML = "";
   try {
-    const response = await fetch(
+    const res = await fetch(
       `https://api.discogs.com/releases/${album_id}`,
       {
         headers: {
-          Authorization:
-            "Discogs token=tmaswzbNQlPUxhekudJyHsNNbUZxMXaPtxXfUYXa",
+          Authorization: auth_token
         },
       }
     );
-    let data = await response.json();
+    let data = await res.json();
     console.log(data);
     data.tracklist.forEach((track) => {
       const newSong = document.createElement("div");
-      const title = data.artists_sort + " - " + track.title;
+      const title = Object.hasOwn(track, "artists")
+        ? track.artists.map((art) => art.name).join(" & ") + " - " + track.title
+        : data.artists.map((art) => art.name).join(" & ") + " - " + track.title;
       newSong.classList.add("new-song-wrapper");
       newSong.innerHTML = `
           <div class="song-cover">
         <img src="${cover}" alt="deine mamer"></a>
           </div>
-          <span class="song-title">${title}</span>
+          <span class="song-title">${title.replaceAll(/\([^)]*\)/g, "")}</span>
           <div class="song-links">
           <a target="_blank" href="https://youtube.com/results?search_query=${encodeURIComponent(
             title
@@ -128,7 +132,7 @@ async function loadNewSongs(album_id, cover, uri) {
         <a target="_blank" href="https://soundcloud.com/search?q=${title
           .replaceAll(/\([^)]*\)/g, "")
           .replace("&", "%26")}"><i class="fa-brands fa-soundcloud"></i></a>
-            <a target="_blank" href="https://discogs.com/${uri}"><i class="fa-solid fa-record-vinyl"></i></a>
+            <a target="_blank" href="https://discogs.com/${uri.replace(/^\//, "")}"><i class="fa-solid fa-record-vinyl"></i></a>
             </div>
             `;
       songlist.append(newSong);
