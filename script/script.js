@@ -74,7 +74,7 @@ window.onresize = () => {
 
 async function loadNewAlbums() {
   const year = Math.floor(Math.random() * (new Date().getFullYear() - 2005)) + 2005;
-  let query = `https://api.discogs.com/database/search?style=drum+n+bass&per_page=15&format=album&type=release&type=master&year=${year}`;
+  let query = `https://api.discogs.com/database/search?style=drum+n+bass&per_page=10&format=album&type=release&type=master&year=${year}`;
   try {
     const res_pages = await fetch(query, {
       headers: {
@@ -123,16 +123,16 @@ async function loadNewSongs(album_id, cover, uri) {
           </div>
           <span class="song-title">${title.replaceAll(/\([^)]*\)/g, "")}</span>
           <div class="song-links">
-          <a target="_blank" href="https://youtube.com/results?search_query=${encodeURIComponent(
+          <a title="Search on Youtube" target="_blank" href="https://youtube.com/results?search_query=${encodeURIComponent(
             title
           ).replaceAll(
             /\([^)]*\)/g,
             ""
           )}"><i class="fa-brands fa-youtube"></i></a>
-        <a target="_blank" href="https://soundcloud.com/search?q=${title
+        <a title="Search on Soundcloud" target="_blank" href="https://soundcloud.com/search?q=${title
           .replaceAll(/\([^)]*\)/g, "")
           .replace("&", "%26")}"><i class="fa-brands fa-soundcloud"></i></a>
-            <a target="_blank" href="https://discogs.com/${uri.replace(/^\//, "")}"><i class="fa-solid fa-record-vinyl"></i></a>
+            <a title="Show on Discogs" target="_blank" href="https://discogs.com/${uri.replace(/^\//, "")}"><i class="fa-solid fa-record-vinyl"></i></a>
             </div>
             `;
       songlist.append(newSong);
