@@ -263,6 +263,47 @@ input[type=submit]:hover, .button:hover {
     filter: brightness(0.8);
 }
 
+.usr-overlay{
+    transform: translateX(-50%) translateY(-250%);
+    overflow: hidden;
+    position: absolute;
+    z-index: 990;
+    left: 50%;
+    top: 50%;
+    transition: all .4s cubic-bezier(.14, .8, .4, 1);
+    width: 50%;
+    height: 60%;
+    background-color: var(--first-layer);
+    border-radius: 1rem;
+    
+}
+
+.usr-open{
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.usr-backdrop{
+    position: absolute;
+    z-index: 989;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    background: transparent;
+    pointer-events: none;
+    transition: all .4s cubic-bezier(.14, .8, .4, 1);
+}
+
+.usr-backdrop-enabled{
+    background-color: #1111114b;
+    pointer-events: all;
+}
+
+.usr-overlay-container{
+    display: flex;
+}
+
 .generate-button{
     margin-top: 2rem;
 }

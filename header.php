@@ -48,13 +48,13 @@
                 <div class=\"profile-name mobile-hide\">
                    " . htmlspecialchars($_SESSION['USER']) . "
                 </div>
-                <div class=\"profile-img\">
+                <div class=\"profile-img\" onclick=toggleUserOpen()>
                     <img src=\"./media/logo.jpg\">
                 </div>
                 <form action=\"logout.php\" method=\"post\" class=\"mobile-hide\">
                     <button type=\"submit\"><i class=\"fa-solid fa-right-from-bracket\"></i></button>      
                 </form>
-                <div class=\"hamburger-menu mobile-show\" onclick=toggleIsOpen()>
+                <div class=\"hamburger-menu mobile-show\" onclick=toggleMenuOpen()>
                 <div class=\"menu-toggle-icon menu-toggle-closed\" id=\"menu-icon\">
                     <div class=\"bar\"></div>
                     <div class=\"bar\"></div>
@@ -86,6 +86,13 @@
                 </ul>
             </nav>
         </div>
+        <div class="usr-backdrop" onclick=toggleUserOpen()></div>
+        <div class="usr-overlay">
+            <div class="usr-overlay-container">
+
+            </div>
+        </div>
+
     </header>
 
     <?php

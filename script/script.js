@@ -1,7 +1,7 @@
 const auth_token = "Discogs token=tmaswzbNQlPUxhekudJyHsNNbUZxMXaPtxXfUYXa";
 
 const form = document.getElementById("form");
-let isMenuOpen = false;
+let isMenuOpen, isUserOpen = false;
 
 if (form != null) {
   form.addEventListener(
@@ -57,7 +57,7 @@ window.onload = () => {
   document.getElementsByTagName("body")[0].classList.add("fade");
 };
 
-let toggleIsOpen = () => {
+let toggleMenuOpen = () => {
   isMenuOpen = !isMenuOpen;
   document
     .getElementsByClassName("nav-overlay")[0]
@@ -66,8 +66,18 @@ let toggleIsOpen = () => {
   document.getElementById("menu-icon").classList.toggle("menu-toggle-closed");
 };
 
+let toggleUserOpen = () => {
+    isUserOpen = !isUserOpen;
+    document
+      .getElementsByClassName("usr-overlay")[0]
+        .classList.toggle("usr-open");
+    document
+        .getElementsByClassName("usr-backdrop")[0]
+        .classList.toggle("usr-backdrop-enabled");
+  };
+
 window.onresize = () => {
-  if (window.screenX < 1000 && isMenuOpen == true) {
+  if (window.screenX < 1000 && isMenuOpen) {
     toggleIsOpen();
   }
 };
