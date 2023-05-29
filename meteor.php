@@ -3,7 +3,7 @@ include "functions.php";
 if(!isset($_SESSION["USER"])){
     header('Location: schlingel.php');
 }
-$pagetitle = "Music";
+$pagetitle = "Meteor";
 
 include "header.php";
 

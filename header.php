@@ -21,7 +21,7 @@
                 <ul class="mobile-hide">
                     <li><a href="meteor.php" <?php if ($pagetitle == "Meteor") {
                                                 echo "class=\"current-page\"";
-                                            } ?>>Music</a></li>
+                                            } ?>>Meteor</a></li>
                     <li><a href="comets.php" <?php if ($pagetitle == "Comets") {
                                                     echo "class=\"current-page\"";
                                                 } ?>>Comets</a></li>
@@ -71,9 +71,9 @@
             <nav class="nav-overlay-container">
                 <div class="logo"><a href="index.php"><img src="./media/SoundMeteor.svg" alt="Logo"></a></div>
                 <ul>
-                    <li><a href="music.php" <?php if ($pagetitle == "Music") {
+                    <li><a href="meteor.php" <?php if ($pagetitle == "Meteor") {
                                                 echo "class=\"current-page\"";
-                                            } ?>>Music</a></li>
+                                            } ?>>Meteor</a></li>
                     <li><a href="comets.php" <?php if ($pagetitle == "Comets") {
                                                     echo "class=\"current-page\"";
                                                 } ?>>Comets</a></li>
