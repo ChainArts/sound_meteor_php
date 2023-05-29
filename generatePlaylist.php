@@ -1,0 +1,1 @@
+EXPLAIN select * from table order by random() limit 1000;

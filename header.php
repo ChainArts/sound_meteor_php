@@ -19,7 +19,7 @@
             ?>
 
                 <ul class="mobile-hide">
-                    <li><a href="music.php" <?php if ($pagetitle == "Music") {
+                    <li><a href="meteor.php" <?php if ($pagetitle == "Meteor") {
                                                 echo "class=\"current-page\"";
                                             } ?>>Music</a></li>
                     <li><a href="comets.php" <?php if ($pagetitle == "Comets") {
@@ -89,10 +89,17 @@
         <div class="usr-backdrop" onclick=toggleUserOpen()></div>
         <div class="usr-overlay">
             <div class="usr-overlay-container">
+                <div class="usr-overlay-close" onclick=toggleUserOpen()>
+                    <i class="fa-regular fa-circle-xmark"></i>
+                </div>
+                <span class="usr-title">User Settings</span>
+                <div class="usr-details">
+                    <img src="./media/logo.jpg">
+                    <span><?= htmlspecialchars($_SESSION['USER']) ?></span>
+                </div>
 
             </div>
         </div>
-
     </header>
 
     <?php
