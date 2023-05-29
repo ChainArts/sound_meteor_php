@@ -694,6 +694,12 @@ select * {
 
 .song-cover{
     height: 2.5rem;
+    width: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 0.75rem;
 }
 
 .song-cover img{
