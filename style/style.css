@@ -266,16 +266,28 @@ input[type=submit]:hover, .button:hover {
 .usr-overlay{
     transform: translateX(-50%) translateY(-250%);
     overflow: hidden;
-    position: absolute;
+    position: fixed;
     z-index: 1002;
     left: 50%;
     top: 50%;
     transition: all .4s cubic-bezier(.14, .8, .4, 1);
-    width: 50%;
-    height: 60%;
+    width: 60rem;
+    height: 35rem;
     background-color: var(--first-layer);
     border-radius: 1rem;
     
+}
+
+.usr-overlay-close{
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    line-height: 0;
+    font-size: 2rem;
+    color: var(--accent);
+    padding: 0.6rem;
+    cursor: pointer;
+    border-radius: 100%;
 }
 
 .usr-open{
@@ -296,12 +308,38 @@ input[type=submit]:hover, .button:hover {
 }
 
 .usr-backdrop-enabled{
-    background-color: #1111114b;
+    background-color: #1111119a;
     pointer-events: all;
 }
 
 .usr-overlay-container{
     display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 2rem;
+}
+
+.usr-title{
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+.usr-details{
+    height: 5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    width: 80%;
+    font-size: 1.2rem;
+}
+
+.usr-details img{
+    border-radius: 100%;
+    height: 5rem;
+    width: 5rem;
 }
 
 .generate-button{
@@ -704,11 +742,16 @@ select * {
 
 .song-cover img{
     border-radius: 0.5rem;
+    height: 2.5rem;
+    width: 2.5rem;
 }
 
 .song-title{
     font-weight: 500;
     width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .fade {
@@ -884,6 +927,12 @@ select * {
         /* Super Modern Browsers */
 }
 
+@media only screen and (max-width: 1000px) {
+    .usr-overlay{
+        width: 90%;
+        height: 35rem;
+    }
+}
 
 @media only screen and (max-width: 880px) {
     .mobile-show {
@@ -907,10 +956,5 @@ select * {
     .profile-img{
         height: 2rem;
         width: 2rem;
-    }
-
-    .usr-overlay{
-        width: 90%;
-        height: 90%;
     }
 }
