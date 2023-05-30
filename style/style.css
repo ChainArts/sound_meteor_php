@@ -607,15 +607,31 @@ select * {
 }
 
 .meteor-container{
-    padding: 1rem;
+    padding: 2rem;
     background-color: var(--first-layer);
     border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 44rem;
 }
 
 .meteor-title{
     font-size: 2rem;
     font-weight: 700;
     color: var(--accent);
+    text-align: center;
+}
+
+.meteor-img{
+    height: 12rem;
+    padding: 1rem;
+}
+
+.meteor-details{
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .comets-container{
@@ -713,27 +729,40 @@ select * {
 }
 
 .new-song-wrapper{
-    background-color: var(--first-layer);
+    background-color: var(--base-layer);
     border-radius: 0.5rem;
-    padding:  .75rem 1rem .75rem 1rem ;
+    padding: .5rem .75rem .5rem .75rem ;
     font-size: 1.1rem;
     width: 100%;
     display: flex;
     gap: 1rem;
     flex-direction: row;
     align-items: center;
-    justify-content:space-around;
+    justify-content:space-between;
 
+}
+
+.song-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:1rem;
 }
 
 .song-links{
     display: flex;
     font-size: 1.5rem;
     gap: 1rem;
+    
 }
 
 .song-links i{
     color: var(--accent-dark);
+    transition: all .4s cubic-bezier(.14, .8, .4, 1) !important;
+}
+
+.song-links i:hover{
+    color: var(--accent);
 }
 
 .song-cover{
@@ -753,8 +782,9 @@ select * {
 }
 
 .song-title{
-    font-weight: 500;
-    width: 80%;
+    font-weight: 400;
+    font-size: 1rem;
+    width: 85%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -961,5 +991,11 @@ select * {
     .profile-img{
         height: 2rem;
         width: 2rem;
+    }
+    .new-song-wrapper{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
     }
 }

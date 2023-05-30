@@ -158,7 +158,7 @@ async function loadNewSongs(album_id, cover, uri) {
       newSong.classList.add("new-song-wrapper");
       newSong.innerHTML = `
           <div class="song-cover">
-        <img src="${cover}" alt="Cover Image"></a>
+        <img src="${cover}" alt="Cover Image">
           </div>
           <span class="song-title">${title.replaceAll(/\([^)]*\)/g, "")}</span>
           <div class="song-links">
