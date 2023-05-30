@@ -15,13 +15,15 @@
     <header>
         <nav>
             <div class="logo" style="margin-right: 3rem"><a href="index.php"><img src="./media/SoundMeteor.svg" alt="Logo"></a></div>
-            <?php if (isset($_SESSION['USER'])) :
+            <?php
+            $userErr = $passErr = ""; 
+            if (isset($_SESSION['USER'])) :
             ?>
 
                 <ul class="mobile-hide">
                     <li><a href="meteor.php" <?php if ($pagetitle == "Meteor") {
-                                                echo "class=\"current-page\"";
-                                            } ?>>Meteor</a></li>
+                                                    echo "class=\"current-page\"";
+                                                } ?>>Meteor</a></li>
                     <li><a href="comets.php" <?php if ($pagetitle == "Comets") {
                                                     echo "class=\"current-page\"";
                                                 } ?>>Comets</a></li>
@@ -72,8 +74,8 @@
                 <div class="logo"><a href="index.php"><img src="./media/SoundMeteor.svg" alt="Logo"></a></div>
                 <ul>
                     <li><a href="meteor.php" <?php if ($pagetitle == "Meteor") {
-                                                echo "class=\"current-page\"";
-                                            } ?>>Meteor</a></li>
+                                                    echo "class=\"current-page\"";
+                                                } ?>>Meteor</a></li>
                     <li><a href="comets.php" <?php if ($pagetitle == "Comets") {
                                                     echo "class=\"current-page\"";
                                                 } ?>>Comets</a></li>
@@ -97,6 +99,26 @@
                     <img src="./media/logo.jpg">
                     <span><?= htmlspecialchars($_SESSION['USER']) ?></span>
                 </div>
+                <form class="form-wrapper" method="post" id="form" autocomplete="off" style="width: 80%;">
+                    <div class="input-wrapper">
+                        <span class="input-label">Username<span class="error"><?php echo $userErr ?></span></span>
+                        <input class="input-box" type="text" name="username" autofocus placeholder="Enter Username" value="<?php if (isset($_POST['username'])) echo html_entity_decode($_POST['username']); ?>">
+                        <i class="focus-input fa-solid fa-user"></i>
+                    </div>
+                    <div class="input-wrapper">
+                        <span class="input-label">Email<span class="error"><?php echo $passErr ?></span></span>
+                        <input class="input-box" type="email" name="email" placeholder="Enter password">
+                        <i class="fa-solid fa-lock focus-input"></i>
+                    </div>
+                    <div class="input-wrapper">
+                        <span class="input-label">Passwort<span class="error"><?php echo $passErr ?></span></span>
+                        <input class="input-box" type="password" name="password" placeholder="Enter password">
+                        <i class="fa-solid fa-lock focus-input"></i>
+                    </div>
+                    <div style="display: flex; justify-content: center">
+                        <input type="submit" name="save" value="SAVE" class="button">
+                    </div>
+                </form>
 
             </div>
         </div>
