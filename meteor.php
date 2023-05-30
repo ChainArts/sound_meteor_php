@@ -1,5 +1,4 @@
 <?php
-$list_id = 1;
 include "functions.php";
 if (!isset($_SESSION["USER"])) {
     header('Location: schlingel.php');
@@ -79,7 +78,7 @@ if (isset($_GET['id'])) {
             $sth = $dbh->prepare("SELECT username FROM users WHERE user_id = ?");
             $sth->execute(array($list->creator_id));
             $creator = $sth->fetch();
-            
+
             $sth = $dbh->prepare("SELECT * FROM saved_in_playlist INNER JOIN tracks ON saved_in_playlist.track_id = tracks.track_id WHERE playlist_id = ?");
             $sth->execute(array($list->playlist_id));
             $tracks = $sth->fetchAll();

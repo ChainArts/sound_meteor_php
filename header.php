@@ -1,6 +1,7 @@
 <?php
 
 if (isset($_POST)) {
+    /*TODO: Update Userdata*/
 }
 
 
@@ -24,7 +25,6 @@ if (isset($_POST)) {
         <nav>
             <div class="logo" style="margin-right: 3rem"><a href="index.php"><img src="./media/SoundMeteor.svg" alt="Logo"></a></div>
             <?php
-            $userErr = $passErr = "";
             if (isset($_SESSION['USER'])) :
             ?>
 
@@ -96,6 +96,7 @@ if (isset($_POST)) {
                 </ul>
             </nav>
         </div>
+        <?php if($pagetitle != "Login"){ ?>
         <div class="usr-backdrop" onclick=toggleUserOpen()></div>
         <div class="usr-overlay">
             <div class="usr-overlay-container">
@@ -145,6 +146,7 @@ if (isset($_POST)) {
 
             </div>
         </div>
+        <?php } ?>
     </header>
 
     <?php
