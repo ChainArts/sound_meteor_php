@@ -8,28 +8,57 @@ include "header.php";
 <h1><?= $pagetitle ?></h1>
 
 <section class="comets-container">
-    <?php 
-        for ($i = 0; $i <= 10; $i++){
+    <?php
+    try
+    { 
+        $sth = $dbh->prepare("SELECT * from playlists WHERE isshared = false");
+        $sth->execute();
+        $comets = $sth->fetchAll();
+    }
+    catch (Exception $e) {
+        echo $e->getMessage();
+    }
+
+        foreach ($comets as $comet) {
+            try{
+
+                $sth = $dbh->prepare("SELECT username from users WHERE user_id = ?");
+                $sth->execute([$comet->creator_id]);
+                $usr = $sth->fetch();
+            }
+            catch (Exception $e) {
+                echo $e->getMessage();
+            }
     ?>
     <div class="comet-card">
         <div class="comet-header">
             <div class="play-btn"><i class="fa-solid fa-play"></i></div>
-            <span class="comet-title">Drum and Bass Meteor</span>
+            <span class="comet-title"><?= htmlspecialchars($comet->name) ?> Meteor</span>
             <div class="comet-creator-img">
                 <img src="./media/logo.jpg">
             </div>
         </div>
-        <span class="comet-creator">By <span>ChainArts</span></span>
+        <span class="comet-creator">By <span><?= htmlspecialchars($usr->username)?></span></span>
         <div class="comet-content">
+            <?php
+            try{
+                $sth = $dbh->prepare("SELECT band, name FROM saved_in_playlist INNER JOIN tracks ON saved_in_playlist.track_id = tracks.track_id WHERE playlist_id = ?");
+                $sth->execute([$comet->playlist_id]);
+                $tracks = $sth->fetchAll();
+                
+                foreach ($tracks as $track)
+                {
+            
+            ?>
             <div class="comet-track">
-                <span>Track 1</span>
+                <span><?= $track->band. " - ".$track->name ?></span>
             </div>
-            <div class="comet-track">
-                <span>Track 2</span>
-            </div>
-            <div class="comet-track">
-                <span>Track 3</span>
-            </div>
+            <?php
+            }}catch (Exception $e) {
+                echo $e->getMessage();
+            }
+
+            ?>
         </div>
     </div>
     <?php }?>

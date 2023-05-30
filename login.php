@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $_SESSION['USER_ID'] = $usr->user_id;
                     $_SESSION['USER'] = htmlspecialchars($usr->username);
                     $_SESSION['PASS'] = $usr->password;
+                    $_SESSION['EMAIL'] = $usr->email;                    
                     header('location: index.php');
                 }
                 else{
