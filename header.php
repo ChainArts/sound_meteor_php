@@ -1,3 +1,11 @@
+<?php
+
+if (isset($_POST)) {
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +24,7 @@
         <nav>
             <div class="logo" style="margin-right: 3rem"><a href="index.php"><img src="./media/SoundMeteor.svg" alt="Logo"></a></div>
             <?php
-            $userErr = $passErr = ""; 
+            $userErr = $passErr = "";
             if (isset($_SESSION['USER'])) :
             ?>
 
@@ -99,24 +107,39 @@
                     <img src="./media/logo.jpg">
                     <span><?= htmlspecialchars($_SESSION['USER']) ?></span>
                 </div>
-                <form class="form-wrapper" method="post" id="form" autocomplete="off" style="width: 80%;">
-                    <div class="input-wrapper">
-                        <span class="input-label">Username<span class="error"><?php echo $userErr ?></span></span>
-                        <input class="input-box" type="text" name="username" autofocus placeholder="Enter Username" value="<?php if (isset($_POST['username'])) echo html_entity_decode($_POST['username']); ?>">
-                        <i class="focus-input fa-solid fa-user"></i>
+                <form class="edit-form" method="post" id="edit-form" autocomplete="off">
+                    <label class="edit-form-label">Username</label>
+                    <div class="edit-field" id="usr-edit">
+                        <div class="edit-content">
+                            <span><?= htmlspecialchars($_SESSION['USER']) ?></span>
+                            <input id="edit-input" type="text" class="edit-box hiddenform" value="<?= htmlspecialchars($_SESSION['USER']) ?>">
+                        </div>
+                        <div class="edit-buttons">
+                            <div id="edit-btn" class="button" onClick="toggleEdit('usr-edit', true)"><span>Edit</span></div>
+                            <div id="ok-btn" class="button hiddenform" onClick="toggleEdit('usr-edit', false)"><span>OK</span></div>
+                        </div>
                     </div>
-                    <div class="input-wrapper">
-                        <span class="input-label">Email<span class="error"><?php echo $passErr ?></span></span>
-                        <input class="input-box" type="email" name="email" placeholder="Enter password">
-                        <i class="fa-solid fa-lock focus-input"></i>
+                    <label class="edit-form-label">Email</label>
+                    <div class="edit-field" id="email-edit">
+                        <div class="edit-content">
+                            <span><?= htmlspecialchars($_SESSION['EMAIL']) ?></span>
+                            <input id="edit-input" type="email" class="edit-box hiddenform" value="<?= htmlspecialchars($_SESSION['EMAIL']) ?>">
+                        </div>
+                        <div class="edit-buttons">
+                            <div id="edit-btn" class="button" onClick="toggleEdit('email-edit', true)"><span>Edit</span></div>
+                            <div id="ok-btn" class="button hiddenform" onClick="toggleEdit('email-edit', false)"><span>OK</span></div>
+                        </div>
                     </div>
-                    <div class="input-wrapper">
-                        <span class="input-label">Passwort<span class="error"><?php echo $passErr ?></span></span>
-                        <input class="input-box" type="password" name="password" placeholder="Enter password">
-                        <i class="fa-solid fa-lock focus-input"></i>
-                    </div>
-                    <div style="display: flex; justify-content: center">
-                        <input type="submit" name="save" value="SAVE" class="button">
+                    <label class="edit-form-label">Password</label>
+                    <div class="edit-field" id="pwd-edit">
+                        <div class="edit-content">
+                            <span>********</span>
+                            <input id="edit-input" type="password" class="edit-box hiddenform" placeholder="(unchanged)">
+                        </div>
+                        <div class="edit-buttons">
+                            <div id="edit-btn" class="button" onClick="toggleEdit('pwd-edit', true)"><span>Edit</span></div>
+                            <div id="ok-btn" class="button hiddenform" onClick="toggleEdit('pwd-edit', false)"><span>OK</span></div>
+                        </div>
                     </div>
                 </form>
 
@@ -125,7 +148,7 @@
     </header>
 
     <?php
-    if ($pagetitle == "Login" || str_contains($pagetitle, "Add") || str_contains($pagetitle, "Edit")) {
+    if ($pagetitle == "Login"){
         echo "<main style=\"justify-content: center\">";
     } else {
         echo "<main>";

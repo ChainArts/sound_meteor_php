@@ -46,6 +46,18 @@ let activateForm = () => {
     .classList.remove("hiddenform");
 };
 
+let toggleEdit = (id, state) => {
+  const el = document.getElementById(id);
+  el.getElementsByTagName("span")[0].classList.toggle("hiddenform");
+  el.getElementsByClassName("button")[0].classList.toggle("hiddenform");
+  el.getElementsByClassName("button")[1].classList.toggle("hiddenform");
+  el.getElementsByClassName("edit-box")[0].classList.toggle("hiddenform");
+  state
+    ? el.getElementsByClassName("edit-box")[0].focus()
+    : id === "pwd-edit"
+    ? (el.getElementsByTagName("span")[0].innerHTML = "********")
+    : (el.getElementsByTagName("span")[0].innerHTML = el.getElementsByClassName("edit-box")[0].value);
+};
 window.onload = () => {
   if (window.location.href.includes("?status")) {
     checkMsgBox();
@@ -67,9 +79,8 @@ let toggleMenuOpen = () => {
   document.getElementById("menu-icon").classList.toggle("menu-toggle-closed");
 };
 
-
 let toggleUserOpen = () => {
-  const userListenener = (new AbortController()).signal;
+  const userListenener = new AbortController().signal;
   isUserOpen = !isUserOpen;
   document
     .getElementsByClassName("usr-overlay")[0]
@@ -77,17 +88,21 @@ let toggleUserOpen = () => {
   document
     .getElementsByClassName("usr-backdrop")[0]
     .classList.toggle("usr-backdrop-enabled");
-    document.body.addEventListener("keydown", (e) => {
-        if (!isUserOpen) {
-            userListenener.abort;
-        } else {
-            e = e || window;
-            if (e.key === "Escape") {
-                toggleUserOpen();
-            }
+  document.body.addEventListener(
+    "keydown",
+    (e) => {
+      if (!isUserOpen) {
+        userListenener.abort;
+      } else {
+        e = e || window;
+        if (e.key === "Escape") {
+          toggleUserOpen();
         }
-    }, {signal: userListenener});
-  }
+      }
+    },
+    { signal: userListenener }
+  );
+};
 
 window.onresize = () => {
   if (window.screenX < 1000 && isMenuOpen) {
