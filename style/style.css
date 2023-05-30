@@ -342,18 +342,52 @@ input[type=submit]:hover, .button:hover {
     width: 5rem;
 }
 
+.edit-form{
+    width: 80%;
+    padding: 1rem;
+}
+
+.edit-form label{
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.edit-form span {
+    font-size: 1.1rem;
+}
+
+.edit-field{
+    display: grid;
+    grid-template-columns: 80% 20%; 
+    align-items: center;
+    width: 100%;
+    height: min-content;
+    margin-bottom: 1rem;
+}
+
+.edit-box{
+    transform: translateX(-1rem);
+    user-select: auto;
+    color: var(--font-color);
+    line-height: 2;
+    font-size: 1.1rem;
+    width: 100%;
+    background: var(--base-layer);
+    font-weight: 400;
+    border-radius: 0.5rem;
+    padding: 0rem 0rem 0rem 1rem;
+    display: initial;
+}
+
+.edit-content, .edit-buttons{
+    position: relative;
+}
+
+
+
 .generate-button{
     margin-top: 2rem;
-}
-
-.button>.delete {
-    background: linear-gradient(135deg, red 0%, tomato 100%);
-}
-
-.edit-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .login-logo {
@@ -534,46 +568,6 @@ main {
     font-size: 0.9rem;
 }
 
-.table-wrapper {
-    padding: 2rem !important;
-    border-radius: 1rem;
-    background-color: var(--first-layer);
-    margin-bottom: 2rem;
-}
-
-table {
-    table-layout: fixed;
-}
-
-table,
-th,
-td {
-    border: none;
-    text-align: center;
-    padding: 1rem;
-    font-size: 1em;
-    border-collapse: collapse;
-}
-
-th {
-    min-width: 10rem;
-    font-weight: 600;
-}
-
-tr {
-    transition: all .2s cubic-bezier(.14, .8, .4, 1) !important;
-}
-
-tr:not(:last-child) {
-    border-bottom: solid 1px var(--second-layer);
-}
-
-tr:not(:first-child):hover {
-    cursor: pointer;
-    background-color: var(--second-layer) !important;
-
-}
-
 .state-box {
     background-color: var(--first-layer);
     padding: 1rem 2rem 1rem 2rem;
@@ -610,6 +604,18 @@ select * {
 .schlingel {
     color: tomato;
     padding-bottom: 3rem;
+}
+
+.meteor-container{
+    padding: 1rem;
+    background-color: var(--first-layer);
+    border-radius: 1rem;
+}
+
+.meteor-title{
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
 }
 
 .comets-container{
@@ -767,7 +773,6 @@ select * {
     100% {
         opacity: 1;
         visibility: visible;
-
     }
 }
 
