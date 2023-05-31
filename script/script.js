@@ -1,7 +1,7 @@
 const auth_token = "Discogs token=tmaswzbNQlPUxhekudJyHsNNbUZxMXaPtxXfUYXa";
 
 const form = document.getElementById("form");
-const initialEditState = document.getElementById("edit-form").innerHTML;
+const initialEditState = (!window.location.href.includes("login")) ? document.getElementById("edit-form").innerHTML : "";
 let isMenuOpen,
   isUserOpen = false;
 userEdited = false;

@@ -10,14 +10,6 @@ try {
         header("Location: meteor.php?status=gen_fail");
     } else {
         foreach ($tracks as $track) {
-            echo "
-                <tr onclick=\"window.location='song_details.php?id=" . htmlspecialchars($track->track_id) . "' \">
-                    <td>" . htmlspecialchars($track->track_id) . "</td>
-                    <td>" . htmlspecialchars($track->band) . "</td>
-                    <td>" . htmlspecialchars($track->name) . "</td>
-                    <td>" . htmlspecialchars($track->album) . "</td>
-                    <td>" . htmlspecialchars(convert($track->runtime)) . "</td>
-                </tr>";
         }
     }
 } catch (Exception $e) {
