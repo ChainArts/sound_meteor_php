@@ -384,7 +384,10 @@ input[type=submit]:hover, .button:hover {
     position: relative;
 }
 
-
+.edit-button{
+    display: flex; 
+    justify-content: center;
+}
 
 .generate-button{
     margin-top: 2rem;

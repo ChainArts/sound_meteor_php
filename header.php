@@ -100,7 +100,7 @@ if (isset($_POST)) {
         <div class="usr-backdrop" onclick=toggleUserOpen()></div>
         <div class="usr-overlay">
             <div class="usr-overlay-container">
-                <div class="usr-overlay-close" onclick=toggleUserOpen()>
+                <div class="usr-overlay-close" onclick="toggleUserOpen(); cleanupUserEdit();">
                     <i class="fa-regular fa-circle-xmark"></i>
                 </div>
                 <span class="usr-title">User Settings</span>
@@ -141,6 +141,9 @@ if (isset($_POST)) {
                             <div id="edit-btn" class="button" onClick="toggleEdit('pwd-edit', true)"><span>Edit</span></div>
                             <div id="ok-btn" class="button hiddenform" onClick="toggleEdit('pwd-edit', false)"><span>OK</span></div>
                         </div>
+                    </div>
+                    <div class="edit-button hiddenform">
+                        <input type="submit" name="save" value="SAVE" class="button">
                     </div>
                 </form>
 

@@ -3,6 +3,7 @@ const auth_token = "Discogs token=tmaswzbNQlPUxhekudJyHsNNbUZxMXaPtxXfUYXa";
 const form = document.getElementById("form");
 let isMenuOpen,
   isUserOpen = false;
+userEdited = false;
 
 if (form != null) {
   form.addEventListener(
@@ -46,9 +47,14 @@ let activateForm = () => {
     .classList.remove("hiddenform");
 };
 
+let cleanupUserEdit = () => {
+  document.getElementsByClassName;
+};
+
 let toggleEdit = (id, state) => {
-  const el = document.getElementById(id);
+  const el = document.getElementById(id).closest("form");
   el.getElementsByTagName("span")[0].classList.toggle("hiddenform");
+  el.getElementsByClassName("edit-button")[0].classList.remove("hiddenform");
   el.getElementsByClassName("button")[0].classList.toggle("hiddenform");
   el.getElementsByClassName("button")[1].classList.toggle("hiddenform");
   el.getElementsByClassName("edit-box")[0].classList.toggle("hiddenform");
@@ -56,7 +62,8 @@ let toggleEdit = (id, state) => {
     ? el.getElementsByClassName("edit-box")[0].focus()
     : id === "pwd-edit"
     ? (el.getElementsByTagName("span")[0].innerHTML = "********")
-    : (el.getElementsByTagName("span")[0].innerHTML = el.getElementsByClassName("edit-box")[0].value);
+    : (el.getElementsByTagName("span")[0].innerHTML =
+        el.getElementsByClassName("edit-box")[0].value);
 };
 window.onload = () => {
   if (window.location.href.includes("?status")) {
@@ -97,6 +104,7 @@ let toggleUserOpen = () => {
         e = e || window;
         if (e.key === "Escape") {
           toggleUserOpen();
+          cleanupUserEdit();
         }
       }
     },
