@@ -1,6 +1,7 @@
 const auth_token = "Discogs token=tmaswzbNQlPUxhekudJyHsNNbUZxMXaPtxXfUYXa";
 
 const form = document.getElementById("form");
+const initialEditState = document.getElementById("edit-form").innerHTML;
 let isMenuOpen,
   isUserOpen = false;
 userEdited = false;
@@ -48,13 +49,13 @@ let activateForm = () => {
 };
 
 let cleanupUserEdit = () => {
-  document.getElementsByClassName;
+    document.getElementById("edit-form").innerHTML = initialEditState;
 };
 
 let toggleEdit = (id, state) => {
-  const el = document.getElementById(id).closest("form");
+  const el = document.getElementById(id);
   el.getElementsByTagName("span")[0].classList.toggle("hiddenform");
-  el.getElementsByClassName("edit-button")[0].classList.remove("hiddenform");
+  el.closest("form").getElementsByClassName("edit-button")[0].classList.remove("hiddenform");
   el.getElementsByClassName("button")[0].classList.toggle("hiddenform");
   el.getElementsByClassName("button")[1].classList.toggle("hiddenform");
   el.getElementsByClassName("edit-box")[0].classList.toggle("hiddenform");

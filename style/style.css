@@ -722,6 +722,14 @@ select * {
     border-radius: 0.5rem;
 }
 
+.comet-track span{
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .new-songs{
     display: flex;
     justify-content: center;
