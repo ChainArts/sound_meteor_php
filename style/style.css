@@ -483,16 +483,47 @@ main {
 }
 
 .hero{
+    position: relative;
     width: 100%;
-    padding: 10rem 0rem 10rem 0rem;
+    padding: 5rem 0rem 5rem 0rem;
 
 }
+
+.hero-canvas{
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    position: fixed;
+    overflow: none;
+}
+
+.hero-planet{
+    position: absolute;
+    top:0rem;
+    right: 5rem;
+    height: 30rem;
+}
+
+.hero-comet{
+    position: absolute;
+    width: 20rem;
+    left: calc(45% + 3%*var(--gap));
+    top: calc(8rem + 5rem * var(--gap));
+    transform: rotateZ(calc(5 * var(--gap))deg);
+}
+
 
 .hero-title{
     margin-left: 20%;
-    font-weight: 300;
+    font-weight: 200;
     letter-spacing: 0.5rem;
+    font-size: 7rem;
 }
+
+.mouse{
+    transition: all 1s cubic-bezier(.14, .8, .4, 1);
+}
+
 .side-by-side {
     display: flex;
     gap: 2rem;
@@ -676,7 +707,7 @@ select * {
 
 .comet-card:hover{
     transform: translateY(-.5rem);
-    box-shadow: 0 1.5rem 2.8rem rgba(0,0,0,0.15), 0 1rem 1rem var(--accent)
+    box-shadow: 0 1.5rem 2rem rgba(0,0,0,0.15), 0 0.5rem 1rem var(--accent);
 
 }
 

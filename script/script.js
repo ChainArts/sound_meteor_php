@@ -2,9 +2,20 @@ const auth_token = "Discogs token=tmaswzbNQlPUxhekudJyHsNNbUZxMXaPtxXfUYXa";
 
 const form = document.getElementById("form");
 const initialEditState = (!window.location.href.includes("login")) ? document.getElementById("edit-form").innerHTML : "";
-let isMenuOpen,
-  isUserOpen = false;
-userEdited = false;
+
+let isMenuOpen, isUserOpen, userEdited = false;
+
+document.addEventListener("mousemove", parallax);
+      function parallax(event) {
+          this.querySelectorAll(".mouse").forEach((shift) => {
+              const position = shift.getAttribute("value");
+              const rotation = shift.getAttribute("rot");
+          const x = (window.innerWidth - event.pageX * position) / 90;
+          const y = (window.innerHeight - event.pageY * position) / 90;
+
+          shift.style.transform = `translateX(${x}px) translateY(${y}px) rotateZ(${rotation}deg)`;
+        });
+      }
 
 if (form != null) {
   form.addEventListener(
