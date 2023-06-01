@@ -4,8 +4,9 @@ $pagetitle = "Home";
 
 include "header.php";
 ?>
-
-<h1><?= $pagetitle ?></h1>
+<div class="hero">
+    <h1 class="hero-title">SOUND &emsp;<br> &emsp; METEOR</h1>
+</div>
 <div class="new-songs">
 </div>
 

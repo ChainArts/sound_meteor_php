@@ -40,12 +40,15 @@ a {
 }
 
 header {
+    position: fixed;
+    width: 100%;
     background: var(--first-layer);
     height: 6rem;
     display: flex;
     flex-direction: row;
     padding: 1rem 2rem 1rem 2rem;
     justify-content: space-between;
+    z-index: 10;
 }
 
 .nav-overlay{
@@ -298,7 +301,7 @@ input[type=submit]:hover, .button:hover {
     position: absolute;
     z-index: 1001;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     top: 0;
     left: 0;
     overflow: hidden;
@@ -471,14 +474,25 @@ body {
 
 main {
     height: 100%;
-    min-height: calc(100vh - 6rem);
+    min-height: calc(100vh);
     width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 1rem;
+    padding:  7rem 1rem 1rem 1rem;
 }
 
+.hero{
+    width: 100%;
+    padding: 10rem 0rem 10rem 0rem;
+
+}
+
+.hero-title{
+    margin-left: 20%;
+    font-weight: 300;
+    letter-spacing: 0.5rem;
+}
 .side-by-side {
     display: flex;
     gap: 2rem;
@@ -657,6 +671,13 @@ select * {
     align-items: center;
     gap: 1rem;
     width: 28rem;
+    transition: all .4s cubic-bezier(.14, .8, .4, 1) !important;
+}
+
+.comet-card:hover{
+    transform: translateY(-.5rem);
+    box-shadow: 0 1.5rem 2.8rem rgba(0,0,0,0.15), 0 1rem 1rem var(--accent)
+
 }
 
 .comet-header{
@@ -1008,5 +1029,16 @@ select * {
         justify-content: center;
         align-items: center;
         text-align: center;
+    }
+
+    @media only screen and (max-width: 500px){
+        .comets-container{
+            grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+            width: 100%;
+        }
+    
+        .comet-card{
+            width: 100%;
+        }
     }
 }

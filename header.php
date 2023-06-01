@@ -97,7 +97,7 @@ if (isset($_POST)) {
             </nav>
         </div>
         <?php if($pagetitle != "Login"){ ?>
-        <div class="usr-backdrop" onclick=toggleUserOpen()></div>
+        <div class="usr-backdrop" onclick="toggleUserOpen(); cleanupUserEdit();"></div>
         <div class="usr-overlay">
             <div class="usr-overlay-container">
                 <div class="usr-overlay-close" onclick="toggleUserOpen(); cleanupUserEdit();">

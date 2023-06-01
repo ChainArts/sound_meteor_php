@@ -30,6 +30,7 @@ include "header.php";
                 echo $e->getMessage();
             }
     ?>
+    <a href="/meteor.php?id=<?=$comet->playlist_id?>">
     <div class="comet-card">
         <div class="comet-header">
             <div class="play-btn"><i class="fa-solid fa-play"></i></div>
@@ -61,6 +62,7 @@ include "header.php";
             ?>
         </div>
     </div>
+    </a>
     <?php }?>
 </section>
 
