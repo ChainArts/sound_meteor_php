@@ -17,13 +17,12 @@ if (isset($_POST)) {
     <link rel="icon" href="./media/meteor.svg">
     <link rel="stylesheet" href="./style/fontawesome/all.min.css">
     <link rel="stylesheet" href="./style/style.css">
-
 </head>
 
 <body>
     <header>
         <nav>
-            <div class="logo" style="margin-right: 3rem"><a href="index.php"><img src="./media/SoundMeteor.svg" alt="Logo"></a></div>
+            <div class="logo" style="margin-right: 3rem"><a href="/"><img src="./media/SoundMeteor.svg" alt="Logo"></a></div>
             <?php
             if (isset($_SESSION['USER'])) :
             ?>
@@ -70,16 +69,14 @@ if (isset($_POST)) {
                     <div class=\"bar\"></div>
                     <div class=\"bar\"></div>
                 </div>
-            </div>
-                
-                
+            </div>   
                 ";
             }
             ?>
         </div>
         <div class="nav-overlay">
             <nav class="nav-overlay-container">
-                <div class="logo"><a href="index.php"><img src="./media/SoundMeteor.svg" alt="Logo"></a></div>
+                <div class="logo"><a href="/"><img src="./media/SoundMeteor.svg" alt="Logo"></a></div>
                 <ul>
                     <li><a href="meteor.php" <?php if ($pagetitle == "Meteor") {
                                                     echo "class=\"current-page\"";
