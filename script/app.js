@@ -2,7 +2,8 @@ const auth_token = "Discogs token=tmaswzbNQlPUxhekudJyHsNNbUZxMXaPtxXfUYXa";
 
 const form = document.getElementById("form");
 const initialEditState = (!window.location.href.includes("login")) ? document.getElementById("edit-form").innerHTML : "";
-
+let title = document.title;
+let prevUrl = window.location.href;
 let isMenuOpen, isUserOpen, userEdited = false;
 
 document.addEventListener("mousemove", parallax);
@@ -35,7 +36,74 @@ if (form != null) {
   );
 }
 
-let checkMsgBox = () => {
+const sendPostRequest = async (url, data) => {
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Error');
+      }
+  
+      console.log('POST request succeeded');
+      const responseData = await response.json();
+
+        console.log(responseData);
+        return responseData.status;
+    } catch (error) {
+      // Handle any errors here
+        console.error('Error:', JSON.stringify(error)
+      );
+    }
+};
+  
+const addPref = (pref_id, type) => {
+    const addPrefData = {
+        action: 'add',
+        pref_id: pref_id,
+        type: type
+    }
+    if (sendPostRequest('edit_pref', addPrefData)) {
+        
+    }
+}
+
+const delPref = (pref_id, type, el) => {
+    const delPrefData = {
+        action: 'delete',
+        pref_id: pref_id,
+        type: type
+    }
+    if (sendPostRequest('edit_pref', delPrefData)) {
+        el.parentElement.remove();
+        document.getElementsByTagName("main")[0].prepend(genMsgBox("Preference removed"))
+        checkMsgBox();
+        let nr = document.getElementById("pref-count").innerHTML.replace(/(^\d+)(.+$)/i, '$1');
+        document.getElementById("pref-count").innerHTML = `${nr - 1} / 5 `;
+        if (nr - 1 <= 0) {
+            let no_prefs = document.createElement('li');
+            no_prefs.classList.add('pref-list-item');
+            no_prefs.innerHTML = `<span class="no-pref-msg"> No ${(type == "genre") ? "Genres" : "Moods"} preferences found </span>`
+                document.getElementsByClassName('pref-list')[0].prepend(no_prefs);
+        }
+    }
+}
+
+const genMsgBox = (msg) => {
+    let statebox = document.createElement("div");
+        statebox.classList.add('state-box');
+        statebox.classList.add('hidden');
+    statebox.innerHTML = `<span>${msg}</span>`
+    
+    return statebox;
+}
+
+const checkMsgBox = () => {
   const msg_box = document.getElementsByClassName("state-box")[0];
   if (msg_box != null) {
     msg_box.classList.remove("hidden");
@@ -45,7 +113,7 @@ let checkMsgBox = () => {
   }
 };
 
-let activateForm = () => {
+const activateForm = () => {
   const inputs = document.querySelectorAll("input, select");
 
   for (const input of inputs) {
@@ -59,11 +127,11 @@ let activateForm = () => {
     .classList.remove("hiddenform");
 };
 
-let cleanupUserEdit = () => {
+const cleanupUserEdit = () => {
     document.getElementById("edit-form").innerHTML = initialEditState;
 };
 
-let toggleEdit = (id, state) => {
+const toggleEdit = (id, state) => {
   const el = document.getElementById(id);
   el.getElementsByTagName("span")[0].classList.toggle("hiddenform");
   el.closest("form").getElementsByClassName("edit-button")[0].classList.remove("hiddenform");
@@ -77,8 +145,11 @@ let toggleEdit = (id, state) => {
     : (el.getElementsByTagName("span")[0].innerHTML =
         el.getElementsByClassName("edit-box")[0].value);
 };
-window.onload = () => {
-  if (window.location.href.includes("?status")) {
+
+window.onload = () => getStatus();
+
+const getStatus = () => {
+  if (window.location.href.includes("?status") || window.location.href.includes("&status")) {
     checkMsgBox();
     window.history.pushState(
       {},
@@ -89,7 +160,7 @@ window.onload = () => {
   document.getElementsByTagName("body")[0].classList.add("fade");
 };
 
-let toggleMenuOpen = () => {
+const toggleMenuOpen = () => {
   isMenuOpen = !isMenuOpen;
   document
     .getElementsByClassName("nav-overlay")[0]
@@ -98,15 +169,23 @@ let toggleMenuOpen = () => {
   document.getElementById("menu-icon").classList.toggle("menu-toggle-closed");
 };
 
-let toggleUserOpen = () => {
+const toggleUserOpen = () => {
   const userListenener = new AbortController().signal;
-  isUserOpen = !isUserOpen;
+    isUserOpen = !isUserOpen;
   document
     .getElementsByClassName("usr-overlay")[0]
     .classList.toggle("usr-open");
   document
     .getElementsByClassName("usr-backdrop")[0]
-    .classList.toggle("usr-backdrop-enabled");
+        .classList.toggle("usr-backdrop-enabled");
+    
+    (isUserOpen) ?
+        (   title = document.title,
+            window.history.pushState({}, "", "settings"),
+            document.title = "Sound Meteor | Settings")
+        :
+        (window.history.pushState({}, "", prevUrl),
+        document.title = title)
   document.body.addEventListener(
     "keydown",
     (e) => {

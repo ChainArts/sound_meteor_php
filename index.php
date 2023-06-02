@@ -13,13 +13,16 @@ include "header.php";
             <img class="mouse" value="-3" rot="-5" src="./media/comet.svg" alt="Comet">
         </div>
         <div class="hero-comet" style="--gap: 1">
-            <img class="mouse" value="-4" rot="-10" src="./media/comet.svg" alt="Comet" >
+            <img class="mouse" value="-4" rot="-10" src="./media/comet.svg" alt="Comet">
         </div>
-        <div class="hero-comet"  style="--gap: 2">
+        <div class="hero-comet" style="--gap: 2">
             <img class="mouse" value="-6" rot="-15" src="./media/comet.svg" alt="Comet">
         </div>
     </div>
     <h1 class="hero-title">SOUND &emsp;<br> &emsp; METEOR</h1>
+    <div class="vert-slogan  mobile-hide">
+        <span>Explore the extraterrestrial</span>
+    </div>
 </div>
 <div class="new-songs">
 </div>

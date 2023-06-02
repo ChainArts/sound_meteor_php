@@ -520,6 +520,21 @@ main {
     font-size: 7rem;
 }
 
+.vert-slogan{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-25%);
+}
+
+.vert-slogan span{
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: .5em;
+    writing-mode:vertical-rl;
+    transform:scale(-1);
+}
+
 .mouse{
     transition: all 1s cubic-bezier(.14, .8, .4, 1);
 }
@@ -630,6 +645,7 @@ main {
 }
 
 .hidden {
+    transition: all .4s cubic-bezier(.14, .8, .4, 1) !important;
     transform: translateX(15rem);
     opacity: 0;
 }
@@ -909,6 +925,12 @@ select * {
     position: absolute;
     bottom: 1rem;
     font-size: 1.1rem;
+}
+
+.no-pref-msg{
+    display: flex;
+    width: 100%;
+    justify-content: center;
 }
 
 .new-songs{
@@ -1194,6 +1216,15 @@ footer{
 }
 
 @media only screen and (max-width: 920px) {
+    h1{
+        font-size: 3rem;
+    }
+
+    .hero-title{
+        font-size: 3rem;
+        margin-left: 10%;
+    }
+    
     .mobile-show {
         display: inherit;
         opacity: 1 !important;
@@ -1221,6 +1252,10 @@ footer{
         justify-content: center;
         align-items: center;
         text-align: center;
+    }
+
+    .edit-form, .usr-details{
+        width: 100%;
     }
 
     .help-btn{
