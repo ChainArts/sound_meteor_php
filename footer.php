@@ -7,6 +7,7 @@
     </a>
     <?php } ?>
     </footer>
+    <script src="script/particles.min.js"></script>
     <script src="script/app.js"></script>
 </body>
 </html>

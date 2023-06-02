@@ -5,6 +5,7 @@ $pagetitle = "Home";
 include "header.php";
 ?>
 <div class="hero">
+    <div id="particles-js"></div>
     <div class="hero-canvas">
         <div class="hero-planet">
             <img class="mouse" value="2" rot="0" src="./media/planet.svg" alt="Planet">

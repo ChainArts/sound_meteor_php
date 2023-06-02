@@ -6,6 +6,10 @@ let title = document.title;
 let prevUrl = window.location.href;
 let isMenuOpen, isUserOpen, userEdited = false;
 
+particlesJS.load('particles-js', 'script/particles.json', function() {
+    console.log('callback - particles.js config loaded');
+});
+
 document.addEventListener("mousemove", parallax);
       function parallax(event) {
           this.querySelectorAll(".mouse").forEach((shift) => {
