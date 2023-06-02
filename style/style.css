@@ -507,7 +507,7 @@ main {
 .hero-comet{
     position: absolute;
     width: 20rem;
-    left: calc(45% + 3%*var(--gap));
+    left: calc(45% + 3% * var(--gap));
     top: calc(8rem + 5rem * var(--gap));
     transform: rotateZ(calc(5 * var(--gap))deg);
 }

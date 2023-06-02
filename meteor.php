@@ -38,7 +38,7 @@ try {
 
     if (!empty($list)) {
 
-        $sth = $dbh->prepare("SELECT * FROM saved_in_playlist INNER JOIN tracks ON saved_in_playlist.track_id = tracks.track_id WHERE playlist_id = ?");
+        $sth = $dbh->prepare("SELECT * FROM track_in_playlist INNER JOIN tracks ON track_in_playlist.track_id = tracks.track_id WHERE playlist_id = ?");
         (isset($_GET['id']))
             ?
             $sth->execute(array($_GET['id']))
@@ -51,17 +51,16 @@ try {
             <div class="meteor-img"><img src="./media/SoundMeteor.svg" alt="Logo"></div>
             <?php
             foreach ($tracks as $track) {
-                $title = $track->band . " - " . $track->name;
             ?>
                 <div class="new-song-wrapper">
                     <div class="song-cover">
-                        <img src="" alt="Cover Image">
+                        <img src="<?= $track->albumcoverlink?>" alt="Cover Image">
                     </div>
-                    <span class="song-title"><?= $title ?></span>
+                    <span class="song-title"><?= $track->title ?></span>
                     <div class="song-links">
-                        <a title="Search on Youtube" target="_blank" href="https://youtube.com"><i class="fa-brands fa-youtube"></i></a>
-                        <a title="Search on SoundCloud" target="_blank" href="https://soundcloud.com"><i class="fa-brands fa-soundcloud"></i></a>
-                        <a title="Show on Discogs" target="_blank" href="https://discogs.com"><i class="fa-solid fa-record-vinyl"></i></a>
+                        <a title="Search on Youtube" target="_blank" href="<?= $track->ytlink?>"><i class="fa-brands fa-youtube"></i></a>
+                        <a title="Search on SoundCloud" target="_blank" href="<?= $track->sclink?>"><i class="fa-brands fa-soundcloud"></i></a>
+                        <a title="Show on Discogs" target="_blank" href="<?= $track->discogs?>"><i class="fa-solid fa-record-vinyl"></i></a>
                     </div>
                 </div>
             <?php

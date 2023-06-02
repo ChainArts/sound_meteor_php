@@ -11,7 +11,7 @@ include "header.php";
     <?php
     try
     { 
-        $sth = $dbh->prepare("SELECT * from playlists WHERE isshared = false");
+        $sth = $dbh->prepare("SELECT * from playlists WHERE isshared = true");
         $sth->execute();
         $comets = $sth->fetchAll();
     }
@@ -43,7 +43,7 @@ include "header.php";
         <div class="comet-content">
             <?php
             try{
-                $sth = $dbh->prepare("SELECT band, name FROM saved_in_playlist INNER JOIN tracks ON saved_in_playlist.track_id = tracks.track_id WHERE playlist_id = ?");
+                $sth = $dbh->prepare("SELECT title FROM track_in_playlist INNER JOIN tracks ON track_in_playlist.track_id = tracks.track_id WHERE playlist_id = ?");
                 $sth->execute([$comet->playlist_id]);
                 $tracks = $sth->fetchAll();
                 
@@ -52,7 +52,7 @@ include "header.php";
             
             ?>
             <div class="comet-track">
-                <span><?= $track->band. " - ".$track->name ?></span>
+                <span><?= $track->title ?></span>
             </div>
             <?php
             }}catch (Exception $e) {
