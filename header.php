@@ -15,8 +15,8 @@ if (isset($_POST)) {
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Sound Meteor | <?= $pagetitle ?></title>
     <link rel="icon" href="./media/meteor.svg">
+    <link rel="stylesheet" href="./style/fontawesome/all.min.css">
     <link rel="stylesheet" href="./style/style.css">
-    <script src="https://kit.fontawesome.com/d1ca790695.js" crossorigin="anonymous"></script>
 
 </head>
 
