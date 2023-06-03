@@ -4,9 +4,9 @@ $pagetitle = "Preferences";
 
 $pref_title = "General";
 
-$sth = $dbh->prepare("SELECT oldest_track_year FROM users WHERE user_id = ?");
+$sth = $dbh->prepare("SELECT oldest_track_year, playlist_length FROM user_pref_gen WHERE user_id = ?");
 $sth->execute(array($_SESSION['USER_ID']));
-$year = $sth->fetch();
+$gen_pref = $sth->fetch();
 
 if (isset($_GET['pref'])) {
     if ($_GET['pref'] == "genres") {
@@ -14,11 +14,19 @@ if (isset($_GET['pref'])) {
         $sth = $dbh->prepare("SELECT genres.name, genres.genre_id as pref_id FROM user_pref_genre INNER JOIN genres on user_pref_genre.genre_id = genres.genre_id WHERE user_id = ?");
         $sth->execute(array($_SESSION['USER_ID']));
         $preferences = $sth->fetchAll();
+
+        $sth = $dbh->prepare("SELECT genres.name as pref_name, genres.genre_id as pref_id FROM genres");
+        $sth->execute(array());
+        $pref_type_list = $sth->fetchAll();
     } else if ($_GET['pref'] == "moods") {
         $pref_title = "Moods";
         $sth = $dbh->prepare("SELECT moods.name, moods.mood_id as pref_id FROM user_pref_mood INNER JOIN moods on user_pref_mood.mood_id = moods.mood_id WHERE user_id = ?");
         $sth->execute(array($_SESSION['USER_ID']));
         $preferences = $sth->fetchAll();
+
+        $sth = $dbh->prepare("SELECT moods.name as pref_name, moods.mood_id as pref_id FROM moods");
+        $sth->execute(array());
+        $pref_type_list = $sth->fetchAll();
     }
 }
 
@@ -78,10 +86,10 @@ if (isset($_GET['status'])) {
                                                             echo "fa-music";
                                                         } ?>"></i><span><?= $pref->name ?></span></span>
                             <button type="button" onClick="delPref(<?= $pref->pref_id ?>, <?php if ($pref_title == "Moods") {
-                                                                                            echo "'mood'";
-                                                                                        } else {
-                                                                                            echo "'genre'";
-                                                                                        } ?>, this)">
+                                                                                                echo "'mood'";
+                                                                                            } else {
+                                                                                                echo "'genre'";
+                                                                                            } ?>, this)">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </li>
@@ -91,18 +99,76 @@ if (isset($_GET['status'])) {
                 }
                 ?>
         </ul>
+        <div class="pref-add-wrapper">
+            <div class="pref-add-select">
+                <div class="cust-select" style="width: 100%">
+                    <span>Select <?= $pref_title ?></span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="pref-options-wrapper">
+                    <div class="pref-search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input class="pref-search-input" type="text" placeholder="Search <?= $pref_title ?>">
+                    </div>
+                    <ul class="pref-options" data-simplebar data-simplebar-auto-hide="false">
+                        <?php for ($i=0; $i < 10; $i++) { 
+                            ?>
+                        
+                        <li class="pref-option pref-list-item"><span><i class="fa-solid <?php if ($pref_title == "Moods") {
+                                                                                            echo "fa-masks-theater";
+                                                                                        } else {
+                                                                                            echo "fa-music";
+                                                                                        } ?>"></i>Yeetus</span></li>
+                        <?php } ?>
+                    </ul>
+                </div>
+            </div>
+            <div class="button" style="line-height: 2"><span>save</span></div>
+        </div>
         <span class="pref-count" id="pref-count"><?= count($preferences) ?> / 5</span>
         <?php
                 if (($pref_title == "Genres" || $pref_title == "Moods") && count($preferences) < 5) {
         ?>
             <div class="pref-add">
-                <button>
+                <button onclick="">
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
-    <?php }
-            } ?>
+        <?php }
+            } else {
+        ?>
+        <li class="gen-pref-li">
+            <span>Oldest Songs:</span>
+            <div class="cust-select">
+                <span><?= $gen_pref->oldest_track_year ?></span>
+                <i class="fa-solid fa-chevron-down"></i>
+                <ul class="cust-select-ddown ddown-open">
+                    <?php
+                    $earliest = 1980;
+                    foreach (range(date('Y'), $earliest) as $x) {
+                        echo '<li class="year-select-value"><span>' . $x . '</span></li>';
+                    }
+                    ?>
+                </ul>
+            </div>
+        </li>
+        <li class="gen-pref-li">
+            <span>Playlist Length:</span>
+            <div class="cust-select">
+                <span><?= $gen_pref->playlist_length ?></span>
+                <i class="fa-solid fa-chevron-down"></i>
+                <ul class="cust-select-ddown ddown-open">
+                    <?php
+                    $least = 1;
+                    foreach (range(5, $least) as $x) {
+                        echo '<li class="year-select-value"><span>' . $x . '</span></li>';
+                    }
+                    ?>
+                </ul>
+            </div>
+        </li>
     </div>
+<?php } ?>
 </div>
 
 <?php

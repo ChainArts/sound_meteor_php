@@ -17,6 +17,8 @@ if (isset($_POST)) {
     <link rel="icon" href="./media/meteor.svg">
     <link rel="stylesheet" href="./style/fontawesome/all.min.css">
     <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css">
+    <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
 </head>
 
 <body>
@@ -110,7 +112,7 @@ if (isset($_POST)) {
                     <div class="edit-field" id="usr-edit">
                         <div class="edit-content">
                             <span><?= htmlspecialchars($_SESSION['USER']) ?></span>
-                            <input id="edit-input" type="text" class="edit-box hiddenform" value="<?= htmlspecialchars($_SESSION['USER']) ?>">
+                            <input type="text" class="edit-box hiddenform" value="<?= htmlspecialchars($_SESSION['USER']) ?>">
                         </div>
                         <div class="edit-buttons">
                             <div id="edit-btn" class="button" onClick="toggleEdit('usr-edit', true)"><span>Edit</span></div>
@@ -121,7 +123,7 @@ if (isset($_POST)) {
                     <div class="edit-field" id="email-edit">
                         <div class="edit-content">
                             <span><?= htmlspecialchars($_SESSION['EMAIL']) ?></span>
-                            <input id="edit-input" type="email" class="edit-box hiddenform" value="<?= htmlspecialchars($_SESSION['EMAIL']) ?>">
+                            <input type="email" class="edit-box hiddenform" value="<?= htmlspecialchars($_SESSION['EMAIL']) ?>">
                         </div>
                         <div class="edit-buttons">
                             <div id="edit-btn" class="button" onClick="toggleEdit('email-edit', true)"><span>Edit</span></div>
@@ -132,7 +134,7 @@ if (isset($_POST)) {
                     <div class="edit-field" id="pwd-edit">
                         <div class="edit-content">
                             <span>********</span>
-                            <input id="edit-input" type="password" class="edit-box hiddenform" placeholder="(unchanged)">
+                            <input type="password" class="edit-box hiddenform" placeholder="(unchanged)">
                         </div>
                         <div class="edit-buttons">
                             <div id="edit-btn" class="button" onClick="toggleEdit('pwd-edit', true)"><span>Edit</span></div>

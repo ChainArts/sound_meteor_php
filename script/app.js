@@ -98,6 +98,18 @@ const delPref = (pref_id, type, el) => {
     }
 }
 
+const updatePref = (year) => {
+    const updatePrefData = {
+        action: 'update',
+        year: year
+    }
+}
+
+const openPrefAdd = () => {
+    
+    document.getElementById("add_pref_input").innerHTML
+}
+
 const genMsgBox = (msg) => {
     let statebox = document.createElement("div");
         statebox.classList.add('state-box');
