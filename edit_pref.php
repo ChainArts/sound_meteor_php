@@ -19,6 +19,8 @@ try{
             $sth->execute();
 
         }
+        $response = array('message' => 'Preference added successfully', 'status' => true);
+        echo json_encode($response);
     }
     elseif(isset($_POST['action']) && $_POST['action'] == 'delete'){
         if(isset($_POST['type'])&& $_POST['type'] === 'genre'){
@@ -34,7 +36,7 @@ try{
             $sth->execute();
 
         }
-        $response = array('message' => 'Preferences updated successfully', 'status' => true);
+        $response = array('message' => 'Preference deleted successfully', 'status' => true);
         echo json_encode($response);
     }
     

@@ -99,38 +99,43 @@ if (isset($_GET['status'])) {
                 }
                 ?>
         </ul>
-        <div class="pref-add-wrapper">
+        <div id="select" class="pref-add-wrapper disabled">
             <div class="pref-add-select">
-                <div class="cust-select" style="width: 100%">
-                    <span>Select <?= $pref_title ?></span>
+                <div class="cust-select" style="width: 100%" onclick=toggleDropDown()>
+                    <span selected_id="-1" type="<?php if ($pref_title == "Moods") {
+                                                        echo "mood";
+                                                    } else {
+                                                        echo "genre";
+                                                    } ?>" id="selectedPref">Select <?= $pref_title ?></span>
                     <i class="fa-solid fa-chevron-down"></i>
                 </div>
                 <div class="pref-options-wrapper">
                     <div class="pref-search">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <input class="pref-search-input" type="text" placeholder="Search <?= $pref_title ?>">
+                        <input onkeyup="checkInp(this)" class="pref-search-input" type="text" placeholder="Search <?= $pref_title ?>">
                     </div>
-                    <ul class="pref-options" data-simplebar data-simplebar-auto-hide="false">
-                        <?php for ($i=0; $i < 10; $i++) { 
-                            ?>
-                        
-                        <li class="pref-option pref-list-item"><span><i class="fa-solid <?php if ($pref_title == "Moods") {
-                                                                                            echo "fa-masks-theater";
-                                                                                        } else {
-                                                                                            echo "fa-music";
-                                                                                        } ?>"></i>Yeetus</span></li>
-                        <?php } ?>
-                    </ul>
+                    <div class="pref-options" data-simplebar data-simplebar-auto-hide="false">
+                        <ul id="pref-options">
+                            <?php foreach ($pref_type_list as $pref_type) { ?>
+
+                                <li prefID="<?= $pref_type->pref_id ?>" onclick=updateSelect(this) class="pref-option pref-list-item"><span><i class="fa-solid <?php if ($pref_title == "Moods") {
+                                                                                                                                                                    echo "fa-masks-theater";
+                                                                                                                                                                } else {
+                                                                                                                                                                    echo "fa-music";
+                                                                                                                                                                } ?>"></i><?= $pref_type->pref_name ?></span></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="button" style="line-height: 2"><span>save</span></div>
+            <div id="pref-submit" class="button" style="line-height: 2;"><span>save</span></div>
         </div>
         <span class="pref-count" id="pref-count"><?= count($preferences) ?> / 5</span>
         <?php
                 if (($pref_title == "Genres" || $pref_title == "Moods") && count($preferences) < 5) {
         ?>
             <div class="pref-add">
-                <button onclick="">
+                <button onclick="openPrefAdd(this)">
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
@@ -142,7 +147,7 @@ if (isset($_GET['status'])) {
             <div class="cust-select">
                 <span><?= $gen_pref->oldest_track_year ?></span>
                 <i class="fa-solid fa-chevron-down"></i>
-                <ul class="cust-select-ddown ddown-open">
+                <ul class="cust-select-ddown ddown-open" data-simplebar>
                     <?php
                     $earliest = 1980;
                     foreach (range(date('Y'), $earliest) as $x) {

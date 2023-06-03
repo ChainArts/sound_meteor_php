@@ -155,6 +155,6 @@ if (isset($_POST)) {
     if ($pagetitle == "Login"){
         echo "<main style=\"justify-content: center\">";
     } else {
-        echo "<main>";
+        echo "<main> ";
     }
     ?>

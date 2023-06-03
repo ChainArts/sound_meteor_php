@@ -732,6 +732,17 @@ main {
     opacity: 0;
 }
 
+#select{
+    visibility: visible;
+    opacity: 1;
+    transition: all .4s cubic-bezier(.14, .8, .4, 1) !important;
+}
+
+.disabled{
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
 .hiddenform {
     display: none !important;
 }
@@ -990,6 +1001,8 @@ select * {
     position: absolute;
     bottom: 1rem;
     right: 1rem;
+    opacity: 1;
+    visibility: visible;
 }
 
 .pref-add button{
@@ -1013,11 +1026,18 @@ select * {
 }
 
 .pref-options-wrapper{
-    z-index: 10;
+    transform-origin: top;
+    visibility: hidden;
+    transform: scaleY(0);
+    opacity: 0;
+    z-index: 2;
     position: absolute;
     background-color: var(--base-layer);
     padding: 1rem;
     border-radius: 0.5rem;
+    border: 2px solid var(--accent);
+    width: 100%;
+    transition: all .2s cubic-bezier(.14, .8, .4, 1) !important;
 }
 
 .pref-add-select{
@@ -1040,19 +1060,30 @@ select * {
 }
 
 .pref-options{
-    padding-top: 0.5rem;
-    height: 10rem;
+    margin-top: 0.5rem;
+    height: 12rem;
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;
 }
 
 .pref-option{
+    width: 95%;
+    cursor: pointer;
     transition: all .4s cubic-bezier(.14, .8, .4, 1) !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-transform:capitalize;
 }
 
 .pref-option:hover{
     background-color: var(--second-layer);
+}
+
+.selected{
+    background-color: var(--second-layer);
+    cursor:initial;
 }
 
 .pref-count{
@@ -1072,6 +1103,7 @@ select * {
 }
 
 .cust-select{
+    user-select: none;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1083,6 +1115,19 @@ select * {
     line-height: 1;
     cursor: pointer;
     position: relative;
+}
+.pref-add-wrapper.active .cust-select i{
+    transform: rotateX(-180deg);
+}
+
+.pref-add-wrapper.active .pref-options-wrapper{
+    visibility: visible;
+    transform: scaleX(1);
+    opacity: 1;
+}
+
+.cust-select i{
+    transition: all .2s cubic-bezier(.14, .8, .4, 1) !important;
 }
 
 .cust-select span{
@@ -1422,6 +1467,10 @@ footer{
     .pref-count{
         font-size: 1rem;
         bottom: 0;
+    }
+
+    .pref-add-wrapper{
+        width: 100%;
     }
 
 
