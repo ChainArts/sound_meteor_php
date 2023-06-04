@@ -68,7 +68,7 @@ const sendPostRequest = async (url, data) => {
     return responseData.status;
   } catch (error) {
     // Handle any errors here
-    console.error("Error:", JSON.stringify(error));
+    console.error("Error:", error);
   }
 };
 
@@ -147,11 +147,19 @@ const delPref = (pref_id, type, el) => {
   }
 };
 
-const updatePref = (year) => {
+const updatePref = (value, type) => {
   const updatePrefData = {
-    action: "update",
-    year: year,
-  };
+      action: "update",
+      value: value,
+      type: type
+    };
+
+    if (sendPostRequest("edit_pref", updatePrefData)) {
+        document
+        .getElementsByTagName("main")[0]
+        .prepend(genMsgBox("Preference updated"));
+      checkMsgBox();
+    }
 };
 
 const openPrefAdd = (el) => {
@@ -265,6 +273,13 @@ const toggleUserOpen = () => {
   );
 };
 
+
+const updateGenSelect = (el, type) => {
+    toggleDropDown(type);
+    document.getElementById(type).querySelector('#selectedPref').innerText = el.firstChild.innerText;
+    updatePref(el.firstChild.innerText, type.split('-').pop())
+}
+
 const prefs = document.querySelectorAll("[prefID]");
 
 const updateSelect = (el) => {
@@ -272,7 +287,7 @@ const updateSelect = (el) => {
   document
     .getElementById("selectedPref")
     .setAttribute("selected_id", el.getAttribute("prefid"));
-  toggleDropDown();
+  toggleDropDown('select');
   document
     .getElementById("pref-submit")
     .addEventListener(
@@ -285,8 +300,8 @@ const updateSelect = (el) => {
       { once: true }
     );
 };
-const toggleDropDown = () => {
-  document.getElementById("select").classList.toggle("active");
+const toggleDropDown = (toggleId) => {
+  document.getElementById(toggleId).classList.toggle("active");
 };
 
 const checkInp = (input) => {

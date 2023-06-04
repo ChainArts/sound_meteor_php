@@ -39,6 +39,23 @@ try{
         $response = array('message' => 'Preference deleted successfully', 'status' => true);
         echo json_encode($response);
     }
+    elseif(isset($_POST['action']) && $_POST['action'] == 'update'){
+        if(isset($_POST['type'])&& $_POST['type'] === 'year'){
+            $sth = $dbh->prepare("UPDATE user_pref_gen SET oldest_track_year = :new_val WHERE user_id = :user_id");
+            $sth->bindParam(':user_id', $_SESSION['USER_ID']);
+            $sth->bindParam(':new_val', $_POST['value']);
+            $sth->execute();
+        }
+        else if(isset($_POST['type']) && $_POST['type'] == 'length'){
+            $sth = $dbh->prepare("UPDATE user_pref_gen SET playlist_length = :new_val WHERE user_id = :user_id");
+            $sth->bindParam(':user_id', $_SESSION['USER_ID']);
+            $sth->bindParam(':new_val', $_POST['value']);
+            $sth->execute();
+
+        }
+        $response = array('message' => 'Preference updated successfully', 'status' => true);
+        echo json_encode($response);
+    }
     
     else{
         throw new Exception('Something went wrong');
@@ -47,9 +64,8 @@ try{
 
 }
 catch(Exception $e){
-    $error = array('error' => $e->getMessage());
+    $error = array('error' => $e->getMessage(), 'status' => false);
     echo json_encode($error);
-    echo($e->getMessage());
 }
 
 ?>

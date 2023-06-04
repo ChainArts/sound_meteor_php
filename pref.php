@@ -85,7 +85,7 @@ include "header.php";
         </ul>
         <div id="select" class="pref-add-wrapper disabled">
             <div class="pref-add-select">
-                <div class="cust-select" style="width: 100%" onclick=toggleDropDown()>
+                <div class="cust-select" style="width: 100%" onclick="toggleDropDown('select')">
                     <span selected_id="-1" type="<?php if ($pref_title == "Moods") {
                                                         echo "mood";
                                                     } else {
@@ -130,8 +130,8 @@ include "header.php";
             <span>Oldest Songs:</span>
             <div id="select-year" class="pref-add-wrapper">
                 <div class="pref-add-select">
-                    <div class="cust-select" style="width: 100%" onclick=toggleDropDown()>
-                        <span type="year" id="selectedPref"><?= $gen_pref->oldest_track_year ?></span>
+                    <div class="cust-select" style="width: 100%" onclick="toggleDropDown('select-year')">
+                        <span id="selectedPref"><?= $gen_pref->oldest_track_year ?></span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
                     <div class="pref-options-wrapper">
@@ -140,7 +140,7 @@ include "header.php";
                                 <?php
                                 $earliest = 1980;
                                 foreach (range(date('Y'), $earliest) as $x) {
-                                    echo '<li class="pref-option pref-list-item"><span>' . $x . '</span></li>';
+                                    echo '<li onclick="updateGenSelect(this, \'select-year\')" class="pref-option pref-list-item"><span>' . $x . '</span></li>';
                                 }
                                 ?>
                             </ul>
@@ -150,11 +150,11 @@ include "header.php";
             </div>
         </li>
         <li class="gen-pref-li">
-            <span>Oldest Songs:</span>
+            <span>Playlist Length:</span>
             <div id="select-length" class="pref-add-wrapper">
                 <div class="pref-add-select">
-                    <div class="cust-select" style="width: 100%" onclick=toggleDropDown()>
-                        <span type="length" id="selectedPref"><?= $gen_pref->playlist_length ?></span>
+                    <div class="cust-select" style="width: 100%" onclick="toggleDropDown('select-length')">
+                        <span id="selectedPref"><?= $gen_pref->playlist_length ?></span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
                     <div class="pref-options-wrapper">
@@ -163,7 +163,7 @@ include "header.php";
                                 <?php
                                 $least = 1;
                                 foreach (range(5, $least) as $x) {
-                                    echo '<li class="pref-option pref-list-item"><span>' . $x . '</span></li>';
+                                    echo '<li onclick="updateGenSelect(this, \'select-length\')" class="pref-option pref-list-item"><span>' . $x . '</span></li>';
                                 }
                                 ?>
                             </ul>
