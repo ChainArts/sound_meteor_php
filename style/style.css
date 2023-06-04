@@ -103,6 +103,17 @@ ul {
     list-style: none;
 }
 
+.navLink{
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--accent) !important;
+    transition: all .2s cubic-bezier(.14, .8, .4, 1);
+}
+
+.navLink:hover{
+    color: var(--accent-dark) !important;
+}
+
 a {
     color: var(--font-color) !important;
 }
@@ -1100,6 +1111,10 @@ select * {
     align-items: center;
     flex-direction: row;
     margin-bottom: 0.5rem;
+}
+
+.gen-pref-li span{
+    width: 100%;
 }
 
 .cust-select{

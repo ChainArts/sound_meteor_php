@@ -1,7 +1,8 @@
 const auth_token = "Discogs token=tmaswzbNQlPUxhekudJyHsNNbUZxMXaPtxXfUYXa";
 
 const form = document.getElementById("form");
-const initialEditState = !window.location.href.includes("login")
+const initialEditState =
+    (!window.location.href.includes("register") && !window.location.href.includes("login"))
   ? document.getElementById("edit-form").innerHTML
   : "";
 let title = document.title;
@@ -247,12 +248,6 @@ const toggleUserOpen = () => {
   document
     .getElementsByClassName("usr-backdrop")[0]
     .classList.toggle("usr-backdrop-enabled");
-
-  isUserOpen
-    ? ((title = document.title),
-      window.history.pushState({}, "", "settings"),
-      (document.title = "Sound Meteor | Settings"))
-    : (window.history.pushState({}, "", prevUrl), (document.title = title));
   document.body.addEventListener(
     "keydown",
     (e) => {
@@ -368,6 +363,22 @@ async function loadNewAlbums() {
   } catch (e) {
     console.log(e);
   }
+}
+
+function checkPassword() {
+    const submit = document.getElementById("register");
+    const pwd = document.getElementById("pass").value;
+    const verPwd = document.getElementById("confPass").value;
+    const error = document.getElementById("confErr");
+    
+    if (submit.disabled = pwd != verPwd) {
+        submit.style.borderColor = "tomato";
+        error.innerHTML = "Passwörter stimmen nicht überein";
+    }
+    else {
+        submit.style.borderColor = "var(--accent)";
+        error.innerHTML = "";
+    }
 }
 
 async function loadNewSongs(album_id, cover, uri) {

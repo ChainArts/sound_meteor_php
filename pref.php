@@ -31,22 +31,6 @@ if (isset($_GET['pref'])) {
 }
 
 include "header.php";
-if (isset($_GET['status'])) {
-    switch ($_GET['status']) {
-        case 'del_fail':
-            $msg = "Preference couldn't be removed!";
-            break;
-        case 'del_succ':
-            $msg = "Preference removed!";
-            break;
-        default:
-            echo "Oboi u fucked up mate";
-            break;
-    }
-    echo "<div class=\"state-box hidden\">
-            <span>$msg</span>
-          </div>";
-}
 ?>
 
 <h1><?= $pagetitle ?></h1>
@@ -144,32 +128,48 @@ if (isset($_GET['status'])) {
         ?>
         <li class="gen-pref-li">
             <span>Oldest Songs:</span>
-            <div class="cust-select">
-                <span><?= $gen_pref->oldest_track_year ?></span>
-                <i class="fa-solid fa-chevron-down"></i>
-                <ul class="cust-select-ddown ddown-open" data-simplebar>
-                    <?php
-                    $earliest = 1980;
-                    foreach (range(date('Y'), $earliest) as $x) {
-                        echo '<li class="year-select-value"><span>' . $x . '</span></li>';
-                    }
-                    ?>
-                </ul>
+            <div id="select-year" class="pref-add-wrapper">
+                <div class="pref-add-select">
+                    <div class="cust-select" style="width: 100%" onclick=toggleDropDown()>
+                        <span type="year" id="selectedPref"><?= $gen_pref->oldest_track_year ?></span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="pref-options-wrapper">
+                        <div class="pref-options" data-simplebar data-simplebar-auto-hide="false">
+                            <ul id="pref-options">
+                                <?php
+                                $earliest = 1980;
+                                foreach (range(date('Y'), $earliest) as $x) {
+                                    echo '<li class="pref-option pref-list-item"><span>' . $x . '</span></li>';
+                                }
+                                ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </li>
         <li class="gen-pref-li">
-            <span>Playlist Length:</span>
-            <div class="cust-select">
-                <span><?= $gen_pref->playlist_length ?></span>
-                <i class="fa-solid fa-chevron-down"></i>
-                <ul class="cust-select-ddown ddown-open">
-                    <?php
-                    $least = 1;
-                    foreach (range(5, $least) as $x) {
-                        echo '<li class="year-select-value"><span>' . $x . '</span></li>';
-                    }
-                    ?>
-                </ul>
+            <span>Oldest Songs:</span>
+            <div id="select-length" class="pref-add-wrapper">
+                <div class="pref-add-select">
+                    <div class="cust-select" style="width: 100%" onclick=toggleDropDown()>
+                        <span type="length" id="selectedPref"><?= $gen_pref->playlist_length ?></span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="pref-options-wrapper">
+                        <div class="pref-options" data-simplebar data-simplebar-auto-hide="false">
+                            <ul id="pref-options">
+                                <?php
+                                $least = 1;
+                                foreach (range(5, $least) as $x) {
+                                    echo '<li class="pref-option pref-list-item"><span>' . $x . '</span></li>';
+                                }
+                                ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </li>
     </div>

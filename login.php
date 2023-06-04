@@ -2,6 +2,23 @@
 include "functions.php";
 $pagetitle = "Login";
 
+if (isset($_GET['status'])) {
+    switch ($_GET['status']) {
+        case 'reg_succ':
+            $msg = "Account created successfully!";
+            break;
+        case 'del_fail':
+            $msg = "Account could not be created!";
+            break;
+        default:
+            echo "Oboi u fucked up mate";
+            break;
+    }
+    echo "<div class=\"state-box hidden\">
+            <span>$msg</span>
+          </div>";
+}
+
 $loginErr = $passErr = "";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['username'])) {
@@ -55,9 +72,11 @@ include "header.php";
         <input class="input-box" type="password" name="password" placeholder="Enter password">
         <i class="fa-solid fa-lock focus-input"></i>
     </div>
-    <div style="display: flex; justify-content: center">
+    <span style="width: 100%; margin-top: -1.5rem"><a class="navLink" href="/reset">Forgot password?</a></span>
+    <div style="display: flex; justify-content: center;  margin-top: -1.5rem"">
         <input type="submit" name="login" value="LOGIN" class="button">
     </div>
+    <span style="width: 100%; text-align: center; margin-top: -1.5rem"><a class="navLink" href="/register">Create an account</a></span>
 </form>
 
 <?php
