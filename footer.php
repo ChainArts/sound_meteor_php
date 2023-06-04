@@ -8,6 +8,7 @@
     <?php } ?>
     </footer>
     <script src="script/particles.min.js"></script>
+    <script src="script/api.js"></script>
     <script src="script/app.js"></script>
 </body>
 </html>

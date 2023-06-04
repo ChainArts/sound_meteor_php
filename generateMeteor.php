@@ -1,6 +1,23 @@
 <?php
 include "functions.php";
-$pagetitle = "Home";
+$pagetitle = "GenerateMeteor";
+$GLOBALS['access'] = "Discogs key=IZlOHaDsuFxoVctoMYnV secret=NotaHYFhQWEyHXqeVYwgmiQGCxONflmx";
+
+
+/*try {
+    $sth = $dbh->prepare("SELECT * FROM tracks  WHERE genre_id = 1 Order by random() limit 3");
+    $sth->execute(array());
+    $tracks = $sth->fetchAll();
+
+    if (empty($tracks)) {
+        header("Location: meteor.php?status=gen_fail");
+    } else {
+        foreach ($tracks as $track) {
+        }
+    }
+} catch (Exception $e) {
+    header("Location: meteor.php?status=gen_fail");
+}*/
 
 include "header.php";
 ?>
@@ -20,17 +37,13 @@ include "header.php";
             <img class="mouse" value="-6" rot="-15" src="./media/comet.svg" alt="Comet">
         </div>
     </div>
-    <h1 class="hero-title">SOUND &emsp;<br> &emsp; METEOR</h1>
-    <div class="vert-slogan  mobile-hide">
-        <span>Explore the extraterrestrial</span>
-    </div>
 </div>
-<div class="new-songs">
+<div class="new-songs" style="position:relative; z-index: 1" onload="">
 </div>
 
 <div class="generate-button">
-    <div class="button" >
-        <a href="generateMeteor"><span>generate</span></a>
+    <div class="button" onclick="loadNewAlbums(<?=$_SESSION['year']?>, 'Rock')">
+        <a><span>generate</span></a>
     </div>
 </div>
 

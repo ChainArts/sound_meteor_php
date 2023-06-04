@@ -19,5 +19,4 @@
         $min = intval($sec / 60);
         return $min . ':' . str_pad(($sec % 60), 2, '0', STR_PAD_LEFT);
     }
-
 ?>

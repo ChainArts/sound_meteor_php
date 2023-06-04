@@ -44,6 +44,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $_SESSION['USER'] = htmlspecialchars($usr->username);
                     $_SESSION['PASS'] = $usr->password;
                     $_SESSION['EMAIL'] = $usr->email;
+                    
+                    $sth = $dbh->prepare("SELECT * FROM user_pref_gen WHERE user_id = ?");
+                    $sth->execute(array($_SESSION['USER_ID']));
+                    $usr_pref = $sth->fetch();
+
+                    $_SESSION['list_len'] = $usr_pref->playlist_length;
+                    $_SESSION['year'] = $usr_pref->oldest_track_year;
+
                     header('location: index.php');
                 } else {
                     $passErr = "Password incorrect!";

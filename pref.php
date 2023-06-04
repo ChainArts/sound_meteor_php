@@ -162,7 +162,7 @@ include "header.php";
                             <ul id="pref-options">
                                 <?php
                                 $least = 1;
-                                foreach (range(5, $least) as $x) {
+                                foreach (range($least, 5) as $x) {
                                     echo '<li onclick="updateGenSelect(this, \'select-length\')" class="pref-option pref-list-item"><span>' . $x . '</span></li>';
                                 }
                                 ?>

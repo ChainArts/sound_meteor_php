@@ -2,16 +2,19 @@ const auth_token = "Discogs token=tmaswzbNQlPUxhekudJyHsNNbUZxMXaPtxXfUYXa";
 
 const form = document.getElementById("form");
 const initialEditState =
-    (!window.location.href.includes("register") && !window.location.href.includes("login"))
-  ? document.getElementById("edit-form").innerHTML
-  : "";
-let title = document.title;
-let prevUrl = window.location.href;
+  !window.location.href.includes("register") &&
+  !window.location.href.includes("login")
+    ? document.getElementById("edit-form").innerHTML
+    : "";
+
 let isMenuOpen,
   isUserOpen,
   userEdited = false;
 
-if (window.location.pathname == "/") {
+if (
+  window.location.pathname == "/" ||
+  window.location.pathname.includes("generateMeteor")
+) {
   particlesJS.load("particles-js", "script/particles.json", function () {
     console.log("callback - particles.js config loaded");
   });
@@ -46,121 +49,6 @@ if (form != null) {
     true
   );
 }
-
-const sendPostRequest = async (url, data) => {
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      throw new Error("Error");
-    }
-
-    console.log("POST request succeeded");
-    const responseData = await response.json();
-
-    console.log(responseData);
-    return responseData.status;
-  } catch (error) {
-    // Handle any errors here
-    console.error("Error:", error);
-  }
-};
-
-const addPref = (pref_id, type) => {
-  const addPrefData = {
-    action: "add",
-    pref_id: pref_id,
-    type: type,
-  };
-  if (sendPostRequest("edit_pref", addPrefData)) {
-    document.getElementById("select").classList.add("disabled");
-    document
-      .getElementsByTagName("main")[0]
-      .prepend(genMsgBox("Preference added"));
-    checkMsgBox();
-    let nr = document
-      .getElementById("pref-count")
-      .innerHTML.replace(/(^\d+)(.+$)/i, "$1");
-    document.getElementById("pref-count").innerHTML = `${Number(nr) + 1} / 5 `;
-    if (nr == 0) {
-      document.getElementsByClassName("pref-list")[0].innerHTML = "";
-    }
-
-    const li = document.createElement("li");
-    li.classList.add("pref-list-item");
-    const deleteButton = document.createElement("button");
-    deleteButton.type = "button";
-    deleteButton.addEventListener("click", (event) =>
-      delPref(pref_id, type, event.target)
-      ,{once: true});
-    deleteButton.innerHTML = `<i class="fa-solid fa-trash"></i>`
-    li.innerHTML = `
-                <span>
-                    <i class="fa-solid ${
-                      type == "genre" ? "fa-music" : "fa-masks-theater"
-                    }"></i>
-                    <span>${
-                      document.getElementById("selectedPref").innerText
-                    }</span>
-                </span>`
-      li.appendChild(deleteButton);
-    document.getElementsByClassName("pref-list")[0].appendChild(li);
-    if (Number(nr) + 1 < 5) {
-      document
-        .getElementsByClassName("pref-add")[0]
-        .classList.remove("disabled");
-    }
-  }
-};
-
-const delPref = (pref_id, type, el) => {
-  const delPrefData = {
-    action: "delete",
-    pref_id: pref_id,
-    type: type,
-  };
-  if (sendPostRequest("edit_pref", delPrefData)) {
-    console.log(el);
-    el.closest("li").remove();
-    document
-      .getElementsByTagName("main")[0]
-      .prepend(genMsgBox("Preference removed"));
-    checkMsgBox();
-    let nr = document
-      .getElementById("pref-count")
-      .innerHTML.replace(/(^\d+)(.+$)/i, "$1");
-    document.getElementById("pref-count").innerHTML = `${nr - 1} / 5 `;
-    if (nr - 1 <= 0) {
-      let no_prefs = document.createElement("li");
-      no_prefs.classList.add("pref-list-item");
-      no_prefs.innerHTML = `<span class="no-pref-msg"> No ${
-        type == "genre" ? "Genres" : "Moods"
-      } preferences found </span>`;
-      document.getElementsByClassName("pref-list")[0].prepend(no_prefs);
-    }
-  }
-};
-
-const updatePref = (value, type) => {
-  const updatePrefData = {
-      action: "update",
-      value: value,
-      type: type
-    };
-
-    if (sendPostRequest("edit_pref", updatePrefData)) {
-        document
-        .getElementsByTagName("main")[0]
-        .prepend(genMsgBox("Preference updated"));
-      checkMsgBox();
-    }
-};
 
 const openPrefAdd = (el) => {
   document.getElementById("select").classList.remove("disabled");
@@ -273,21 +161,22 @@ const toggleUserOpen = () => {
   );
 };
 
-
 const updateGenSelect = (el, type) => {
-    toggleDropDown(type);
-    document.getElementById(type).querySelector('#selectedPref').innerText = el.firstChild.innerText;
-    updatePref(el.firstChild.innerText, type.split('-').pop())
-}
+  toggleDropDown(type);
+  document.getElementById(type).querySelector("#selectedPref").innerText =
+    el.firstChild.innerText;
+  updatePref(el.firstChild.innerText, type.split("-").pop());
+};
 
 const prefs = document.querySelectorAll("[prefID]");
 
 const updateSelect = (el) => {
-  document.getElementById("selectedPref").innerText = el.closest("li").firstChild.innerText;
+  document.getElementById("selectedPref").innerText =
+    el.closest("li").firstChild.innerText;
   document
     .getElementById("selectedPref")
     .setAttribute("selected_id", el.getAttribute("prefid"));
-  toggleDropDown('select');
+  toggleDropDown("select");
   document
     .getElementById("pref-submit")
     .addEventListener(
@@ -351,10 +240,31 @@ window.onresize = () => {
   }
 };
 
-async function loadNewAlbums() {
+function checkPassword() {
+  const submit = document.getElementById("register");
+  const pwd = document.getElementById("pass").value;
+  const verPwd = document.getElementById("confPass").value;
+  const error = document.getElementById("confErr");
+
+  if ((submit.disabled = pwd != verPwd)) {
+    submit.style.borderColor = "tomato";
+    error.innerHTML = "Passwörter stimmen nicht überein";
+  } else {
+    submit.style.borderColor = "var(--accent)";
+    error.innerHTML = "";
+  }
+}
+
+const loadNewAlbums = async (usr_year, style) => {
   const year =
-    Math.floor(Math.random() * (new Date().getFullYear() - 2005)) + 2005;
-  let query = `https://api.discogs.com/database/search?style=drum+n+bass&per_page=10&format=album&format=Single&format=EP&type=release&type=master&year=${year}`;
+    Math.floor(Math.random() * (new Date().getFullYear() - usr_year)) +
+    usr_year;
+  let query = `https://api.discogs.com/database/search?style=${style
+    .toLowerCase()
+    .split(" ")
+    .join(
+      "+"
+    )}&per_page=5&format=album&format=Single&format=EP&type=release&type=master&year=${year}`;
   try {
     const res_pages = await fetch(query, {
       headers: {
@@ -362,6 +272,7 @@ async function loadNewAlbums() {
       },
     });
     let data = await res_pages.json();
+    console.log(`AlbumData: \n`, data);
     const res = await fetch(
       query + `&page=${Math.floor(Math.random() * data.pagination.pages + 1)}`,
       {
@@ -371,32 +282,19 @@ async function loadNewAlbums() {
       }
     );
     data = await res.json();
-    console.log(data);
-    data.results.forEach((album) => {
-      loadNewSongs(album.id, album.thumb, album.uri);
+    const promises = data.results.map((album) => {
+      return loadNewSongs(album.id, album.thumb, album.uri, album.style);
     });
+    const newSongs = await Promise.all(promises);
+    const newSongArray = [].concat(...newSongs);
+    populateSongs(newSongArray);
   } catch (e) {
     console.log(e);
   }
-}
+};
 
-function checkPassword() {
-    const submit = document.getElementById("register");
-    const pwd = document.getElementById("pass").value;
-    const verPwd = document.getElementById("confPass").value;
-    const error = document.getElementById("confErr");
-    
-    if (submit.disabled = pwd != verPwd) {
-        submit.style.borderColor = "tomato";
-        error.innerHTML = "Passwörter stimmen nicht überein";
-    }
-    else {
-        submit.style.borderColor = "var(--accent)";
-        error.innerHTML = "";
-    }
-}
-
-async function loadNewSongs(album_id, cover, uri) {
+const loadNewSongs = async (album_id, cover, uri, styles) => {
+  let songsArray = [];
   const songlist = document.getElementsByClassName("new-songs")[0];
   songlist.innerHTML = "";
   try {
@@ -406,9 +304,9 @@ async function loadNewSongs(album_id, cover, uri) {
       },
     });
     let data = await res.json();
+    console.log(`SongData: \n`);
     console.log(data);
     data.tracklist.forEach((track) => {
-      const newSong = document.createElement("div");
       const title = Object.hasOwn(track, "artists")
         ? track.artists
             .map((art) => art.name)
@@ -422,30 +320,21 @@ async function loadNewSongs(album_id, cover, uri) {
             .replaceAll(/\([^)]*\)/g, "") +
           " - " +
           track.title;
-      newSong.classList.add("new-song-wrapper");
-      newSong.innerHTML = `
-          <div class="song-cover">
-        <img src="${cover}" alt="Cover Image">
-          </div>
-          <span class="song-title">${title}</span>
-          <div class="song-links">
-          <a title="Search on Youtube" target="_blank" href="https://youtube.com/results?search_query=${encodeURIComponent(
-            title
-          )}">
-          <i class="fa-brands fa-youtube"></i></a>
-        <a title="Search on Soundcloud" target="_blank" href="https://soundcloud.com/search?q=${title.replace(
-          "&",
-          "%26"
-        )}"><i class="fa-brands fa-soundcloud"></i></a>
-            <a title="Show on Discogs" target="_blank" href="https://discogs.com/${uri.replace(
-              /^\//,
-              ""
-            )}"><i class="fa-solid fa-record-vinyl"></i></a>
-            </div>
-            `;
-      songlist.append(newSong);
+      const songObj = {
+        cover: cover,
+        title: title,
+        ytLink: `https://youtube.com/results?search_query=${encodeURIComponent(
+          title
+        )}`,
+        scLink: `https://soundcloud.com/search?q=${title.replace("&", "%26")}`,
+        discogs: `https://discogs.com/${uri.replace(/^\//, "")}`,
+        year: data.year,
+      };
+      songsArray.push(songObj); // Add the song object to the array
     });
   } catch (e) {
     console.log(e);
+  } finally {
+    return { songsArray, styles };
   }
-}
+};
