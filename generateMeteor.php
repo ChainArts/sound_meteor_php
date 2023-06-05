@@ -4,11 +4,36 @@ if (!isset($_SESSION["USER"])) {
     header('Location: ./login.php');
 }
 $pagetitle = "Generate Meteor";
-
+$type = 'General';
 try {
-    $sth = $dbh->prepare("SELECT genres.genre_id, name FROM genres INNER JOIN user_pref_genre ON genres.genre_id = user_pref_genre.genre_id WHERE user_id = ? ORDER BY RANDOM() LIMIT 1");
-    $sth->execute(array($_SESSION['USER_ID']));
-    $randPrefGenre = $sth->fetch();
+    $randNum = mt_rand(1, 100);
+
+    if($randNum <=70){
+
+        $type = 'Genre';
+
+        //random genre based on genre preferences
+        $sth = $dbh->prepare("SELECT genres.genre_id, name FROM genres INNER JOIN user_pref_genre ON genres.genre_id = user_pref_genre.genre_id WHERE user_id = ? ORDER BY RANDOM() LIMIT 1");
+        $sth->execute(array($_SESSION['USER_ID']));
+        $randPrefGenre = $sth->fetch();
+    }
+    else{
+        //random genre based on mood preferences
+
+        $type = 'Mood';
+        $dbh->beginTransaction();
+        
+        $sth = $dbh->prepare("SELECT moods.mood_id FROM moods INNER JOIN user_pref_mood ON moods.mood_id = user_pref_mood.mood_id WHERE user_id = ? ORDER BY RANDOM() LIMIT 1");
+        $sth->execute(array($_SESSION['USER_ID']));
+        $randMood = $sth->fetch();
+
+        $sth = $dbh->prepare("SELECT genres.genre_id, genres.name as name FROM genre_mood_relations INNER JOIN genres ON genre_mood_relations.genre_id = genres.genre_id WHERE mood_id = ? ORDER BY RANDOM() LIMIT 1");
+        $sth->execute(array($randMood->mood_id));
+        $randPrefGenre = $sth->fetch();
+        
+        $dbh->commit();
+        
+    }
 
     if (empty($randPrefGenre)) {
         $sth = $dbh->prepare("SELECT genre_id, name FROM genres ORDER BY RANDOM() LIMIT 1");
@@ -43,7 +68,7 @@ include "header.php";
 </div>
 <div class="spinner" style="display: flex;">
     <img src="./media/meteor.svg" alt="Spinner">
-    <span>Loading...</span>
+    <span>Generating <?=$type?>-Meteor...</span>
 </div>
 
 <?php
