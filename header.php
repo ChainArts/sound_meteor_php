@@ -26,11 +26,12 @@ if (isset($_POST)) {
     <header>
         <nav>
             <div class="logo" style="margin-right: 3rem"><a href="/"><img src="./media/SoundMeteor.svg" alt="Logo"></a></div>
+            <ul class="mobile-hide">
             <?php
             if (isset($_SESSION['USER'])) :
             ?>
 
-                <ul class="mobile-hide">
+                
                     <li><a href="meteor.php" <?php if ($pagetitle == "Meteor") {
                                                     echo "class=\"current-page\"";
                                                 } ?>>Meteor</a></li>
@@ -40,11 +41,12 @@ if (isset($_POST)) {
                     <li><a href="pref.php" <?php if ($pagetitle == "Preferences") {
                                                 echo "class=\"current-page\"";
                                             } ?>>Preferences</a></li>
+            <?php endif; ?>
                     <li><a href="about.php" <?php if ($pagetitle == "About") {
                                                 echo "class=\"current-page\"";
                                             } ?>>About</a></li>
                 </ul>
-            <?php endif; ?>
+            
         </nav>
         <div class="login">
             <?php
@@ -153,7 +155,7 @@ if (isset($_POST)) {
     </header>
 
     <?php
-    if ($pagetitle == "Login"){
+    if ($pagetitle == "Login" || $pagetitle == "Forgot Password"){
         echo "<main style=\"justify-content: center\">";
     } else {
         echo "<main> ";

@@ -30,7 +30,7 @@ include "header.php";
 
 <div class="generate-button">
     <div class="button" >
-        <a href="generateMeteor"><span>generate</span></a>
+        <a <?php if(isset($_SESSION['ID'])){echo "href=\"generateMeteor\"";}else{echo "href=\"login\"";}?>><span>generate</span></a>
     </div>
 </div>
 
