@@ -2,21 +2,21 @@
 include "functions.php";
 $pagetitle = "Generate Meteor";
 
+try {
+    $sth = $dbh->prepare("SELECT genres.genre_id, name FROM genres INNER JOIN user_pref_genre ON genres.genre_id = user_pref_genre.genre_id WHERE user_id = ? ORDER BY RANDOM() LIMIT 1");
+    $sth->execute(array($_SESSION['USER_ID']));
+    $randPrefGenre = $sth->fetch();
 
-/*try {
-    $sth = $dbh->prepare("SELECT * FROM tracks  WHERE genre_id = 1 Order by random() limit 3");
-    $sth->execute(array());
-    $tracks = $sth->fetchAll();
 
-    if (empty($tracks)) {
-        header("Location: meteor.php?status=gen_fail");
-    } else {
-        foreach ($tracks as $track) {
-        }
+    if (empty($randPrefGenre)) {
+        $sth = $dbh->prepare("SELECT genre_id, name FROM genres ORDER BY RANDOM() LIMIT 1");
+        $sth->execute(array());
+        $randPrefGenre = $sth->fetch();
     }
 } catch (Exception $e) {
     header("Location: meteor.php?status=gen_fail");
-}*/
+    echo $e->getMessage();
+}
 
 include "header.php";
 ?>
@@ -45,6 +45,6 @@ include "header.php";
 </div>
 
 <?php
+echo '<script> loadNewAlbums(' . $_SESSION['year'] . ' , \'' . $randPrefGenre->name . '\' , ' . $randPrefGenre->genre_id . ') </script>';
 include "footer.php";
-echo '<script> loadNewAlbums('. $_SESSION['year'] .' , \'Rock\') </script>';
 ?>

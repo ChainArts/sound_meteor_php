@@ -1,4 +1,5 @@
 const auth_token = "Discogs token=tmaswzbNQlPUxhekudJyHsNNbUZxMXaPtxXfUYXa";
+const openAI_token = "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"
 const sendPostRequest = async (url, data) => {
   try {
     const response = await fetch(url, {
@@ -64,41 +65,51 @@ const addPref = async (pref_id, type) => {
                   </span>`;
     li.appendChild(deleteButton);
     document.getElementsByClassName("pref-list")[0].appendChild(li);
-    if (Number(nr) + 1 < 5) {
-      document
-        .getElementsByClassName("pref-add")[0]
-        .classList.remove("disabled");
+      if (Number(nr) + 1 < 5) {
+          //ABSOLUTE HACK LOL
+          setTimeout(() => {
+              document
+                  .getElementsByClassName("pref-add")[0]
+                  .classList.remove("disabled");
+          }, 2000);
     }
   }
 };
 
 const delPref = async (pref_id, type, el) => {
-  const delPrefData = {
-    action: "delete",
-    pref_id: pref_id,
-    type: type,
-  };
-  const res = await sendPostRequest("edit_pref", delPrefData);
-  if (res) {
-    console.log(el);
-    el.closest("li").remove();
-    document
-      .getElementsByTagName("main")[0]
-      .prepend(genMsgBox("Preference removed"));
-    checkMsgBox();
-    let nr = document
-      .getElementById("pref-count")
-      .innerHTML.replace(/(^\d+)(.+$)/i, "$1");
-    document.getElementById("pref-count").innerHTML = `${nr - 1} / 5 `;
-    if (nr - 1 <= 0) {
-      let no_prefs = document.createElement("li");
-      no_prefs.classList.add("pref-list-item");
-      no_prefs.innerHTML = `<span class="no-pref-msg"> No ${
-        type == "genre" ? "Genres" : "Moods"
-      } preferences found </span>`;
-      document.getElementsByClassName("pref-list")[0].prepend(no_prefs);
+    const delPrefData = {
+        action: "delete",
+        pref_id: pref_id,
+        type: type,
+    };
+    const res = await sendPostRequest("edit_pref", delPrefData);
+    if (res) {
+        console.log(el);
+        el.closest("li").remove();
+        document
+            .getElementsByTagName("main")[0]
+            .prepend(genMsgBox("Preference removed"));
+        checkMsgBox();
+        let nr = document
+            .getElementById("pref-count")
+            .innerHTML.replace(/(^\d+)(.+$)/i, "$1");
+        document.getElementById("pref-count").innerHTML = `${nr - 1} / 5 `;
+        if (nr - 1 <= 0) {
+            let no_prefs = document.createElement("li");
+            no_prefs.classList.add("pref-list-item");
+            no_prefs.innerHTML = `<span class="no-pref-msg"> No ${type == "genre" ? "Genres" : "Moods"
+                } preferences found </span>`;
+            document.getElementsByClassName("pref-list")[0].prepend(no_prefs);
+        }
+        else if (Number(nr) - 1 == 4) {
+            //ABSOLUTE HACK LOL
+            setTimeout(() => {
+                document
+                    .getElementsByClassName("pref-add")[0]
+                    .classList.remove("disabled");
+            }, 2000);
+        }
     }
-  }
 };
 
 const updatePref = async (value, type) => {
@@ -117,7 +128,7 @@ const updatePref = async (value, type) => {
   }
 };
 
-const populateSongs = async (songlist, style) => {
+const populateSongs = async (songlist, style, id) => {
     console.log('beforepost',songlist)
     const newSongData = {
         action: 'fill',
@@ -126,7 +137,7 @@ const populateSongs = async (songlist, style) => {
   try {
     const res = await sendPostRequest("edit_pref", newSongData);
       console.log(res);
-      window.location.href = "/meteor";
+      window.location.href = `/meteor?genPlaylist&style=${style}&sid=${id}`;
       document
       .getElementsByTagName("main")[0]
       .prepend(genMsgBox("Songs in Datenbank gekotzt"));
@@ -138,7 +149,7 @@ const populateSongs = async (songlist, style) => {
   }
 };
 
-const loadNewAlbums = async (usr_year, style) => {
+const loadNewAlbums = async (usr_year, style, id) => {
     const year =
       Math.floor(Math.random() * (new Date().getFullYear() - usr_year)) +
       usr_year;
@@ -147,7 +158,7 @@ const loadNewAlbums = async (usr_year, style) => {
       .split(" ")
       .join(
         "+"
-      )}&per_page=5&format=album&format=Single&format=EP&type=release&type=master&year=${year}`;
+      )}&per_page=2&format=album&format=Single&format=EP&type=release&type=master&year=${year}`;
     try {
       const res_pages = await fetch(query, {
         headers: {
@@ -170,7 +181,7 @@ const loadNewAlbums = async (usr_year, style) => {
       });
       const newSongs = await Promise.all(promises);
       const newSongArray = [].concat(...newSongs);
-      populateSongs(newSongArray, style);
+      populateSongs(newSongArray, style, id);
     } catch (e) {
       console.log(e);
     }
@@ -206,10 +217,10 @@ const loadNewAlbums = async (usr_year, style) => {
         const songObj = {
           cover: cover,
           title: title,
-          ytLink: `https://youtube.com/results?search_query=${encodeURIComponent(
+          ytlink: `https://youtube.com/results?search_query=${encodeURIComponent(
             title
           )}`,
-          scLink: `https://soundcloud.com/search?q=${title.replace("&", "%26")}`,
+          sclink: `https://soundcloud.com/search?q=${title.replace("&", "%26")}`,
           discogs: `https://discogs.com/${uri.replace(/^\//, "")}`,
           year: data.year,
         };

@@ -4,7 +4,6 @@ if (!isset($_SESSION["USER"])) {
     header('Location: schlingel.php');
 }
 $pagetitle = "Meteor";
-include "header.php";
 
 if (isset($_GET['status'])) {
     
@@ -21,7 +20,31 @@ if (isset($_GET['status'])) {
           </div>";
 }
 try {
-    if (isset($_GET['id'])) {
+    if(isset($_GET['genPlaylist']) && isset($_GET['style']) && isset($_GET['sid'])){
+        try{
+            $dbh->beginTransaction();
+  
+        $sth = $dbh->prepare("INSERT INTO playlists (name, creator_id, genre_id) VALUES (?, ?, ?) RETURNING playlist_id");
+        $sth->execute(array($_GET['style'], $_SESSION['USER_ID'], $_GET['sid']));
+        $newPlaylist = $sth->fetch();
+
+        $sth = $dbh->prepare("SELECT tracks.track_id FROM tracks INNER JOIN track_is_genre ON tracks.track_id = track_is_genre.track_id WHERE genre_id = ? ORDER BY RANDOM() LIMIT 3");
+        $sth->execute(array($_GET['sid']));
+        $track_ids = $sth->fetchAll();
+
+        $sth = $dbh->prepare("INSERT INTO track_in_playlist (playlist_id, track_id) VALUES (?, ?)");
+        foreach ($track_ids as $track_id) {
+            $sth->execute(array($newPlaylist->playlist_id, $track_id->track_id));
+        }
+        $dbh->commit();
+        header("Location: ". $_SERVER['PHP_SELF'] . "?id=". $newPlaylist->playlist_id);
+        exit();
+    }catch(PDOException $e){
+        $dbh->rollBack();
+        header("Location: ". $_SERVER['PHP_SELF'] . "?status=gen_fail");
+    }
+        }
+    else if (isset($_GET['id'])) {
 
         $sth = $dbh->prepare("SELECT * FROM playlists WHERE playlist_id = ?");
         $sth->execute(array($_GET['id']));
@@ -37,6 +60,7 @@ try {
     }
 
     if (!empty($list)) {
+        include "header.php";
 
         $sth = $dbh->prepare("SELECT * FROM track_in_playlist INNER JOIN tracks ON track_in_playlist.track_id = tracks.track_id WHERE playlist_id = ?");
         (isset($_GET['id']))

@@ -110,6 +110,7 @@ try{
                 $dbh->rollBack();
                 $error = array('error' => $e->getMessage(), 'status' => false, 'post_dump' => var_export($_POST, true));
                 echo json_encode($error);
+
             }
             $response = array('message' => 'Songs inserted successfully', 'status' => true);
             echo json_encode($response);

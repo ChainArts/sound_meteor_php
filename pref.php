@@ -116,9 +116,9 @@ include "header.php";
         </div>
         <span class="pref-count" id="pref-count"><?= count($preferences) ?> / 5</span>
         <?php
-                if (($pref_title == "Genres" || $pref_title == "Moods") && count($preferences) < 5) {
+                if (($pref_title == "Genres" || $pref_title == "Moods")) {
         ?>
-            <div class="pref-add">
+            <div class="pref-add <?php if(count($preferences) >= 5) {echo "disabled"; } ?>">
                 <button onclick="openPrefAdd(this)">
                     <i class="fa-solid fa-plus"></i>
                 </button>

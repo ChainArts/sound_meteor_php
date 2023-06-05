@@ -11,7 +11,8 @@ let isMenuOpen,
 
 if (
   window.location.pathname == "/" ||
-  window.location.pathname.includes("generateMeteor")
+    window.location.pathname.includes("generateMeteor") ||
+    window.location.pathname.includes("index")
 ) {
   particlesJS.load("particles-js", "script/particles.json", function () {
     console.log("callback - particles.js config loaded");
