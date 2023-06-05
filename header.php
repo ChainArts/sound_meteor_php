@@ -25,7 +25,7 @@ if (isset($_POST)) {
 <body>
     <header>
         <nav>
-            <div class="logo" style="margin-right: 3rem"><a href="/"><img src="./media/SoundMeteor.svg" alt="Logo"></a></div>
+            <div class="logo" style="margin-right: 3rem"><a href="./"><img src="./media/SoundMeteor.svg" alt="Logo"></a></div>
             <ul class="mobile-hide">
             <?php
             if (isset($_SESSION['USER'])) :
@@ -155,7 +155,7 @@ if (isset($_POST)) {
     </header>
 
     <?php
-    if ($pagetitle == "Login" || $pagetitle == "Forgot Password"){
+    if ($pagetitle == "Login" || $pagetitle == "Forgot Password" || $pagetitle == "Reset Password"){
         echo "<main style=\"justify-content: center\">";
     } else {
         echo "<main> ";

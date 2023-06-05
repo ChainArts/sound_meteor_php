@@ -4,6 +4,7 @@ if (!isset($_SESSION["USER"])) {
     header('Location: schlingel.php');
 }
 $pagetitle = "Meteor";
+include "header.php";
 
 if (isset($_GET['status'])) {
     
@@ -60,8 +61,6 @@ try {
     }
 
     if (!empty($list)) {
-        include "header.php";
-
         $sth = $dbh->prepare("SELECT * FROM track_in_playlist INNER JOIN tracks ON track_in_playlist.track_id = tracks.track_id WHERE playlist_id = ?");
         (isset($_GET['id']))
             ?
@@ -120,7 +119,7 @@ try {
             <div class="meteor-scroll-cont">
                 <?php
                 try {
-                    $sth = $dbh->prepare("SELECT * from playlists WHERE creator_id=?");
+                    $sth = $dbh->prepare("SELECT * from playlists WHERE creator_id=? ORDER BY playlist_id DESC");
                     $sth->execute([$_SESSION['USER_ID']]);
                     $comets = $sth->fetchAll();
                 } catch (Exception $e) {
@@ -129,7 +128,7 @@ try {
 
                 foreach ($comets as $comet) {
                 ?>
-                    <a href="/meteor.php?id=<?= $comet->playlist_id ?>">
+                    <a href="./meteor.php?id=<?= $comet->playlist_id ?>">
                         <div class="comet-card">
                             <div class="comet-header">
                                 <div class="play-btn"><i class="fa-solid fa-play"></i></div>
@@ -190,7 +189,7 @@ try {
                         echo $e->getMessage();
                     }
                 ?>
-                    <a href="/meteor.php?id=<?= $comet->playlist_id ?>">
+                    <a href="./meteor.php?id=<?= $comet->playlist_id ?>">
                         <div class="comet-card">
                             <div class="comet-header">
                                 <div class="play-btn"><i class="fa-solid fa-play"></i></div>

@@ -10,7 +10,7 @@ let isMenuOpen,
   userEdited = false;
 
 if (
-  window.location.pathname == "/" ||
+  window.location.pathname == "/~fhs49272/mmp1/" ||
     window.location.pathname.includes("generateMeteor") ||
     window.location.pathname.includes("index")
 ) {
@@ -247,7 +247,7 @@ function checkPassword() {
 
   if ((submit.disabled = pwd != verPwd)) {
     submit.style.borderColor = "tomato";
-    error.innerHTML = "Passwörter stimmen nicht überein";
+    error.innerHTML = "Passwords do not match!";
   } else {
     submit.style.borderColor = "var(--accent)";
     error.innerHTML = "";

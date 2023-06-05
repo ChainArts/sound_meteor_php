@@ -28,9 +28,9 @@ include "header.php";
 <div class="new-songs">
 </div>
 
-<div class="generate-button">
+<div class="generate-button" style="font-size: 1.5rem;">
     <div class="button" >
-        <a <?php if(isset($_SESSION['ID'])){echo "href=\"generateMeteor\"";}else{echo "href=\"login\"";}?>><span>generate</span></a>
+        <a <?php if(isset($_SESSION['ID'])){echo "href=\"./generateMeteor.php\"";}else{echo "href=\"./login.php\"";}?>><span>generate</span></a>
     </div>
 </div>
 

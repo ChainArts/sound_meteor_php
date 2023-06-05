@@ -136,7 +136,7 @@ const populateSongs = async (songlist, style, id) => {
   try {
     const res = await sendPostRequest("js_php_interface", newSongData);
       console.log(res);
-      window.location.href = `/meteor?genPlaylist&style=${style}&sid=${id}`;
+      window.location.href = `./meteor.php?genPlaylist&style=${style}&sid=${id}`;
       document
       .getElementsByTagName("main")[0]
       .prepend(genMsgBox("New tracks added to database"));

@@ -4,6 +4,9 @@ $pagetitle = "Login";
 
 if (isset($_GET['status'])) {
     switch ($_GET['status']) {
+        case 'res_succ':
+            $msg = "Password reset successfully!";
+            break;
         case 'reg_succ':
             $msg = "Account created successfully!";
             break;
@@ -52,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $_SESSION['list_len'] = $usr_pref->playlist_length;
                     $_SESSION['year'] = $usr_pref->oldest_track_year;
 
-                    header('location: index.php');
+                    header('location: ./');
                 } else {
                     $passErr = "Password incorrect!";
                 }
@@ -80,11 +83,11 @@ include "header.php";
         <input class="input-box" type="password" name="password" placeholder="Enter password">
         <i class="fa-solid fa-lock focus-input"></i>
     </div>
-    <span style="width: 100%; margin-top: -1.5rem"><a class="navLink" href="/forgot">Forgot password?</a></span>
+    <span style="width: 100%; margin-top: -1.5rem"><a class="navLink" href="./forgot.php">Forgot password?</a></span>
     <div style="display: flex; justify-content: center;  margin-top: -1.5rem"">
         <input type="submit" name="login" value="LOGIN" class="button">
     </div>
-    <span style="width: 100%; text-align: center; margin-top: -1.5rem"><a class="navLink" href="/register">Create an account</a></span>
+    <span style="width: 100%; text-align: center; margin-top: -1.5rem"><a class="navLink" href="./register.php">Create an account</a></span>
 </form>
 
 <?php
