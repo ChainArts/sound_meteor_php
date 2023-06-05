@@ -1594,6 +1594,16 @@ footer{
         width: 100%;
     }
 
+    @media only screen and (max-width: 720px){
+        .meteor-list{
+            padding: 0.5rem 0.;
+            width: 100% !important;
+        }
+
+        .meteor-col{
+            padding: 0.1rem;
+        }
+    }
 
     @media only screen and (max-width: 500px){
         .comets-container{
