@@ -775,6 +775,7 @@ select * {
 }
 
 .meteor-container{
+    position: relative;
     margin-top: 4rem;
     padding: 2rem;
     background-color: var(--first-layer);
@@ -784,6 +785,23 @@ select * {
     gap: 1.5rem;
     width: 100%;
     max-width: 44rem;
+}
+
+.meteor-like{
+    position: absolute;
+    right: 2rem;
+    padding: .5rem;
+    font-size: 1.4rem;
+    border-radius: 100%;
+    height: 2rem;
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.meteor-like:hover{
+    background-color: var(--second-layer);
 }
 
 .meteor-title{

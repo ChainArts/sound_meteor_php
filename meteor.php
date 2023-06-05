@@ -6,7 +6,7 @@ if (!isset($_SESSION["USER"])) {
 $pagetitle = "Meteor";
 
 if (isset($_GET['status'])) {
-    
+
     switch ($_GET['status']) {
         case 'gen_fail':
             $msg = "Meteor could not be generated";
@@ -20,35 +20,37 @@ if (isset($_GET['status'])) {
           </div>";
 }
 try {
-    if(isset($_GET['genPlaylist']) && isset($_GET['style']) && isset($_GET['sid'])){
-        try{
+    if (isset($_GET['genPlaylist']) && isset($_GET['style']) && isset($_GET['sid'])) {
+        try {
             $dbh->beginTransaction();
-  
-        $sth = $dbh->prepare("INSERT INTO playlists (name, creator_id, genre_id) VALUES (?, ?, ?) RETURNING playlist_id");
-        $sth->execute(array($_GET['style'], $_SESSION['USER_ID'], $_GET['sid']));
-        $newPlaylist = $sth->fetch();
 
-        $sth = $dbh->prepare("SELECT tracks.track_id FROM tracks INNER JOIN track_is_genre ON tracks.track_id = track_is_genre.track_id WHERE genre_id = ? ORDER BY RANDOM() LIMIT 3");
-        $sth->execute(array($_GET['sid']));
-        $track_ids = $sth->fetchAll();
+            $sth = $dbh->prepare("INSERT INTO playlists (name, creator_id, genre_id) VALUES (?, ?, ?) RETURNING playlist_id");
+            $sth->execute(array($_GET['style'], $_SESSION['USER_ID'], $_GET['sid']));
+            $newPlaylist = $sth->fetch();
 
-        $sth = $dbh->prepare("INSERT INTO track_in_playlist (playlist_id, track_id) VALUES (?, ?)");
-        foreach ($track_ids as $track_id) {
-            $sth->execute(array($newPlaylist->playlist_id, $track_id->track_id));
+            $sth = $dbh->prepare("SELECT tracks.track_id FROM tracks INNER JOIN track_is_genre ON tracks.track_id = track_is_genre.track_id WHERE genre_id = ? ORDER BY RANDOM() LIMIT 3");
+            $sth->execute(array($_GET['sid']));
+            $track_ids = $sth->fetchAll();
+
+            $sth = $dbh->prepare("INSERT INTO track_in_playlist (playlist_id, track_id) VALUES (?, ?)");
+            foreach ($track_ids as $track_id) {
+                $sth->execute(array($newPlaylist->playlist_id, $track_id->track_id));
+            }
+            $dbh->commit();
+            header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $newPlaylist->playlist_id);
+            exit();
+        } catch (PDOException $e) {
+            $dbh->rollBack();
+            header("Location: " . $_SERVER['PHP_SELF'] . "?status=gen_fail");
         }
-        $dbh->commit();
-        header("Location: ". $_SERVER['PHP_SELF'] . "?id=". $newPlaylist->playlist_id);
-        exit();
-    }catch(PDOException $e){
-        $dbh->rollBack();
-        header("Location: ". $_SERVER['PHP_SELF'] . "?status=gen_fail");
-    }
-        }
-    else if (isset($_GET['id'])) {
+    } else if (isset($_GET['id'])) {
 
         $sth = $dbh->prepare("SELECT * FROM playlists WHERE playlist_id = ?");
         $sth->execute(array($_GET['id']));
         $list = $sth->fetch();
+
+        $sth = $dbh->prepare("UPDATE playlists SET view_amount = view_amount+1 WHERE playlist_id = ?");
+        $sth->execute(array($_GET['id']));
 
         $sth = $dbh->prepare("SELECT username FROM users WHERE user_id = ?");
         $sth->execute(array($list->creator_id));
@@ -61,15 +63,25 @@ try {
 
     if (!empty($list)) {
         include "header.php";
+        $pid = (isset($_GET['id']) ? $_GET['id'] : $list->playlist_id);
+
+        $sth = $dbh->prepare("SELECT * FROM savedplaylists WHERE playlist_id = ? and user_id = ?");
+        $sth->execute(array($pid, $_SESSION['USER_ID']));
+        $isLikedbyUser = $sth->fetch();
+
         $sth = $dbh->prepare("SELECT * FROM track_in_playlist INNER JOIN tracks ON track_in_playlist.track_id = tracks.track_id WHERE playlist_id = ?");
-        (isset($_GET['id']))
-            ?
-            $sth->execute(array($_GET['id']))
-            :
-            $sth->execute(array($list->playlist_id));
+        $sth->execute(array($pid));
         $tracks = $sth->fetchAll();
 ?>
         <div class="meteor-container">
+
+            
+                <a href='./edit_playlist.php?method=<?php if(empty($isLikedbyUser)){echo "like&pid=". $pid;}else{echo "dislike&pid=". $pid;} ?>'>
+                    <button type="submit" name="like" class="meteor-like">
+                        <i class="<?php if(empty($isLikedbyUser)){echo 'fa-regular';}else{echo 'fa-solid';}?> fa-heart"></i>
+                    </button>
+                </a>
+            </form>
             <span class="meteor-title"><?= $list->name ?> - Meteor</span>
             <div class="meteor-img"><img src="./media/SoundMeteor.svg" alt="Logo"></div>
             <?php
