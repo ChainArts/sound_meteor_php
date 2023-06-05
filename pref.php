@@ -1,5 +1,8 @@
 <?php
 include "functions.php";
+if (!isset($_SESSION["USER"])) {
+    header('Location: ./login.php');
+}
 $pagetitle = "Preferences";
 
 $pref_title = "General";

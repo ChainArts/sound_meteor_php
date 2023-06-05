@@ -1,7 +1,7 @@
 <?php
 include "functions.php";
 if (!isset($_SESSION["USER"])) {
-    header('Location: schlingel.php');
+    header('Location: ./login.php');
 }
 $pagetitle = "Meteor";
 
