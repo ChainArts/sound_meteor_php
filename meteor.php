@@ -4,7 +4,6 @@ if (!isset($_SESSION["USER"])) {
     header('Location: schlingel.php');
 }
 $pagetitle = "Meteor";
-include "header.php";
 
 if (isset($_GET['status'])) {
     
@@ -61,6 +60,7 @@ try {
     }
 
     if (!empty($list)) {
+        include "header.php";
         $sth = $dbh->prepare("SELECT * FROM track_in_playlist INNER JOIN tracks ON track_in_playlist.track_id = tracks.track_id WHERE playlist_id = ?");
         (isset($_GET['id']))
             ?

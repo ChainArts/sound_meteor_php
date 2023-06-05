@@ -28,7 +28,7 @@ const addPref = async (pref_id, type) => {
     pref_id: pref_id,
     type: type,
   };
-  const res = await sendPostRequest("js_php_interface", addPrefData);
+  const res = await sendPostRequest("./js_php_interface.php", addPrefData);
   if (res) {
     document.getElementById("select").classList.add("disabled");
     document
@@ -81,7 +81,7 @@ const delPref = async (pref_id, type, el) => {
         pref_id: pref_id,
         type: type,
     };
-    const res = await sendPostRequest("js_php_interface", delPrefData);
+    const res = await sendPostRequest("./js_php_interface.php", delPrefData);
     if (res) {
         console.log(el);
         el.closest("li").remove();
@@ -118,7 +118,7 @@ const updatePref = async (value, type) => {
     type: type,
   };
 
-  const res = await sendPostRequest("js_php_interface", updatePrefData);
+  const res = await sendPostRequest("./js_php_interface.php", updatePrefData);
   if (res) {
     document
       .getElementsByTagName("main")[0]
@@ -134,7 +134,7 @@ const populateSongs = async (songlist, style, id) => {
         songlist: songlist
     }
   try {
-    const res = await sendPostRequest("js_php_interface", newSongData);
+    const res = await sendPostRequest("./js_php_interface.php", newSongData);
       console.log(res);
       window.location.href = `./meteor.php?genPlaylist&style=${style}&sid=${id}`;
       document
