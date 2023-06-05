@@ -203,7 +203,7 @@ const checkInp = (input) => {
           text.includes(searchQuery) &&
           text.indexOf(searchQuery) === text.lastIndexOf(searchQuery)
         ) {
-          return { innerText: text, prefID: el.getAttribute("prefID") };
+          return { innerText: text, prefID: el.getAttribute("prefid") };
         } else return null;
       })
       .filter((value) => value !== null);
@@ -213,7 +213,7 @@ const checkInp = (input) => {
     filteredPrefs.forEach((pref) => {
       const li = document.createElement("li");
       li.innerHTML = `<span>${icon}${pref.innerText}</span>`;
-      li.prefID = pref.prefID;
+      li.setAttribute('prefID', pref.prefID);
       li.classList.add("pref-option");
       li.classList.add("pref-list-item");
       if (

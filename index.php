@@ -22,7 +22,7 @@ include "header.php";
     </div>
     <h1 class="hero-title">SOUND &emsp;<br> &emsp; METEOR</h1>
     <div class="vert-slogan  mobile-hide">
-        <span>Explore the extraterrestrial</span>
+        <span class="mouse" value="0.5" rot="-180">Explore the extraterrestrial</span>
     </div>
 </div>
 <div class="new-songs">
