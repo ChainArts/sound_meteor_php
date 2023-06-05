@@ -7,7 +7,6 @@ try {
     $sth->execute(array($_SESSION['USER_ID']));
     $randPrefGenre = $sth->fetch();
 
-
     if (empty($randPrefGenre)) {
         $sth = $dbh->prepare("SELECT genre_id, name FROM genres ORDER BY RANDOM() LIMIT 1");
         $sth->execute(array());

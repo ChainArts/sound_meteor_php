@@ -1,5 +1,4 @@
 const auth_token = "Discogs token=tmaswzbNQlPUxhekudJyHsNNbUZxMXaPtxXfUYXa";
-const openAI_token = "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"
 const sendPostRequest = async (url, data) => {
   try {
     const response = await fetch(url, {
