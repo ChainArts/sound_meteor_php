@@ -28,8 +28,8 @@ try {
             $sth->execute(array($_GET['style'], $_SESSION['USER_ID'], $_GET['sid']));
             $newPlaylist = $sth->fetch();
 
-            $sth = $dbh->prepare("SELECT tracks.track_id FROM tracks INNER JOIN track_is_genre ON tracks.track_id = track_is_genre.track_id WHERE genre_id = ? ORDER BY RANDOM() LIMIT 3");
-            $sth->execute(array($_GET['sid']));
+            $sth = $dbh->prepare("SELECT tracks.track_id FROM tracks INNER JOIN track_is_genre ON tracks.track_id = track_is_genre.track_id WHERE genre_id = ? and tracks.year > ? ORDER BY RANDOM() LIMIT ?");
+            $sth->execute(array($_GET['sid'], $_SESSION['year'], $_SESSION['list_len']));
             $track_ids = $sth->fetchAll();
 
             $sth = $dbh->prepare("INSERT INTO track_in_playlist (playlist_id, track_id) VALUES (?, ?)");
@@ -44,7 +44,7 @@ try {
             header("Location: " . $_SERVER['PHP_SELF'] . "?status=gen_fail");
         }
     } else if (isset($_GET['id'])) {
-
+        $dbh->beginTransaction();
         $sth = $dbh->prepare("SELECT * FROM playlists WHERE playlist_id = ?");
         $sth->execute(array($_GET['id']));
         $list = $sth->fetch();
@@ -55,8 +55,10 @@ try {
         $sth = $dbh->prepare("SELECT username FROM users WHERE user_id = ?");
         $sth->execute(array($list->creator_id));
         $creator = $sth->fetch();
+
+        $dbh->commit();
     } else {
-        $sth = $dbh->prepare("SELECT * FROM playlists WHERE creator_id = ?");
+        $sth = $dbh->prepare("SELECT * FROM playlists WHERE creator_id = ? ORDER BY playlist_id DESC");
         $sth->execute(array($_SESSION['USER_ID']));
         $list = $sth->fetch();
     }
@@ -151,7 +153,7 @@ try {
                             </div>
                             <div class="comet-ico"><img src="./media/comet.svg" alt="Comet"></div>
                             <span class="comet-creator">By <span><?= htmlspecialchars($_SESSION['USER']) ?></span></span>
-                            <div class="comet-content">
+                            <div class="comet-content" data-simplebar data-simplebar-auto-hide="false">
                                 <?php
                                 try {
                                     $sth = $dbh->prepare("SELECT title FROM track_in_playlist INNER JOIN tracks ON track_in_playlist.track_id = tracks.track_id WHERE playlist_id = ?");
@@ -212,7 +214,7 @@ try {
                             </div>
                             <div class="comet-ico"><img src="./media/comet.svg" alt="Comet"></div>
                             <span class="comet-creator">By <span><?= htmlspecialchars($usr->username) ?></span></span>
-                            <div class="comet-content">
+                            <div class="comet-content" data-simplebar data-simplebar-auto-hide="false">
                                 <?php
                                 try {
                                     $sth = $dbh->prepare("SELECT title FROM track_in_playlist INNER JOIN tracks ON track_in_playlist.track_id = tracks.track_id WHERE playlist_id = ?");

@@ -41,7 +41,7 @@ include "header.php";
                 </div>
                 <div class="comet-ico"><img src="./media/comet.svg" alt="Comet"></div>
                 <span class="comet-creator">By <span><?= htmlspecialchars($usr->username) ?></span></span>
-                <div class="comet-content">
+                <div class="comet-content" data-simplebar data-simplebar-auto-hide="false">
                     <?php
                     try {
                         $sth = $dbh->prepare("SELECT title FROM track_in_playlist INNER JOIN tracks ON track_in_playlist.track_id = tracks.track_id WHERE playlist_id = ?");

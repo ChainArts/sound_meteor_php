@@ -44,13 +44,16 @@ try{
             $sth->bindParam(':user_id', $_SESSION['USER_ID']);
             $sth->bindParam(':new_val', $_POST['value']);
             $sth->execute();
+            //Update Session var
+            $_SESSION['year'] = $_POST['value'];
         }
         else if(isset($_POST['type']) && $_POST['type'] == 'length'){
             $sth = $dbh->prepare("UPDATE user_pref_gen SET playlist_length = :new_val WHERE user_id = :user_id");
             $sth->bindParam(':user_id', $_SESSION['USER_ID']);
             $sth->bindParam(':new_val', $_POST['value']);
             $sth->execute();
-
+            //Update Session var
+            $_SESSION['list_len'] = $_POST['value'];
         }
         $response = array('message' => 'Preference updated successfully', 'status' => true);
         echo json_encode($response);
