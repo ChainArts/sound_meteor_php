@@ -17,8 +17,8 @@ if (isset($_POST)) {
     <link rel="icon" href="./media/meteor.svg">
     <link rel="stylesheet" href="./style/fontawesome/all.min.css">
     <link rel="stylesheet" href="./style/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css">
-    <script defer src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
+    <link rel="stylesheet" href="./style/simplebar/simplebar.css">
+    <script defer src="./script/simplebar.min.js"></script>
     <script src="script/api.js"></script>
 </head>
 
