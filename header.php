@@ -18,7 +18,8 @@ if (isset($_POST)) {
     <link rel="stylesheet" href="./style/fontawesome/all.min.css">
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css">
-    <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
+    <script defer src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script>
+    <script src="script/api.js"></script>
 </head>
 
 <body>

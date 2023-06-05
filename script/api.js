@@ -1,3 +1,4 @@
+const auth_token = "Discogs token=tmaswzbNQlPUxhekudJyHsNNbUZxMXaPtxXfUYXa";
 const sendPostRequest = async (url, data) => {
   try {
     const response = await fetch(url, {
@@ -116,7 +117,7 @@ const updatePref = async (value, type) => {
   }
 };
 
-const populateSongs = async (songlist) => {
+const populateSongs = async (songlist, style) => {
     console.log('beforepost',songlist)
     const newSongData = {
         action: 'fill',
@@ -125,12 +126,99 @@ const populateSongs = async (songlist) => {
   try {
     const res = await sendPostRequest("edit_pref", newSongData);
       console.log(res);
+      window.location.href = "/meteor";
       document
       .getElementsByTagName("main")[0]
       .prepend(genMsgBox("Songs in Datenbank gekotzt"));
-    checkMsgBox();
+      checkMsgBox();
+      
       
   } catch (e) {
     console.error(e);
   }
 };
+
+const loadNewAlbums = async (usr_year, style) => {
+    const year =
+      Math.floor(Math.random() * (new Date().getFullYear() - usr_year)) +
+      usr_year;
+    let query = `https://api.discogs.com/database/search?style=${style
+      .toLowerCase()
+      .split(" ")
+      .join(
+        "+"
+      )}&per_page=5&format=album&format=Single&format=EP&type=release&type=master&year=${year}`;
+    try {
+      const res_pages = await fetch(query, {
+        headers: {
+          Authorization: auth_token,
+        },
+      });
+      let data = await res_pages.json();
+      console.log(`AlbumData: \n`, data);
+      const res = await fetch(
+        query + `&page=${Math.floor(Math.random() * data.pagination.pages + 1)}`,
+        {
+          headers: {
+            Authorization: auth_token,
+          },
+        }
+      );
+      data = await res.json();
+      const promises = data.results.map((album) => {
+        return loadNewSongs(album.id, album.thumb, album.uri, album.style);
+      });
+      const newSongs = await Promise.all(promises);
+      const newSongArray = [].concat(...newSongs);
+      populateSongs(newSongArray, style);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  
+  const loadNewSongs = async (album_id, cover, uri, styles) => {
+    let songsArray = [];
+    const songlist = document.getElementsByClassName("new-songs")[0];
+    songlist.innerHTML = "";
+    try {
+      const res = await fetch(`https://api.discogs.com/releases/${album_id}`, {
+        headers: {
+          Authorization: auth_token,
+        },
+      });
+      let data = await res.json();
+      console.log(`SongData: \n`);
+      console.log(data);
+      data.tracklist.forEach((track) => {
+        const title = Object.hasOwn(track, "artists")
+          ? track.artists
+              .map((art) => art.name)
+              .join(" & ")
+              .replaceAll(/\([^)]*\)/g, "") +
+            " - " +
+            track.title
+          : data.artists
+              .map((art) => art.name)
+              .join(" & ")
+              .replaceAll(/\([^)]*\)/g, "") +
+            " - " +
+            track.title;
+        const songObj = {
+          cover: cover,
+          title: title,
+          ytLink: `https://youtube.com/results?search_query=${encodeURIComponent(
+            title
+          )}`,
+          scLink: `https://soundcloud.com/search?q=${title.replace("&", "%26")}`,
+          discogs: `https://discogs.com/${uri.replace(/^\//, "")}`,
+          year: data.year,
+        };
+        songsArray.push(songObj); // Add the song object to the array
+      });
+    } catch (e) {
+      console.log(e);
+    } finally {
+      return { songsArray, styles };
+    }
+  };
+  

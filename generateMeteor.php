@@ -1,7 +1,6 @@
 <?php
 include "functions.php";
-$pagetitle = "GenerateMeteor";
-$GLOBALS['access'] = "Discogs key=IZlOHaDsuFxoVctoMYnV secret=NotaHYFhQWEyHXqeVYwgmiQGCxONflmx";
+$pagetitle = "Generate Meteor";
 
 
 /*try {
@@ -38,15 +37,14 @@ include "header.php";
         </div>
     </div>
 </div>
-<div class="new-songs" style="position:relative; z-index: 1" onload="">
+<div class="new-songs" style="position:relative; z-index: 1">
 </div>
-
-<div class="generate-button">
-    <div class="button" onclick="loadNewAlbums(<?=$_SESSION['year']?>, 'Rock')">
-        <a><span>generate</span></a>
-    </div>
+<div class="spinner" style="display: flex;">
+    <img src="./media/meteor.svg" alt="Spinner">
+    <span>Loading...</span>
 </div>
 
 <?php
 include "footer.php";
+echo '<script> loadNewAlbums('. $_SESSION['year'] .' , \'Rock\') </script>';
 ?>
