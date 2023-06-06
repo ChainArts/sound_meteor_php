@@ -13,7 +13,7 @@ include "header.php";
 <section class="comets-container">
     <?php
     try {
-        $sth = $dbh->prepare("SELECT * from playlists WHERE isshared = true");
+        $sth = $dbh->prepare("SELECT * from playlists WHERE isshared = true ORDER BY playlist_id DESC");
         $sth->execute();
         $comets = $sth->fetchAll();
     } catch (Exception $e) {
