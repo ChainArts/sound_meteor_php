@@ -103,6 +103,17 @@ ul {
     list-style: none;
 }
 
+p{
+    text-align: center;
+}
+
+.about h2{
+    padding: 2rem;
+    font-size: 1.4rem;
+    color: var(--accent-dark);
+    font-weight: 300;
+}
+
 .navLink{
     font-size: 1rem;
     font-weight: 300;
@@ -1419,6 +1430,18 @@ footer{
     animation: 1s infinite spin linear;
 }
 
+.about{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 35rem;
+}
+
+.about li{
+    text-align: center;
+}
+
 @keyframes spin {
     from {transform:rotate(0deg);}
     to {transform:rotate(360deg);}
@@ -1630,6 +1653,10 @@ footer{
 
         .meteor-col{
             padding: 0.1rem;
+        }
+
+        .about{
+            width: 100%;
         }
     }
 
