@@ -818,7 +818,34 @@ select * {
 
 .meteor-details{
     display: flex;
-    justify-content: space-evenly;
+    justify-content:space-between;
+    gap: 2rem;
+    
+}
+
+.meteor-details-field{
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    background-color: var(--base-layer);
+    transition: all .4s cubic-bezier(.14, .8, .4, 1) !important;
+}
+
+.meteor-details-field.clickable:hover{
+    background-color: var(--second-layer);
+    cursor: pointer;
+    
+}
+
+.meteor-details-field i{
+    color: var(--accent);
+    font-size: 1.2rem;
 }
 
 .chevron-down{

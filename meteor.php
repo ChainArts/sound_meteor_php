@@ -32,11 +32,15 @@ try {
             $sth->execute(array($_GET['sid'], $_SESSION['year'], $_SESSION['list_len']));
             $track_ids = $sth->fetchAll();
 
+            $dbh->commit();
+
+            if (empty($track_ids)) {
+                header("Location: " . $_SERVER['PHP_SELF'] . "?status=gen_fail");
+            }
             $sth = $dbh->prepare("INSERT INTO track_in_playlist (playlist_id, track_id) VALUES (?, ?)");
             foreach ($track_ids as $track_id) {
                 $sth->execute(array($newPlaylist->playlist_id, $track_id->track_id));
             }
-            $dbh->commit();
             header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $newPlaylist->playlist_id);
             exit();
         } catch (PDOException $e) {
@@ -76,16 +80,49 @@ try {
         $tracks = $sth->fetchAll();
 ?>
         <div class="meteor-container">
-
-            
-                <a href='./edit_playlist.php?method=<?php if(empty($isLikedbyUser)){echo "like&pid=". $pid;}else{echo "dislike&pid=". $pid;} ?>'>
-                    <button type="submit" name="like" class="meteor-like">
-                        <i class="<?php if(empty($isLikedbyUser)){echo 'fa-regular';}else{echo 'fa-solid';}?> fa-heart"></i>
-                    </button>
-                </a>
+            <a href='./edit_playlist.php?method=<?php if (empty($isLikedbyUser)) {
+                                                    echo "like&pid=" . $pid;
+                                                } else {
+                                                    echo "dislike&pid=" . $pid;
+                                                } ?>'>
+                <button type="submit" name="like" class="meteor-like">
+                    <i class="<?php if (empty($isLikedbyUser)) {
+                                    echo 'fa-regular';
+                                } else {
+                                    echo 'fa-solid';
+                                } ?> fa-heart"></i>
+                </button>
+            </a>
             </form>
             <span class="meteor-title"><?= $list->name ?> - Meteor</span>
             <div class="meteor-img"><img src="./media/SoundMeteor.svg" alt="Logo"></div>
+            <div class="meteor-details">
+                <div class="meteor-details-field"><i class="fa-solid fa-user"></i><span><?= (!empty($creator)) ? $creator->username : $_SESSION['USER'] ?></span></div>
+                <div class="meteor-details-field"><i class="fa-solid fa-play"></i><span><?= $list->view_amount ?></span></div>
+
+                <?php if ($list->creator_id == $_SESSION['USER_ID']) { ?>
+
+                    <div id="share-btn" class="meteor-details-field clickable" onclick="togglePlaylistShare(<?= $pid ?>,'<?php if ($list->isshared) {
+                                                                                                                echo 'unshare';
+                                                                                                            } else {
+                                                                                                                echo 'share';
+                                                                                                            } ?>')">
+                        <i class="fa-solid fa-share-nodes"></i><span id="share"><?php if ($list->isshared) echo "Shared";
+                                                                else echo "Not Shared"; ?></span>
+                    </div>
+                <?php } else { ?>
+
+                    <div class="meteor-details-field">
+                        <i class="fa-solid fa-share-nodes"></i><span> <?php if ($list->isshared) echo "Shared";
+                                                                else echo "Not Shared"; ?></span>
+                    </div>
+
+
+                <?php } ?>
+            </div>
+            <form method="POST" action="./edit_playlist.php">
+                <input type="hidden" name="pid" value="<?= $pid ?>">
+            </form>
             <?php
             foreach ($tracks as $track) {
             ?>
@@ -103,12 +140,6 @@ try {
             <?php
             }
             ?>
-            <div class="meteor-details">
-                <span><?= (!empty($creator)) ? $creator->username : $_SESSION['USER'] ?></span>
-                <span>Views: <?= $list->view_amount ?></span>
-                <span>Shared: <?php if ($list->isshared) echo "true";
-                                else echo "false"; ?></span>
-            </div>
         </div>
     <?php
     } else {
@@ -242,8 +273,6 @@ try {
         </div>
     </div>
 </div>
-
-
 <?php
 include "footer.php";
 ?>

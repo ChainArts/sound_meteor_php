@@ -14,12 +14,13 @@ const sendPostRequest = async (url, data) => {
     }
 
     console.log("POST request succeeded");
-    const responseData = await response.json();
-    return responseData;
+      const responseData = await response.json();
+      console.log(responseData);
+      return responseData.status;
   } catch (error) {
     // Handle any errors here
     console.error("Error:", error);
-  }
+    }
 };
 
 const addPref = async (pref_id, type) => {
@@ -83,7 +84,6 @@ const delPref = async (pref_id, type, el) => {
     };
     const res = await sendPostRequest("./js_php_interface.php", delPrefData);
     if (res) {
-        console.log(el);
         el.closest("li").remove();
         document
             .getElementsByTagName("main")[0]
@@ -126,6 +126,42 @@ const updatePref = async (value, type) => {
     checkMsgBox();
   }
 };
+
+const togglePlaylistShare = async (pid, state) => {
+    const toggleData = {
+        action: "update",
+        type: "playlist",
+        pid: pid,
+        state: state
+    };
+    let newState
+    let newText
+    newState = 'share';
+    newText = "Not Shared";
+    if (state == 'share') {
+        newState = 'unshare'
+        newText = "Shared";   
+    }
+  
+   
+    const res = await sendPostRequest("./js_php_interface.php", toggleData);
+    if (res) {
+    document
+      .getElementsByTagName("main")[0]
+      .prepend(genMsgBox("Playlist was " + state + "d"));
+        checkMsgBox();
+        document.getElementById('share').innerHTML = newText;
+        document.getElementById('share-btn').onclick = null;
+        setTimeout(() => {
+        document.getElementById('share-btn').addEventListener(
+          "click",
+          () => togglePlaylistShare(pid, newState),
+          { once: true }
+            );
+        }, 3000);
+  }
+}
+
 
 const populateSongs = async (songlist, style, id) => {
     console.log('beforepost',songlist)
