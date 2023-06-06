@@ -28,7 +28,7 @@ try {
             $sth->execute(array($_GET['style'], $_SESSION['USER_ID'], $_GET['sid']));
             $newPlaylist = $sth->fetch();
 
-            $sth = $dbh->prepare("SELECT tracks.track_id FROM tracks INNER JOIN track_is_genre ON tracks.track_id = track_is_genre.track_id WHERE genre_id = ? and tracks.year > ? ORDER BY RANDOM() LIMIT ?");
+            $sth = $dbh->prepare("SELECT tracks.track_id FROM tracks INNER JOIN track_is_genre ON tracks.track_id = track_is_genre.track_id WHERE genre_id = ? and tracks.year >= ? ORDER BY RANDOM() LIMIT ?");
             $sth->execute(array($_GET['sid'], $_SESSION['year'], $_SESSION['list_len']));
             $track_ids = $sth->fetchAll();
 
