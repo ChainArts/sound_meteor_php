@@ -1,12 +1,3 @@
-<?php
-
-if (isset($_POST)) {
-    /*TODO: Update Userdata*/
-}
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +9,6 @@ if (isset($_POST)) {
     <link rel="stylesheet" href="./style/fontawesome/all.min.css">
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/simplebar/simplebar.css">
-    <script defer src="./script/simplebar.min.js"></script>
     <script src="script/api.js"></script>
 </head>
 

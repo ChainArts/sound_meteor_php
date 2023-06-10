@@ -6,6 +6,7 @@ if (!isset($_SESSION["USER"])) {
 $pagetitle = "Generate Meteor";
 $type = 'General';
 try {
+    $randPrefGenre = null;
     $randNum = mt_rand(1, 100);
 
     if($randNum <=70){
@@ -27,12 +28,14 @@ try {
         $sth->execute(array($_SESSION['USER_ID']));
         $randMood = $sth->fetch();
 
-        $sth = $dbh->prepare("SELECT genres.genre_id, genres.name as name FROM genre_mood_relations INNER JOIN genres ON genre_mood_relations.genre_id = genres.genre_id WHERE mood_id = ? ORDER BY RANDOM() LIMIT 1");
-        $sth->execute(array($randMood->mood_id));
-        $randPrefGenre = $sth->fetch();
+        if(!empty($randMood)){
+
+            $sth = $dbh->prepare("SELECT genres.genre_id, genres.name as name FROM genre_mood_relations INNER JOIN genres ON genre_mood_relations.genre_id = genres.genre_id WHERE mood_id = ? ORDER BY RANDOM() LIMIT 1");
+            $sth->execute(array($randMood->mood_id));
+            $randPrefGenre = $sth->fetch();
+        }
         
         $dbh->commit();
-        
     }
 
     if (empty($randPrefGenre)) {
@@ -41,8 +44,7 @@ try {
         $randPrefGenre = $sth->fetch();
     }
 } catch (Exception $e) {
-    header("Location: meteor.php?status=gen_fail");
-    echo $e->getMessage();
+    header("Location: ./meteor.php?status=gen_fail");
 }
 
 include "header.php";

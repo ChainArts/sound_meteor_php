@@ -59,7 +59,6 @@ const genMsgBox = (msg) => {
   statebox.classList.add("state-box");
   statebox.classList.add("hidden");
   statebox.innerHTML = `<span>${msg}</span>`;
-
   return statebox;
 };
 

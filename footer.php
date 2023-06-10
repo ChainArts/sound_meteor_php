@@ -9,5 +9,6 @@
     </footer>
     <script defer src="script/particles.min.js"></script>
     <script defer src="script/app.js"></script>
+    <script defer src="./script/simplebar.min.js"></script>
 </body>
 </html>
