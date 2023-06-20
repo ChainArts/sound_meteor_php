@@ -598,7 +598,7 @@ main {
     width: 100%;
     z-index: -1;
     position: fixed;
-    overflow: none;
+    overflow: hidden;
 }
 
 .hero-planet{

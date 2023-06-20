@@ -88,7 +88,7 @@
                 </ul>
             </nav>
         </div>
-        <?php if($pagetitle != "Login"){ ?>
+        <?php if($pagetitle != "Login" && isset($_SESSION['USER'])){ ?>
         <div class="usr-backdrop" onclick="toggleUserOpen(); cleanupUserEdit();"></div>
         <div class="usr-overlay">
             <div class="usr-overlay-container">
