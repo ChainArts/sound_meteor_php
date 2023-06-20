@@ -1,4 +1,5 @@
-const auth_token = "Discogs token=tmaswzbNQlPUxhekudJyHsNNbUZxMXaPtxXfUYXa";
+import 'dotenv/config';
+
 const sendPostRequest = async (url, data) => {
   try {
     const response = await fetch(url, {
@@ -71,7 +72,7 @@ const addPref = async (pref_id, type) => {
               document
                   .getElementsByClassName("pref-add")[0]
                   .classList.remove("disabled");
-          }, 2000);
+          }, 1000);
     }
   }
 };
@@ -106,7 +107,7 @@ const delPref = async (pref_id, type, el) => {
                 document
                     .getElementsByClassName("pref-add")[0]
                     .classList.remove("disabled");
-            }, 2000);
+            }, 1000);
         }
     }
 };
@@ -134,10 +135,8 @@ const togglePlaylistShare = async (pid, state) => {
         pid: pid,
         state: state
     };
-    let newState
-    let newText
-    newState = 'share';
-    newText = "Not Shared";
+    let newState  = 'share';
+    let newText = "Not Shared";
     if (state == 'share') {
         newState = 'unshare'
         newText = "Shared";   
@@ -197,7 +196,7 @@ const loadNewAlbums = async (usr_year, style, id) => {
     try {
       const res_pages = await fetch(query, {
         headers: {
-          Authorization: auth_token,
+          Authorization: process.env.AUTH_TOKEN,
         },
       });
       let data = await res_pages.json();
@@ -206,7 +205,7 @@ const loadNewAlbums = async (usr_year, style, id) => {
         query + `&page=${Math.floor(Math.random() * data.pagination.pages + 1)}`,
         {
           headers: {
-            Authorization: auth_token,
+            Authorization: process.env.AUTH_TOKEN,
           },
         }
       );
@@ -229,7 +228,7 @@ const loadNewAlbums = async (usr_year, style, id) => {
     try {
       const res = await fetch(`https://api.discogs.com/releases/${album_id}`, {
         headers: {
-          Authorization: auth_token,
+          Authorization: process.env.AUTH_TOKEN,
         },
       });
       let data = await res.json();
