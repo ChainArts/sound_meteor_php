@@ -1,7 +1,7 @@
 const form = document.getElementById("form");
 const initialEditState =
   !window.location.href.includes("register") &&
-  !window.location.href.includes("login")
+  !window.location.href.includes("login") && (!!document.getElementById("edit-form"))
     ? document.getElementById("edit-form").innerHTML
     : "";
 
