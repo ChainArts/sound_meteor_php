@@ -84,7 +84,7 @@ include "header.php";
         <i class="fa-solid fa-lock focus-input"></i>
     </div>
     <span style="width: 100%; margin-top: -1.5rem"><a class="navLink" href="./forgot.php">Forgot password?</a></span>
-    <div style="display: flex; justify-content: center;  margin-top: -1.5rem"">
+    <div style="display: flex; justify-content: center;  margin-top: -1.5rem">
         <input type="submit" name="login" value="LOGIN" class="button">
     </div>
     <span style="width: 100%; text-align: center; margin-top: -1.5rem"><a class="navLink" href="./register.php">Create an account</a></span>

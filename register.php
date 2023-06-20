@@ -79,7 +79,7 @@ include "header.php";
     <div style="display: flex; justify-content: center">
         <input id="register" type="submit" name="register" value="CREATE ACCOUNT" class="button">
     </div>
-    <span style="width: 100%; text-align: center; margin-top: -1.5rem"><a class="navLink" href="./login">Already have an account?</a></span>
+    <span style="width: 100%; text-align: center; margin-top: -1.5rem"><a class="navLink" href="./login.php">Already have an account?</a></span>
 </form>
 
 <?php
