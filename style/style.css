@@ -798,9 +798,8 @@ select * {
     max-width: 44rem;
 }
 
-.meteor-like{
+.meteor-edit{
     position: absolute;
-    right: 2rem;
     padding: .5rem;
     font-size: 1.4rem;
     border-radius: 100%;
@@ -809,10 +808,23 @@ select * {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: all .4s cubic-bezier(.14, .8, .4, 1) !important;
 }
 
-.meteor-like:hover{
+.meteor-like{
+    right: 2rem;
+}
+
+.meteor-edit:hover{
     background-color: var(--second-layer);
+}
+
+.meteor-delete{
+    left: 2rem;
+}
+
+.meteor-edit i{
+    font-size: 1.4rem;
 }
 
 .meteor-title{

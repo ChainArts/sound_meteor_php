@@ -18,3 +18,17 @@ if (isset($_GET['method'])) {
         header("Location: ./meteor.php?id=". $_GET['pid']);
     }
 }
+
+else if(isset($_GET['delete']) && isset($_GET['pid'])){
+    try{
+        $sth = $dbh->prepare("DELETE FROM playlists WHERE playlist_id = ? AND creator_id = ?");
+        $sth->execute(array($_GET['pid'], $_SESSION['USER_ID']));
+        header("Location: ./meteor.php?status=del_succ");
+    } catch (Exception $e) {
+        header("Location: ./meteor.php?status=del_fail");
+    }
+}
+
+else{
+    header("Location: ./meteor.php?status=del_fail");
+}

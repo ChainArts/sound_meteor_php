@@ -45,6 +45,7 @@ if (isset($_GET['genPlaylist']) && isset($_GET['style']) && isset($_GET['sid']))
         $creator = $sth->fetch();
 
         $dbh->commit();
+        ($list->creator_id != $_SESSION['USER_ID'])? $ownedByUser = false : $ownedByUser = true;
     } catch (Exception $e) {
         echo $e->getMessage();
         header("Location: " . $_SERVER['PHP_SELF'] . "?status=disp_fail");
@@ -53,6 +54,8 @@ if (isset($_GET['genPlaylist']) && isset($_GET['style']) && isset($_GET['sid']))
     $sth = $dbh->prepare("SELECT * FROM playlists WHERE creator_id = ? ORDER BY playlist_id DESC");
     $sth->execute(array($_SESSION['USER_ID']));
     $list = $sth->fetch();
+
+    $ownedByUser = true;
 }
 
 if (!empty($list)) {
@@ -64,6 +67,12 @@ if (!empty($list)) {
                 break;
             case 'disp_fail':
                 $msg = "Meteor could not be displayed";
+                break;
+            case 'del_fail':
+                $msg = "Meteor could not be deleted";
+                break;
+            case 'del_succ':
+                $msg = "Meteor deleted successfully";
                 break;
             default:
                 echo "Oboi u fucked up mate";
@@ -91,8 +100,8 @@ if (!empty($list)) {
                                                 echo "like&pid=" . $pid;
                                             } else {
                                                 echo "dislike&pid=" . $pid;
-                                            } ?>'>
-            <button type="submit" name="like" class="meteor-like">
+                                            } ?>' class="meteor-edit meteor-like">
+            <button type="submit" name="like">
                 <i class="<?php if (empty($isLikedbyUser)) {
                                 echo 'fa-regular';
                             } else {
@@ -100,14 +109,20 @@ if (!empty($list)) {
                             } ?> fa-heart"></i>
             </button>
         </a>
-        </form>
+        <?php if ($ownedByUser) { ?>
+        <a href='./edit_playlist.php?delete&pid=<?= $pid ?>' class="meteor-edit meteor-delete">
+            <button type="submit" name="delete">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </a>
+        <?php } ?>
         <span class="meteor-title"><?= $list->name ?> - Meteor</span>
         <div class="meteor-img"><img src="./media/SoundMeteor.svg" alt="Logo"></div>
         <div class="meteor-details">
-            <div class="meteor-details-field"><i class="fa-solid fa-user"></i><span><?= (!empty($creator)) ? $creator->username : $_SESSION['USER'] ?></span></div>
+            <div class="meteor-details-field"><i class="fa-solid fa-user"></i><span><?= (!empty($creator)) ? htmlspecialchars($creator->username) : htmlspecialchars($_SESSION['USER']) ?></span></div>
             <div class="meteor-details-field"><i class="fa-solid fa-play"></i><span><?= $list->view_amount ?></span></div>
 
-            <?php if ($list->creator_id == $_SESSION['USER_ID']) { ?>
+            <?php if ($ownedByUser) { ?>
 
                 <div id="share-btn" class="meteor-details-field clickable" onClick="togglePlaylistShare(<?= $pid ?>,'<?php if ($list->isshared) {
                                                                                                                             echo 'unshare';
@@ -158,6 +173,12 @@ if (!empty($list)) {
                 break;
             case 'disp_fail':
                 $msg = "Meteor could not be displayed";
+                break;
+            case 'del_fail':
+                $msg = "Meteor could not be deleted";
+                break;
+            case 'del_succ':
+                $msg = "Meteor deleted successfully";
                 break;
             default:
                 echo "Oboi u fucked up mate";
