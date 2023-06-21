@@ -1,4 +1,15 @@
-import 'dotenv/config';
+const getApiKey = async () => {
+    try {
+        const response = await fetch("./.env");
+        const envData = await response.text();
+        const regex = /(.+?)\s*=\s*"(.+?)"/g;
+        const [, key, value] = regex.exec(envData);
+        return value.trim();
+    }
+    catch (error) {
+        console.error("Error:", error);
+    }
+}
 
 const sendPostRequest = async (url, data) => {
   try {
@@ -184,6 +195,7 @@ const populateSongs = async (songlist, style, id) => {
 };
 
 const loadNewAlbums = async (usr_year, style, id) => {
+    const apiKey = await getApiKey();
     const year =
       Math.floor(Math.random() * (new Date().getFullYear() - usr_year)) +
       usr_year;
@@ -196,7 +208,7 @@ const loadNewAlbums = async (usr_year, style, id) => {
     try {
       const res_pages = await fetch(query, {
         headers: {
-          Authorization: process.env.AUTH_TOKEN,
+          Authorization: apiKey,
         },
       });
       let data = await res_pages.json();
@@ -205,13 +217,13 @@ const loadNewAlbums = async (usr_year, style, id) => {
         query + `&page=${Math.floor(Math.random() * data.pagination.pages + 1)}`,
         {
           headers: {
-            Authorization: process.env.AUTH_TOKEN,
+            Authorization: apiKey,
           },
         }
       );
       data = await res.json();
       const promises = data.results.map((album) => {
-        return loadNewSongs(album.id, album.thumb, album.uri, album.style);
+        return loadNewSongs(album.id, album.thumb, album.uri, album.style, apiKey);
       });
       const newSongs = await Promise.all(promises);
       const newSongArray = [].concat(...newSongs);
@@ -221,14 +233,14 @@ const loadNewAlbums = async (usr_year, style, id) => {
     }
   };
   
-  const loadNewSongs = async (album_id, cover, uri, styles) => {
+  const loadNewSongs = async (album_id, cover, uri, styles, apiKey) => {
     let songsArray = [];
     const songlist = document.getElementsByClassName("new-songs")[0];
     songlist.innerHTML = "";
     try {
       const res = await fetch(`https://api.discogs.com/releases/${album_id}`, {
         headers: {
-          Authorization: process.env.AUTH_TOKEN,
+          Authorization: apiKey,
         },
       });
       let data = await res.json();
