@@ -3,6 +3,20 @@ include "functions.php";
 $pagetitle = "Home";
 
 include "header.php";
+
+if (isset($_GET['status'])) {
+    switch ($_GET['status']) {
+        case 'reg_succ':
+            $msg = "Account created successfully!";
+            break;
+        default:
+            echo "Oboi u fucked up mate";
+            break;
+    }
+    echo "<div class=\"state-box hidden\">
+            <span>$msg</span>
+          </div>";
+}
 ?>
 <div class="hero">
     <div id="particles-js"></div>

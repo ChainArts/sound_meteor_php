@@ -2,6 +2,10 @@
 include "functions.php";
 $pagetitle = "Register";
 
+if (isset($_SESSION["USER"])) {
+    header('Location: ./');
+}
+
 $registerErr = $passErr = $mailErr = "";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['username']) || empty($_POST["password"]) || empty($_POST["email"])) {
@@ -31,15 +35,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 try{
                 $dbh->beginTransaction();
 
-                $sth = $dbh->prepare("INSERT INTO users (user_id, email, username, password) VALUES (default, ?, ?, ?) RETURNING user_id");
+                $sth = $dbh->prepare("INSERT INTO users (user_id, email, username, password) VALUES (default, ?, ?, ?) RETURNING *");
                 $sth->execute(array($_POST['email'], $_POST['username'], password_hash($_POST['password'], PASSWORD_BCRYPT)));
-                $new_id = $sth->fetch();
+                $new_usr = $sth->fetch();
                 
-                $sth = $dbh->prepare("INSERT INTO user_pref_gen(user_id, oldest_track_year, playlist_length) VALUES (?, default, default)");
-                $sth->execute(array($new_id->user_id));
+                $sth = $dbh->prepare("INSERT INTO user_pref_gen(user_id, oldest_track_year, playlist_length) VALUES (?, default, default) RETURNING *");
+                $sth->execute(array($new_usr->user_id));
+                $new_pref = $sth->fetch();
+
+                $_SESSION['ID'] = session_id();
+                $_SESSION['USER_ID'] = $new_usr->user_id;
+                $_SESSION['USER'] = htmlspecialchars($new_usr->username);
+                $_SESSION['PASS'] = $new_usr->password;
+                $_SESSION['EMAIL'] = $new_usr->email;
+
+                $_SESSION['list_len'] = $new_pref->playlist_length;
+                $_SESSION['year'] = $new_pref->oldest_track_year;
 
                 $dbh->commit();
-                header('location: ./login.php?status=reg_succ');
+                header('location: ./index.php?status=reg_succ');
                 }
                 catch(Exception $e){
                     $registerErr = "Something went wrong";
