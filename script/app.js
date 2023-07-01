@@ -238,7 +238,7 @@ window.onresize = () => {
   }
 };
 
-function checkPassword() {
+const checkPassword = () => {
   const submit = document.getElementById("register");
   const pwd = document.getElementById("pass").value;
   const verPwd = document.getElementById("confPass").value;
@@ -251,4 +251,46 @@ function checkPassword() {
     submit.style.borderColor = "var(--accent)";
     error.innerHTML = "";
   }
+}
+
+const checkScrollIndicators = () => {
+    console.log("checkScrollIndicators")
+    const scrollContainers = document.querySelectorAll('.scroll-cont');
+    scrollContainers.forEach(container => {
+        const simpleBar = new SimpleBar(container.querySelector('.meteor-scroll'));
+        const chevronLeft = container.querySelector('.chevron-left');
+        const chevronRight = container.querySelector('.chevron-right');
+        updateChevrons(simpleBar, chevronLeft, chevronRight);
+        setSimplebarListener(simpleBar, chevronLeft, chevronRight);
+        window.onresize = () => {
+            simpleBar.recalculate();
+            updateChevrons(simpleBar, chevronLeft, chevronRight);
+        }
+    });
+}
+
+const setSimplebarListener = (simpleBar, chevronLeft, chevronRight) => {
+    const container = simpleBar.getScrollElement();
+    container.addEventListener('scroll', () => {
+        updateChevrons(simpleBar, chevronLeft, chevronRight);
+    });
+}
+
+const updateChevrons = (simpleBar, chevronLeft, chevronRight) => {
+    console.log("updateChevrons");
+    const container = simpleBar.getScrollElement();
+    const scrollLeft = container.scrollLeft === 0;
+    const scrollRight = container.scrollLeft === container.scrollWidth - container.clientWidth;
+
+    if (container.scrollWidth > container.clientWidth) {
+        chevronLeft.style.display = scrollLeft ? 'none' : 'initial';
+        chevronRight.style.display = scrollRight ? 'none' : 'initial';
+    } else {
+        chevronLeft.style.display = 'none';
+        chevronRight.style.display = 'none';
+    }
+}
+
+if (window.location.pathname.includes("meteor.php")) {
+    checkScrollIndicators();
 }

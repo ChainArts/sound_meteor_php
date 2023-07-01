@@ -880,8 +880,35 @@ select * {
     margin: 5rem 0 5rem 0;
 }
 
-.chevron-down>i{
+.chevron-down>i, .chevron-left>i, .chevron-right>i{
+    color: var(--accent) !important;
     cursor: pointer;
+}
+
+.scroll-cont{
+    width: 100%;
+    position: relative;
+}
+
+.chevron-left, .chevron-right{
+    display: none;
+    z-index: 20;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.chevron-left{
+    left: 0.5rem;
+}
+
+.chevron-right{
+    right: 0.5rem;
+}
+
+.chev-active{
+    display: initial !important;
 }
 
 .meteor-list{
@@ -1658,7 +1685,7 @@ footer{
 
     @media only screen and (max-width: 720px){
         .meteor-list{
-            padding: 0.5rem 0.;
+            padding: 1rem 0.5rem 1rem 0.5rem !important;
             width: 100% !important;
         }
 

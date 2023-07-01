@@ -7,8 +7,8 @@
     </a>
     <?php } ?>
     </footer>
-    <script defer src="script/particles.min.js"></script>
-    <script defer src="script/app.js"></script>
-    <script defer src="./script/simplebar.min.js"></script>
+    <script src="./script/particles.min.js"></script>
+    <script src="./script/simplebar.min.js"></script>
+    <script src="./script/app.js"></script>
 </body>
 </html>

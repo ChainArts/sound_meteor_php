@@ -45,7 +45,7 @@ if (isset($_GET['genPlaylist']) && isset($_GET['style']) && isset($_GET['sid']))
         $creator = $sth->fetch();
 
         $dbh->commit();
-        ($list->creator_id != $_SESSION['USER_ID'])? $ownedByUser = false : $ownedByUser = true;
+        ($list->creator_id != $_SESSION['USER_ID']) ? $ownedByUser = false : $ownedByUser = true;
     } catch (Exception $e) {
         echo $e->getMessage();
         header("Location: " . $_SERVER['PHP_SELF'] . "?status=disp_fail");
@@ -110,11 +110,11 @@ if (!empty($list)) {
             </button>
         </a>
         <?php if ($ownedByUser) { ?>
-        <a href='./edit_playlist.php?delete&pid=<?= $pid ?>' class="meteor-edit meteor-delete">
-            <button type="submit" name="delete">
-                <i class="fa-solid fa-trash"></i>
-            </button>
-        </a>
+            <a href='./edit_playlist.php?delete&pid=<?= $pid ?>' class="meteor-edit meteor-delete">
+                <button type="submit" name="delete">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </a>
         <?php } ?>
         <span class="meteor-title"><?= $list->name ?> - Meteor</span>
         <div class="meteor-img"><img src="./media/SoundMeteor.svg" alt="Logo"></div>
@@ -202,116 +202,124 @@ if (!empty($list)) {
 <div class="meteor-list" id="meteor-list">
     <div class="meteor-col">
         <span class="meteor-col-title">My Meteors</span>
-        <div class="meteor-scroll" data-simplebar data-simplebar-auto-hide="false">
-            <div class="meteor-scroll-cont">
-                <?php
-                try {
-                    $sth = $dbh->prepare("SELECT * from playlists WHERE creator_id=? ORDER BY playlist_id DESC");
-                    $sth->execute([$_SESSION['USER_ID']]);
-                    $comets = $sth->fetchAll();
-                } catch (Exception $e) {
-                    echo $e->getMessage();
-                }
+        <div class="scroll-cont">
+            <div class="meteor-scroll" data-simplebar data-simplebar-auto-hide="false">
+                <div class="meteor-scroll-cont">
+                    <?php
+                    try {
+                        $sth = $dbh->prepare("SELECT * from playlists WHERE creator_id=? ORDER BY playlist_id DESC");
+                        $sth->execute([$_SESSION['USER_ID']]);
+                        $comets = $sth->fetchAll();
+                    } catch (Exception $e) {
+                        echo $e->getMessage();
+                    }
 
-                foreach ($comets as $comet) {
-                ?>
-                    <a href="./meteor.php?id=<?= $comet->playlist_id ?>">
-                        <div class="comet-card">
-                            <div class="comet-header">
-                                <div class="play-btn"><i class="fa-solid fa-play"></i></div>
-                                <span class="comet-title"><?= htmlspecialchars($comet->name) ?> Meteor</span>
-                                <div class="comet-creator-img">
-                                    <img src="./media/logo.jpg">
+                    foreach ($comets as $comet) {
+                    ?>
+                        <a href="./meteor.php?id=<?= $comet->playlist_id ?>">
+                            <div class="comet-card">
+                                <div class="comet-header">
+                                    <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+                                    <span class="comet-title"><?= htmlspecialchars($comet->name) ?> Meteor</span>
+                                    <div class="comet-creator-img">
+                                        <img src="./media/logo.jpg">
+                                    </div>
+                                </div>
+                                <div class="comet-ico"><img src="./media/comet.svg" alt="Comet"></div>
+                                <span class="comet-creator">By <span><?= htmlspecialchars($_SESSION['USER']) ?></span></span>
+                                <div class="comet-content" data-simplebar data-simplebar-auto-hide="false">
+                                    <?php
+                                    try {
+                                        $sth = $dbh->prepare("SELECT title FROM track_in_playlist INNER JOIN tracks ON track_in_playlist.track_id = tracks.track_id WHERE playlist_id = ?");
+                                        $sth->execute([$comet->playlist_id]);
+                                        $tracks = $sth->fetchAll();
+
+                                        foreach ($tracks as $track) {
+
+                                    ?>
+                                            <div class="comet-track">
+                                                <span><?= $track->title ?></span>
+                                            </div>
+                                    <?php
+                                        }
+                                    } catch (Exception $e) {
+                                        echo $e->getMessage();
+                                    }
+
+                                    ?>
                                 </div>
                             </div>
-                            <div class="comet-ico"><img src="./media/comet.svg" alt="Comet"></div>
-                            <span class="comet-creator">By <span><?= htmlspecialchars($_SESSION['USER']) ?></span></span>
-                            <div class="comet-content" data-simplebar data-simplebar-auto-hide="false">
-                                <?php
-                                try {
-                                    $sth = $dbh->prepare("SELECT title FROM track_in_playlist INNER JOIN tracks ON track_in_playlist.track_id = tracks.track_id WHERE playlist_id = ?");
-                                    $sth->execute([$comet->playlist_id]);
-                                    $tracks = $sth->fetchAll();
-
-                                    foreach ($tracks as $track) {
-
-                                ?>
-                                        <div class="comet-track">
-                                            <span><?= $track->title ?></span>
-                                        </div>
-                                <?php
-                                    }
-                                } catch (Exception $e) {
-                                    echo $e->getMessage();
-                                }
-
-                                ?>
-                            </div>
-                        </div>
-                    </a>
-                <?php } ?>
+                        </a>
+                    <?php } ?>
+                </div>
             </div>
+            <span class="chevron-left"><i class="fa-solid fa-chevron-left"></i></span>
+            <span class="chevron-right"><i class="fa-solid fa-chevron-right"></i></span>
         </div>
     </div>
     <div class="meteor-col">
         <span class="meteor-col-title">Saved Meteors</span>
-        <div class="meteor-scroll" data-simplebar data-simplebar-auto-hide="false">
-            <div class="meteor-scroll-cont">
-                <?php
-                try {
-                    $sth = $dbh->prepare("SELECT * from playlists NATURAL JOIN savedplaylists WHERE user_id=?");
-                    $sth->execute([$_SESSION['USER_ID']]);
-                    $comets = $sth->fetchAll();
-                } catch (Exception $e) {
-                    echo $e->getMessage();
-                }
-
-                foreach ($comets as $comet) {
+        <div class="scroll-cont">
+            <div class="meteor-scroll" data-simplebar data-simplebar-auto-hide="false">
+                <div class="meteor-scroll-cont">
+                    <?php
                     try {
-
-                        $sth = $dbh->prepare("SELECT username from users WHERE user_id = ?");
-                        $sth->execute([$comet->creator_id]);
-                        $usr = $sth->fetch();
+                        $sth = $dbh->prepare("SELECT * from playlists NATURAL JOIN savedplaylists WHERE user_id=?");
+                        $sth->execute([$_SESSION['USER_ID']]);
+                        $comets = $sth->fetchAll();
                     } catch (Exception $e) {
                         echo $e->getMessage();
                     }
-                ?>
-                    <a href="./meteor.php?id=<?= $comet->playlist_id ?>">
-                        <div class="comet-card">
-                            <div class="comet-header">
-                                <div class="play-btn"><i class="fa-solid fa-play"></i></div>
-                                <span class="comet-title"><?= htmlspecialchars($comet->name) ?> Meteor</span>
-                                <div class="comet-creator-img">
-                                    <img src="./media/logo.jpg">
+
+                    foreach ($comets as $comet) {
+                        try {
+
+                            $sth = $dbh->prepare("SELECT username from users WHERE user_id = ?");
+                            $sth->execute([$comet->creator_id]);
+                            $usr = $sth->fetch();
+                        } catch (Exception $e) {
+                            echo $e->getMessage();
+                        }
+                    ?>
+                        <a href="./meteor.php?id=<?= $comet->playlist_id ?>">
+                            <div class="comet-card">
+                                <div class="comet-header">
+                                    <div class="play-btn"><i class="fa-solid fa-play"></i></div>
+                                    <span class="comet-title"><?= htmlspecialchars($comet->name) ?> Meteor</span>
+                                    <div class="comet-creator-img">
+                                        <img src="./media/logo.jpg">
+                                    </div>
+                                </div>
+                                <div class="comet-ico"><img src="./media/comet.svg" alt="Comet"></div>
+                                <span class="comet-creator">By <span><?= htmlspecialchars($usr->username) ?></span></span>
+                                <div class="comet-content" data-simplebar data-simplebar-auto-hide="false">
+                                    <?php
+                                    try {
+                                        $sth = $dbh->prepare("SELECT title FROM track_in_playlist INNER JOIN tracks ON track_in_playlist.track_id = tracks.track_id WHERE playlist_id = ?");
+                                        $sth->execute([$comet->playlist_id]);
+                                        $tracks = $sth->fetchAll();
+
+                                        foreach ($tracks as $track) {
+
+                                    ?>
+                                            <div class="comet-track">
+                                                <span><?= $track->title ?></span>
+                                            </div>
+                                    <?php
+                                        }
+                                    } catch (Exception $e) {
+                                        echo $e->getMessage();
+                                    }
+
+                                    ?>
                                 </div>
                             </div>
-                            <div class="comet-ico"><img src="./media/comet.svg" alt="Comet"></div>
-                            <span class="comet-creator">By <span><?= htmlspecialchars($usr->username) ?></span></span>
-                            <div class="comet-content" data-simplebar data-simplebar-auto-hide="false">
-                                <?php
-                                try {
-                                    $sth = $dbh->prepare("SELECT title FROM track_in_playlist INNER JOIN tracks ON track_in_playlist.track_id = tracks.track_id WHERE playlist_id = ?");
-                                    $sth->execute([$comet->playlist_id]);
-                                    $tracks = $sth->fetchAll();
-
-                                    foreach ($tracks as $track) {
-
-                                ?>
-                                        <div class="comet-track">
-                                            <span><?= $track->title ?></span>
-                                        </div>
-                                <?php
-                                    }
-                                } catch (Exception $e) {
-                                    echo $e->getMessage();
-                                }
-
-                                ?>
-                            </div>
-                        </div>
-                    </a>
-                <?php } ?>
+                        </a>
+                    <?php } ?>
+                </div>
             </div>
+            <span class="chevron-left"><i class="fa-solid fa-chevron-left"></i></span>
+            <span class="chevron-right"><i class="fa-solid fa-chevron-right"></i></span>
         </div>
     </div>
 </div>
