@@ -175,8 +175,27 @@ include "header.php";
                 </div>
             </div>
         </li>
+        <li class="gen-pref-li">
+            <div class="gen-weight">
+                <span>Genre vs Mood</span>
+                <input type="range" min="0" max="100" value="50">
+                <div class="weight-values">
+                    <div class="weight-value">
+                        <span>Genre</span>
+                        <span>50%</span>
+                    </div>
+                    <div class="weight-value">
+                        <span>Mood</span>
+                        <span>50%</span>
+                    </div>
+                </div>
+            </div>
+        </li>
     </div>
 <?php } ?>
+</div>
+<div class="genBtn">
+
 </div>
 
 <?php

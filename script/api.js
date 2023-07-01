@@ -47,7 +47,8 @@ const addPref = async (pref_id, type) => {
     document
       .getElementsByTagName("main")[0]
       .prepend(genMsgBox("Preference added"));
-    checkMsgBox();
+      checkMsgBox();
+      addGenButton();
     let nr = document
       .getElementById("pref-count")
       .innerHTML.replace(/(^\d+)(.+$)/i, "$1");
@@ -101,6 +102,7 @@ const delPref = async (pref_id, type, el) => {
             .getElementsByTagName("main")[0]
             .prepend(genMsgBox("Preference removed"));
         checkMsgBox();
+        addGenButton();
         let nr = document
             .getElementById("pref-count")
             .innerHTML.replace(/(^\d+)(.+$)/i, "$1");
@@ -135,7 +137,8 @@ const updatePref = async (value, type) => {
     document
       .getElementsByTagName("main")[0]
       .prepend(genMsgBox("Preference updated"));
-    checkMsgBox();
+      checkMsgBox();
+      addGenButton();
   }
 };
 

@@ -238,6 +238,7 @@ window.onresize = () => {
   }
 };
 
+//Function developed with Sandra Scheipl
 const checkPassword = () => {
   const submit = document.getElementById("register");
   const pwd = document.getElementById("pass").value;
@@ -254,7 +255,6 @@ const checkPassword = () => {
 }
 
 const checkScrollIndicators = () => {
-    console.log("checkScrollIndicators")
     const scrollContainers = document.querySelectorAll('.scroll-cont');
     scrollContainers.forEach(container => {
         const simpleBar = new SimpleBar(container.querySelector('.meteor-scroll'));
@@ -277,7 +277,6 @@ const setSimplebarListener = (simpleBar, chevronLeft, chevronRight) => {
 }
 
 const updateChevrons = (simpleBar, chevronLeft, chevronRight) => {
-    console.log("updateChevrons");
     const container = simpleBar.getScrollElement();
     const scrollLeft = container.scrollLeft === 0;
     const scrollRight = container.scrollLeft === container.scrollWidth - container.clientWidth;
@@ -293,4 +292,15 @@ const updateChevrons = (simpleBar, chevronLeft, chevronRight) => {
 
 if (window.location.pathname.includes("meteor.php")) {
     checkScrollIndicators();
+}
+
+const addGenButton = () => {
+    if (!document.getElementById("genBtn")) {
+        document.getElementsByClassName("genBtn")[0].innerHTML =
+            `<div id="genBtn" class="generate-button" style="font-size: 1.2rem;">
+                <div class="button">
+                    <a href="./generateMeteor.php"><span>generate</span></a>
+            </div>
+        </div>`;
+    }
 }
