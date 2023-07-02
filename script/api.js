@@ -175,6 +175,30 @@ const togglePlaylistShare = async (pid, state) => {
   }
 }
 
+const updateUserData = async (uname, email) => {
+    const updatePrefData = {
+        action: "update",
+        type: "user",
+        uname: uname,
+        email: email,
+    };
+    
+    const res = await sendPostRequest("./js_php_interface.php", updatePrefData);
+    if (res) {
+        document
+            .getElementsByTagName("main")[0]
+            .prepend(genMsgBox("Userdata updated"));
+        checkMsgBox();
+    }
+    else {
+        document
+            .getElementsByTagName("main")[0]
+            .prepend(genMsgBox("Userdata not updated"));
+        checkMsgBox();
+    }
+    return res;
+}
+
 
 const populateSongs = async (songlist, style, id) => {
     console.log('beforepost',songlist)

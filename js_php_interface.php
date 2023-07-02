@@ -3,6 +3,12 @@ include "functions.php";
 
 $_POST = json_decode(file_get_contents('php://input'), true);
 
+//Debug
+/*
+    $response = array('post_dump' => var_export($_POST, true));
+    echo json_encode($response);
+    exit();
+*/
 
 try{
     // ADD FUNCTIONS
@@ -93,7 +99,33 @@ try{
             $response = array('message' => 'Playlist updated successfully', 'status' => true);
             echo json_encode($response);
         }
-      
+        else if(isset($_POST['type']) && $_POST['type'] == 'user'){
+            try{
+                $sth = $dbh->prepare("UPDATE users SET username = :uname, email = :email WHERE user_id = :uid");
+                $sth->bindParam(':uname', $_POST['uname']);
+                $sth->bindParam(':email', $_POST['email']);
+                $sth->bindParam(':uid', $_SESSION['USER_ID']);
+                if($sth->execute()){
+                    $response = array('status' => true, 'message' => 'User updated successfully');
+                    $_SESSION['USER'] = $_POST['uname'];
+                    $_SESSION['EMAIL'] = $_POST['email'];
+                }
+                else{
+                    $response = array('status' => false, 'message' => 'User update failed');
+                }
+                echo json_encode($response);
+                exit();
+            }
+            catch(Exception $e)
+            {
+                $response = array('status' => false, 'message' => 'User update failed');
+                echo json_encode($response);
+                exit();
+            }
+            finally{
+                
+            }
+        }
     }
     elseif(isset($_POST['action']) && $_POST['action'] == 'fill'){
         if(isset($_POST['songlist'])){

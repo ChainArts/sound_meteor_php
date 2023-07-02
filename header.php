@@ -100,12 +100,12 @@
                     <img src="./media/logo.jpg">
                     <span><?= htmlspecialchars($_SESSION['USER']) ?></span>
                 </div>
-                <form class="edit-form" method="post" id="edit-form" autocomplete="off">
+                <form class="edit-form" method="get" id="edit-form" autocomplete="off">
                     <label class="edit-form-label">Username</label>
                     <div class="edit-field" id="usr-edit">
                         <div class="edit-content">
-                            <span><?= htmlspecialchars($_SESSION['USER']) ?></span>
-                            <input type="text" class="edit-box hiddenform" value="<?= htmlspecialchars($_SESSION['USER']) ?>">
+                            <span id="usr-name-edit"><?= htmlspecialchars($_SESSION['USER']) ?></span>
+                            <input id="usr-name-input"type="text" class="edit-box hiddenform" value="<?= htmlspecialchars($_SESSION['USER']) ?>">
                         </div>
                         <div class="edit-buttons">
                             <div id="edit-btn" class="button" onClick="toggleEdit('usr-edit', true)"><span>Edit</span></div>
@@ -115,8 +115,8 @@
                     <label class="edit-form-label">Email</label>
                     <div class="edit-field" id="email-edit">
                         <div class="edit-content">
-                            <span><?= htmlspecialchars($_SESSION['EMAIL']) ?></span>
-                            <input type="email" class="edit-box hiddenform" value="<?= htmlspecialchars($_SESSION['EMAIL']) ?>">
+                            <span id="usr-mail-edit"><?= htmlspecialchars($_SESSION['EMAIL']) ?></span>
+                            <input id="usr-mail-input" type="email" class="edit-box hiddenform" value="<?= htmlspecialchars($_SESSION['EMAIL']) ?>">
                         </div>
                         <div class="edit-buttons">
                             <div id="edit-btn" class="button" onClick="toggleEdit('email-edit', true)"><span>Edit</span></div>
@@ -127,15 +127,15 @@
                     <div class="edit-field" id="pwd-edit">
                         <div class="edit-content">
                             <span>********</span>
-                            <input type="password" class="edit-box hiddenform" placeholder="(unchanged)">
                         </div>
                         <div class="edit-buttons">
-                            <div id="edit-btn" class="button" onClick="toggleEdit('pwd-edit', true)"><span>Edit</span></div>
-                            <div id="ok-btn" class="button hiddenform" onClick="toggleEdit('pwd-edit', false)"><span>OK</span></div>
+                            <a href="./change.php"><div id="edit-btn" class="button"><span>Edit</span></div></a>
                         </div>
                     </div>
                     <div class="edit-button hiddenform">
-                        <input type="submit" name="save" value="SAVE" class="button">
+                        <div class="button" onclick=checkUserEdit();>
+                            <span>save</span>
+                        </div>
                     </div>
                 </form>
 
@@ -145,7 +145,7 @@
     </header>
 
     <?php
-    if ($pagetitle == "Login" || $pagetitle == "Forgot Password" || $pagetitle == "Reset Password"){
+    if ($pagetitle == "Login" || $pagetitle == "Forgot Password" || $pagetitle == "Reset Password" || $pagetitle == "Change Password"){
         echo "<main style=\"justify-content: center\">";
     } else {
         echo "<main> ";

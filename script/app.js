@@ -1,5 +1,5 @@
 const form = document.getElementById("form");
-const initialEditState =
+let initialEditState =
   !window.location.href.includes("register") &&
   !window.location.href.includes("login") && (!!document.getElementById("edit-form"))
     ? document.getElementById("edit-form").innerHTML
@@ -101,11 +101,32 @@ const toggleEdit = (id, state) => {
   el.getElementsByClassName("edit-box")[0].classList.toggle("hiddenform");
   state
     ? el.getElementsByClassName("edit-box")[0].focus()
-    : id === "pwd-edit"
-    ? (el.getElementsByTagName("span")[0].innerHTML = "********")
     : (el.getElementsByTagName("span")[0].innerHTML =
         el.getElementsByClassName("edit-box")[0].value);
 };
+
+const checkUserEdit = async () => {
+    const newUser = document.getElementById("usr-name-edit").innerText;
+    const newEmail = document.getElementById("usr-mail-edit").innerText;
+    const tempEdit = document.createElement('div');
+    tempEdit.innerHTML = initialEditState;
+    if(newUser === tempEdit.querySelector('#usr-name-edit').innerText && newEmail === tempEdit.querySelector('#usr-mail-edit').innerText) {
+        cleanupUserEdit();
+    }
+    else {
+        const res = await updateUserData(newUser, newEmail)
+        if (res) {
+            document.querySelector('.usr-details > span').innerText = newUser;
+            document.querySelector('.profile-name').innerText = newUser;
+            tempEdit.querySelector('#usr-name-input').value = newUser;
+            tempEdit.querySelector('#usr-name-edit').innerText = newUser;
+            tempEdit.querySelector('#usr-mail-input').value = newEmail;
+            tempEdit.querySelector('#usr-mail-edit').innerText = newEmail;
+            initialEditState = tempEdit.innerHTML;
+            cleanupUserEdit();
+        }
+    }
+}
 
 window.onload = () => getStatus();
 
