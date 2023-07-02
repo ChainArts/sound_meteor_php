@@ -7,7 +7,7 @@ $pagetitle = "Preferences";
 
 $pref_title = "General";
 
-$sth = $dbh->prepare("SELECT oldest_track_year, playlist_length FROM user_pref_gen WHERE user_id = ?");
+$sth = $dbh->prepare("SELECT oldest_track_year, playlist_length, mood_weight_percentage FROM user_pref_gen WHERE user_id = ?");
 $sth->execute(array($_SESSION['USER_ID']));
 $gen_pref = $sth->fetch();
 
@@ -178,15 +178,15 @@ include "header.php";
         <li class="gen-pref-li">
             <div class="gen-weight">
                 <span>Genre vs Mood</span>
-                <input type="range" min="0" max="100" value="50" step="5" oninput="updateWeightVal(this.value)" onchange="updatePref(this.value, 'percentage')">
+                <input type="range" min="0" max="100" value="<?= $gen_pref->mood_weight_percentage ?>" step="5" oninput="updateWeightVal(this.value)" onchange="updatePref(this.value, 'percentage')">
                 <div class="weight-values">
                     <div class="weight-value">
                         <span>Genre</span>
-                        <span id="genre-weight-val">50%</span>
+                        <span id="genre-weight-val"><?php echo(100 - $gen_pref->mood_weight_percentage); ?>%</span>
                     </div>
                     <div class="weight-value">
                         <span>Mood</span>
-                        <span id="mood-weight-val">50%</span>
+                        <span id="mood-weight-val"><?= $gen_pref->mood_weight_percentage ?>%</span>
                     </div>
                 </div>
             </div>

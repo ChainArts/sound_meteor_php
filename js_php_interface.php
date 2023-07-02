@@ -73,6 +73,28 @@ try{
             echo json_encode($response);
             exit();
         }
+        else if(isset($_POST['type']) && $_POST['type'] == 'percentage'){
+            try{
+                $sth = $dbh->prepare("UPDATE user_pref_gen SET mood_weight_percentage = :new_perc WHERE user_id = :user_id");
+                $sth->bindParam(':user_id', $_SESSION['USER_ID']);
+                $sth->bindParam(':new_perc', $_POST['value']);
+                if($sth->execute()){
+                    $response = array('status' => true, 'message' => 'Perc updated successfully');
+                    $_SESSION['MOOD_WEIGHT'] = $_POST['value'];
+                }
+                else{
+                    $response = array('status' => false, 'message' => 'Perc update failed');
+                }
+                echo json_encode($response);
+                exit();
+            }
+            catch(Exception $e)
+            {
+                $response = array('status' => false, 'message' => 'Percentage update failed');
+                echo json_encode($response);
+                exit();
+            }
+        }
         else if(isset($_POST['type']) && $_POST['type'] == 'playlist'){
             
             if(isset($_POST['state']) && $_POST['state'] == 'share')
@@ -175,7 +197,7 @@ try{
                 $dbh->commit();
             }
             }
-            catch(PDOException $e){
+            catch(Exception $e){
                 $dbh->rollBack();
                 $error = array('error' => $e->getMessage(), 'status' => false, 'post_dump' => var_export($_POST, true));
                 echo json_encode($error);
@@ -190,9 +212,9 @@ try{
         throw new Exception('Something went wrong');
     }
 }
-catch(PDOException $e){
-    $error = array('error' => $e->getMessage(), 'status' => false, 'post_dump' => var_export($_POST, true));
-    echo json_encode($error);
+catch(Exception $e){
+    $response = array('error' => $e->getMessage(), 'status' => false, 'post_dump' => var_export($_POST, true));
+    echo json_encode($response);
 }
 
 ?>
