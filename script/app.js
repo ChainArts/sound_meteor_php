@@ -327,12 +327,10 @@ if (window.location.pathname.includes("meteor.php")) {
 }
 
 const addGenButton = () => {
-    if (!document.getElementById("genBtn")) {
-        document.getElementsByClassName("genBtn")[0].innerHTML =
+    document.getElementById("genBtn").innerHTML =
             `<div id="genBtn" class="generate-button" style="font-size: 1.2rem;">
                 <div class="button">
                     <a href="./generateMeteor.php"><span>generate</span></a>
             </div>
         </div>`;
     }
-}

@@ -148,6 +148,7 @@ if (isset($_GET['status'])) {
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
+    </div>
         <?php }
             } else {
         ?>
@@ -216,7 +217,7 @@ if (isset($_GET['status'])) {
     </div>
 <?php } ?>
 </div>
-<div class="genBtn">
+<div id="genBtn" class="genBtn">
 
 </div>
 
