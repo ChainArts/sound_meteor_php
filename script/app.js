@@ -89,6 +89,7 @@ const activateForm = () => {
 const cleanupUserEdit = () => {
     document.getElementById("edit-form").innerHTML = initialEditState;
 
+    //Grindig (Needed for values in edit fields to be updated)
     if(document.getElementById("usr-name-edit").innerText !== document.getElementById("usr-name-input").value) {
         document.getElementById("usr-name-input").value = document.getElementById("usr-name-edit").innerText;
     }
@@ -125,12 +126,10 @@ const checkUserEdit = async () => {
         if (res) {
             document.querySelector('.usr-details > span').innerText = newUser;
             document.querySelector('.profile-name').innerText = newUser;
-            tempEdit.querySelector('#usr-name-input').value = newUser;
             tempEdit.querySelector('#usr-name-edit').innerText = newUser;
-            tempEdit.querySelector('#usr-mail-input').value = newEmail;
             tempEdit.querySelector('#usr-mail-edit').innerText = newEmail;
             initialEditState = tempEdit.innerHTML;
-            await cleanupUserEdit();
+            cleanupUserEdit();
         }
     }
 }
