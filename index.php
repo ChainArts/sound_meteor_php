@@ -6,9 +6,6 @@ include "header.php";
 
 if (isset($_GET['status'])) {
     switch ($_GET['status']) {
-        case 'reg_succ':
-            $msg = "Account created successfully!";
-            break;
         case 'change_succ':
             $msg = "Password changed successfully!";
             break;
@@ -51,6 +48,11 @@ if (isset($_GET['status'])) {
     </div>
 </div>
 
+<?php if(!isset($_SESSION['ID'])) { ?>
+    <div style="margin-top: 2rem; z-index: 2"><a class="navLink" href="./login.php">Login</a> to generate!</div>
+<?php }else{ ?>
+    <div style="margin-top: 1.5rem; z-index: 2"><a class="navLink" href="./pref.php">Choose Preferences!</a></div>
 <?php
+}
 include "footer.php";
 ?>

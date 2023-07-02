@@ -34,9 +34,31 @@ if (isset($_GET['pref'])) {
 }
 
 include "header.php";
+if (isset($_GET['status'])) {
+    switch ($_GET['status']) {
+        case 'reg_succ':
+            $msg = "Account created successfully!";
+            break;
+        default:
+            $msg = "Oboi u fucked up mate";
+            break;
+    }
+    echo "<div class=\"state-box hidden\">
+            <span>$msg</span>
+          </div>";
+}
 ?>
 
 <h1><?= $pagetitle ?></h1>
+<?php if(isset($_GET['status'])){ ?>
+<div class="tutorial-container">
+    <span>Choose criteria to generate a meteor-playlist</span>
+    <br>
+    <span style="margin: 1rem; font-size: 1.2rem">or</span>
+    <br>
+    <span><a class="navLink" href="./generateMeteor.php">Generate without settings</a></span>
+</div>
+<?php } ?>
 <div class="pref-container">
     <div class="pref-menu">
         <ul>

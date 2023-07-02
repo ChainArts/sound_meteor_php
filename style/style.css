@@ -129,6 +129,7 @@ p{
     font-weight: 300;
     color: var(--accent) !important;
     transition: all .2s cubic-bezier(.14, .8, .4, 1);
+    cursor: pointer;
 }
 
 .navLink:hover{
@@ -1066,6 +1067,17 @@ select * {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.tutorial-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: var(--first-layer);
+    border-radius: 1rem;
+    margin-bottom: 2rem;
 }
 
 .pref-container{

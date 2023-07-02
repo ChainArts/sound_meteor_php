@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['MOOD_WEIGHT'] = $new_pref->mood_weight_percentage;
 
                 $dbh->commit();
-                header('location: ./index.php?status=reg_succ');
+                header('location: ./pref.php?status=reg_succ');
                 }
                 catch(Exception $e){
                     $registerErr = "Something went wrong";
