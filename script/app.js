@@ -87,7 +87,14 @@ const activateForm = () => {
 };
 
 const cleanupUserEdit = () => {
-  document.getElementById("edit-form").innerHTML = initialEditState;
+    document.getElementById("edit-form").innerHTML = initialEditState;
+
+    if(document.getElementById("usr-name-edit").innerText !== document.getElementById("usr-name-input").value) {
+        document.getElementById("usr-name-input").value = document.getElementById("usr-name-edit").innerText;
+    }
+    if(document.getElementById("usr-mail-edit").innerText !== document.getElementById("usr-mail-input").value) {
+        document.getElementById("usr-mail-input").value = document.getElementById("usr-mail-edit").innerText;
+    }
 };
 
 const toggleEdit = (id, state) => {
@@ -123,7 +130,7 @@ const checkUserEdit = async () => {
             tempEdit.querySelector('#usr-mail-input').value = newEmail;
             tempEdit.querySelector('#usr-mail-edit').innerText = newEmail;
             initialEditState = tempEdit.innerHTML;
-            cleanupUserEdit();
+            await cleanupUserEdit();
         }
     }
 }
