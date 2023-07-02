@@ -9,8 +9,11 @@ if (isset($_GET['status'])) {
         case 'reg_succ':
             $msg = "Account created successfully!";
             break;
+        case 'change_succ':
+            $msg = "Password changed successfully!";
+            break;
         default:
-            echo "Oboi u fucked up mate";
+            $msg = "Oboi u fucked up mate";
             break;
     }
     echo "<div class=\"state-box hidden\">
