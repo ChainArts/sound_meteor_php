@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     $_SESSION['list_len'] = $usr_pref->playlist_length;
                     $_SESSION['year'] = $usr_pref->oldest_track_year;
+                    $_SESSION['MOOD_WEIGHT'] = $usr_pref->mood_weight_percentage;
 
                     header('location: ./');
                 } else {

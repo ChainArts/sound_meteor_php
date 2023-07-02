@@ -259,6 +259,11 @@ const checkInp = (input) => {
   }
 };
 
+const updateWeightVal = (perc) => {
+    document.getElementById("genre-weight-val").innerText = 100 - perc + "%";
+    document.getElementById("mood-weight-val").innerText = perc + "%";
+};
+
 window.onresize = () => {
   if (window.screenX < 1000 && isMenuOpen) {
     toggleMenuOpen();

@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS user_pref_gen(
     user_id int UNIQUE,
     oldest_track_year SMALLINT default 1980,
     playlist_length SMALLINT default 3,
+    mood_weight_percentage SMALLINT default 50,
     CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -1066,13 +1067,13 @@ INSERT INTO user_pref_mood(user_id, mood_id) VALUES (2, 2);
 INSERT INTO user_pref_mood(user_id, mood_id) VALUES (3, 5);
 INSERT INTO user_pref_mood(user_id, mood_id) VALUES (4, 5);
 
-INSERT INTO user_pref_gen(user_id, oldest_track_year, playlist_length) VALUES (1, 2010, default);
-INSERT INTO user_pref_gen(user_id, oldest_track_year, playlist_length) VALUES (2, 2000, default);
-INSERT INTO user_pref_gen(user_id, oldest_track_year, playlist_length) VALUES (3, default, default);
-INSERT INTO user_pref_gen(user_id, oldest_track_year, playlist_length) VALUES (4, default, default);
-INSERT INTO user_pref_gen(user_id, oldest_track_year, playlist_length) VALUES (5, 2005, default);
-INSERT INTO user_pref_gen(user_id, oldest_track_year, playlist_length) VALUES (6, 1980, default);
-INSERT INTO user_pref_gen(user_id, oldest_track_year, playlist_length) VALUES (7, 1990, default);
+INSERT INTO user_pref_gen(user_id, oldest_track_year, playlist_length, mood_weight_percentage) VALUES (1, 2010, default, default);
+INSERT INTO user_pref_gen(user_id, oldest_track_year, playlist_length, mood_weight_percentage) VALUES (2, 2000, default, default);
+INSERT INTO user_pref_gen(user_id, oldest_track_year, playlist_length, mood_weight_percentage) VALUES (3, default, default, default);
+INSERT INTO user_pref_gen(user_id, oldest_track_year, playlist_length, mood_weight_percentage) VALUES (4, default, default, default);
+INSERT INTO user_pref_gen(user_id, oldest_track_year, playlist_length, mood_weight_percentage) VALUES (5, 2005, default, default);
+INSERT INTO user_pref_gen(user_id, oldest_track_year, playlist_length, mood_weight_percentage) VALUES (6, 1980, default, default);
+INSERT INTO user_pref_gen(user_id, oldest_track_year, playlist_length, mood_weight_percentage) VALUES (7, 1990, default, default);
 
 INSERT INTO tracks VALUES (default, 'SubFocus - Solar System', 'https://www.youtube.com/results?search_query=SubFocus+-+Solar+System', 'https://soundcloud.com/search?q=sub focus - solar system','https://www.discogs.com/release/19111147-Sub-Focus-Siren-Solar-System', NULL, 2019);
 INSERT INTO tracks VALUES (default, 'Delta Heavy - Against the Tide (ft. Lauren L''aimant)', 'https://www.youtube.com/results?search_query=Delta+Heavy+-+Against+the+Tide+(ft.+Lauren+L%27aimant)', NULL, NUll, NULL, 2023);

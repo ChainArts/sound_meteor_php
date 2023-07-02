@@ -9,7 +9,7 @@ try {
     $randPrefGenre = null;
     $randNum = mt_rand(1, 100);
 
-    if($randNum <=70){
+    if($randNum <=100 - $_SESSION['MOOD_WEIGHT']){
 
         $type = 'Genre';
 

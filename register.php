@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $sth->execute(array($_POST['email'], $_POST['username'], password_hash($_POST['password'], PASSWORD_BCRYPT)));
                 $new_usr = $sth->fetch();
                 
-                $sth = $dbh->prepare("INSERT INTO user_pref_gen(user_id, oldest_track_year, playlist_length) VALUES (?, default, default) RETURNING *");
+                $sth = $dbh->prepare("INSERT INTO user_pref_gen(user_id, oldest_track_year, playlist_length, mood_weight_percentage) VALUES (?, default, default, default) RETURNING *");
                 $sth->execute(array($new_usr->user_id));
                 $new_pref = $sth->fetch();
 
@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $_SESSION['list_len'] = $new_pref->playlist_length;
                 $_SESSION['year'] = $new_pref->oldest_track_year;
+                $_SESSION['MOOD_WEIGHT'] = $new_pref->mood_weight_percentage;
 
                 $dbh->commit();
                 header('location: ./index.php?status=reg_succ');

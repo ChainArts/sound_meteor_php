@@ -178,15 +178,15 @@ include "header.php";
         <li class="gen-pref-li">
             <div class="gen-weight">
                 <span>Genre vs Mood</span>
-                <input type="range" min="0" max="100" value="50">
+                <input type="range" min="0" max="100" value="50" step="5" oninput="updateWeightVal(this.value)" onchange="updatePref(this.value, 'percentage')">
                 <div class="weight-values">
                     <div class="weight-value">
                         <span>Genre</span>
-                        <span>50%</span>
+                        <span id="genre-weight-val">50%</span>
                     </div>
                     <div class="weight-value">
                         <span>Mood</span>
-                        <span>50%</span>
+                        <span id="mood-weight-val">50%</span>
                     </div>
                 </div>
             </div>
