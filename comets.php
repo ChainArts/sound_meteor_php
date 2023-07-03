@@ -40,7 +40,7 @@ include "header.php";
                     </div>
                 </div>
                 <div class="comet-ico"><img src="./media/comet.svg" alt="Comet"></div>
-                <span class="comet-creator">By <span><?= htmlspecialchars($usr->username) ?></span></span>
+                <span class="comet-creator">By <span><?php if(isset($usr->username)) echo htmlspecialchars($usr->username); else echo 'Deleted' ?></span></span>
                 <div class="comet-content" data-simplebar data-simplebar-auto-hide="false">
                     <?php
                     try {
