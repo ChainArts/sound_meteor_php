@@ -231,7 +231,7 @@ const loadNewAlbums = async (usr_year, style, id) => {
       .split(" ")
       .join(
         "+"
-      )}&per_page=2&format=album&format=Single&format=EP&type=release&type=master&year=${year}`;
+      )}&per_page=5&format=album&format=Single&format=EP&type=release&type=master&year=${year}`;
     try {
       const res_pages = await fetch(query, {
         headers: {
